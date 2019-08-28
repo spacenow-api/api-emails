@@ -1,0 +1,38 @@
+service: api-emails
+
+# Use the serverless-webpack plugin to transpile ES6
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-offline
+
+dotenv:
+  path: ./.env
+  basePath: ./
+  include:
+    - NODE_ENV
+    - EMAIL
+    - DOMAIN
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: dev
+  region: us-east-1
+  environment:
+    NODE_ENV: ${env:NODE_ENV}
+    EMAIL: ${env:EMAIL}
+    DOMAIN: ${env:DOMAIN}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "ses:SendEmail"
+      Resource: "*"
+
+functions:
+  send:
+    handler: src/email.send
+    events:
+      - http:
+          path: email/send
+          method: post
+          cors: true

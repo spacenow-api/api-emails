@@ -1,0 +1,7 @@
+{
+  "template": "confirm-email",
+  "body": {
+    "email": "csalucasnascimento@gmail.com",
+    "user": "Lucas Nascimento"
+  }
+}

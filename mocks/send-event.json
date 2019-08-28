@@ -1,0 +1,7 @@
+{
+  "template": "welcome",
+  "body": {
+    "email": "csalucasnascimento@gmail.com",
+    "guest": "Lucas Nascimento"
+  }
+}
