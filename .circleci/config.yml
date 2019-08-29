@@ -100,6 +100,7 @@ jobs:
           name: Deploy prod application
           command: |
             export ACCOUNT_ID=985566274543
+            export SLS_DEBUG=true
             chmod +x scripts/aws-cli-assumerole.sh
             source scripts/aws-cli-assumerole.sh
             sls create_domain --stage prod --stageCert PROD --accountId ${ACCOUNT_ID}
