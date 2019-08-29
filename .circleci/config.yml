@@ -32,6 +32,7 @@ jobs:
             export ACCOUNT_ID=159220020591
             chmod +x scripts/aws-cli-assumerole.sh
             source scripts/aws-cli-assumerole.sh
+            sls create_domain --accountId ${ACCOUNT_ID}
             sls deploy --accountId ${ACCOUNT_ID}
 
   deploy-non-prod:

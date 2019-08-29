@@ -6,16 +6,14 @@ plugins:
   - serverless-domain-manager
 
 custom:
-  StageName: ${opt:stage, 'sandpit'}
-  StageNameCert: ${opt:stageCert, 'SANDPIT'}
   domains:
-    default: api-emails.${self:custom.StageName}.cloud.spacenow.com
+    default: api-emails.${opt:stage, 'sandpit'}.cloud.spacenow.com
     prod: api-emails.spacenow.com
   customDomain:
-    domainName: ${self:custom.domains.${self:custom.StageName}, self:custom.domains.default}
+    domainName: ${self:custom.domains.${opt:stage, 'sandpit'}, self:custom.domains.default}
     basePath: ""
-    stage: ${self:custom.StageName}
-    certificateArn: ${ssm:/${self:custom.StageNameCert}/ACM_CERTIFICATE}
+    stage: ${opt:stage, 'sandpit'}
+    certificateArn: ${ssm:/${opt:stageCert, 'SANDPIT'}/ACM_CERTIFICATE}
     createRoute53Record: true
     endpointType: "regional"
 
@@ -29,10 +27,10 @@ dotenv:
 provider:
   name: aws
   runtime: nodejs10.x
-  stage: ${self:custom.StageName}
+  stage: ${opt:stage, 'sandpit'}
   region: ap-southeast-2
   environment:
-    EMAIL: ${ssm:/${self:custom.StageNameCert}/SPACENOW/ADMIN_EMAIL, env:EMAIL}
+    EMAIL: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/ADMIN_EMAIL, env:EMAIL}
     DOMAIN: ${env:DOMAIN}
   iamRoleStatements:
     - Effect: "Allow"
