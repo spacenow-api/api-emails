@@ -4,9 +4,6 @@ jobs:
     docker:
       - image: circleci/node:8.10
 
-    environment:
-      TARGET_ENV_CERT: SANDPIT
-
     working_directory: ~/repo
 
     steps:

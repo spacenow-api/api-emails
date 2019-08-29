@@ -29,7 +29,7 @@ dotenv:
 provider:
   name: aws
   runtime: nodejs10.x
-  stage: ${opt:stage, 'sandpit'}
+  stage: ${self:custom.StageName}
   region: ap-southeast-2
   environment:
     EMAIL: ${ssm:/${self:custom.StageNameCert}/SPACENOW/ADMIN_EMAIL, env:EMAIL}
