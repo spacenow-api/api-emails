@@ -41,10 +41,6 @@ jobs:
     docker:
       - image: circleci/node:8.10
 
-    environment:
-      TARGET_ENV: nonprod
-      TARGET_ENV_CERT: NONPROD
-
     working_directory: ~/repo
 
     steps:
@@ -74,15 +70,11 @@ jobs:
             chmod +x scripts/aws-cli-assumerole.sh
             source scripts/aws-cli-assumerole.sh
             sls create_domain
-            sls deploy --stage ${TARGET_ENV} --stageCert ${TARGET_ENV_CERT} --accountId ${ACCOUNT_ID}
+            sls deploy --stage nonprod --stageCert NONPROD --accountId ${ACCOUNT_ID}
 
   deploy-prod:
     docker:
       - image: circleci/node:8.10
-
-    environment:
-      TARGET_ENV: prod
-      TARGET_ENV_CERT: PROD
 
     working_directory: ~/repo
 
@@ -112,7 +104,8 @@ jobs:
             export ACCOUNT_ID=985566274543
             chmod +x scripts/aws-cli-assumerole.sh
             source scripts/aws-cli-assumerole.sh
-            sls deploy --stage ${TARGET_ENV} --stageCert ${TARGET_ENV_CERT} --accountId ${ACCOUNT_ID}
+            sls create_domain
+            sls deploy --stage prod --stageCert PROD --accountId ${ACCOUNT_ID}
 
 workflows:
   version: 2
