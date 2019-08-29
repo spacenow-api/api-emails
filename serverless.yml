@@ -8,7 +8,7 @@ plugins:
 custom:
   domains:
     default: api-emails.${opt:stage, 'sandpit'}.cloud.spacenow.com
-    prod: api-emails.spacenow.com
+    # prod: api-emails.spacenow.com
   customDomain:
     domainName: ${self:custom.domains.${opt:stage, 'sandpit'}, self:custom.domains.default}
     basePath: ""
