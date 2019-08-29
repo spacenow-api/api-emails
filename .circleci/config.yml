@@ -4,9 +4,8 @@ jobs:
     docker:
       - image: circleci/node:8.10
 
-    environment: 
-        TARGET_ENV: sandpit
-        TARGET_ENV_CERT: SANDPIT
+    environment:
+      TARGET_ENV_CERT: SANDPIT
 
     working_directory: ~/repo
 
@@ -15,8 +14,8 @@ jobs:
 
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "yarn.lock" }}
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-
 
       - run:
           name: Install Serverless CLI and dependencies
@@ -29,22 +28,22 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-
-      
+
       - run:
           name: Deploy dev application
           command: |
             export ACCOUNT_ID=159220020591
             chmod +x scripts/aws-cli-assumerole.sh
             source scripts/aws-cli-assumerole.sh
-            sls deploy --stage ${TARGET_ENV} --stageCert ${TARGET_ENV_CERT} --region ${AWS_DEFAULT_REGION} --accountId ${ACCOUNT_ID}
+            sls deploy --accountId ${ACCOUNT_ID}
 
   deploy-non-prod:
     docker:
       - image: circleci/node:8.10
 
-    environment: 
-        TARGET_ENV: nonprod
-        TARGET_ENV_CERT: NONPROD
+    environment:
+      TARGET_ENV: nonprod
+      TARGET_ENV_CERT: NONPROD
 
     working_directory: ~/repo
 
@@ -53,8 +52,8 @@ jobs:
 
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "yarn.lock" }}
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-
 
       - run:
           name: Install Serverless CLI and dependencies
@@ -67,22 +66,22 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-
-      
+
       - run:
           name: Deploy non prod application
           command: |
             export ACCOUNT_ID=211853473677
             chmod +x scripts/aws-cli-assumerole.sh
             source scripts/aws-cli-assumerole.sh
-            sls deploy --stage ${TARGET_ENV} --stageCert ${TARGET_ENV_CERT} --region ${AWS_DEFAULT_REGION} --accountId ${ACCOUNT_ID}
+            sls deploy --stage ${TARGET_ENV} --stageCert ${TARGET_ENV_CERT} --accountId ${ACCOUNT_ID}
 
   deploy-prod:
     docker:
       - image: circleci/node:8.10
 
-    environment: 
-        TARGET_ENV: prod
-        TARGET_ENV_CERT: PROD
+    environment:
+      TARGET_ENV: prod
+      TARGET_ENV_CERT: PROD
 
     working_directory: ~/repo
 
@@ -91,8 +90,8 @@ jobs:
 
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "yarn.lock" }}
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-
 
       - run:
           name: Install Serverless CLI and dependencies
@@ -105,14 +104,14 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-
-      
+
       - run:
           name: Deploy prod application
           command: |
             export ACCOUNT_ID=985566274543
             chmod +x scripts/aws-cli-assumerole.sh
             source scripts/aws-cli-assumerole.sh
-            sls deploy --stage ${TARGET_ENV} --stageCert ${TARGET_ENV_CERT} --region ${AWS_DEFAULT_REGION} --accountId ${ACCOUNT_ID}
+            sls deploy --stage ${TARGET_ENV} --stageCert ${TARGET_ENV_CERT} --accountId ${ACCOUNT_ID}
 
 workflows:
   version: 2
@@ -153,5 +152,3 @@ workflows:
             branches:
               only:
                 - master
-
-

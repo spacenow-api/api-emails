@@ -1,7 +1,3 @@
 {
-  "template": "reset-email",
-  "body": {
-    "email": "csalucasnascimento@gmail.com",
-    "username": "Lucas Nascimento"
-  }
+  "body": "{\"template\": \"reset-email\", \"data\": {\"email\": \"csalucasnascimento@gmail.com\", \"username\": \"Lucas Nascimento\"}}"
 }

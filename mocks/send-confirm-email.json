@@ -1,7 +1,3 @@
 {
-  "template": "confirm-email",
-  "body": {
-    "email": "csalucasnascimento@gmail.com",
-    "user": "Lucas Nascimento"
-  }
+  "body": "{ \"template\": \"confirm-email\", \"data\": { \"email\": \"csalucasnascimento@gmail.com\", \"user\": \"Lucas Nascimento\" } }"
 }

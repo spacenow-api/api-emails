@@ -1,18 +1,19 @@
 const aws = require('aws-sdk')
-const ses = new aws.SES()
+const ses = new aws.SES({ region: "us-east-1" })
 
-function generateEmailParams(template, body) {
+function generateEmailParams(template, data) {
   return {
     Source: process.env.EMAIL,
     Destination: { ToAddresses: [process.env.EMAIL] },
-    ReplyToAddresses: [body.email],
+    ReplyToAddresses: [data.email],
     ConfigurationSetName: "Emails",
     Template: template,
-    TemplateData: JSON.stringify(body)
+    TemplateData: JSON.stringify(data)
   }
 }
 
 exports.sender = async (event) => {
-  const emailParams = generateEmailParams(event.template, event.body)
+  const body = JSON.parse(event.body)
+  const emailParams = generateEmailParams(body.template, body.data)
   return ses.sendTemplatedEmail(emailParams).promise()
 }

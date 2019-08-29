@@ -1,31 +1,42 @@
 service: api-emails
 
-# Use the serverless-webpack plugin to transpile ES6
 plugins:
   - serverless-dotenv-plugin
   - serverless-offline
+  - serverless-domain-manager
+
+custom:
+  StageName: ${opt:stage, 'sandpit'}
+  domains:
+    default: api-emails.${self:custom.StageName}.cloud.spacenow.com
+    prod: api-emails.spacenow.com
+  customDomain:
+    domainName: ${self:custom.domains.${self:custom.StageName}, self:custom.domains.default}
+    basePath: ""
+    stage: ${self:custom.StageName}
+    certificateArn: ${ssm:/${self:custom.StageNameCert, 'SANDPIT'}/ACM_CERTIFICATE}
+    createRoute53Record: true
+    endpointType: "regional"
 
 dotenv:
   path: ./.env
   basePath: ./
   include:
-    - NODE_ENV
     - EMAIL
     - DOMAIN
 
 provider:
   name: aws
   runtime: nodejs10.x
-  stage: dev
-  region: us-east-1
+  stage: ${opt:stage, 'sandpit'}
+  region: ap-southeast-2
   environment:
-    NODE_ENV: ${env:NODE_ENV}
-    EMAIL: ${env:EMAIL}
+    EMAIL: ${ssm:/${self:custom.StageNameCert, 'SANDPIT'}/SPACENOW/ADMIN_EMAIL, env:EMAIL}
     DOMAIN: ${env:DOMAIN}
   iamRoleStatements:
     - Effect: "Allow"
       Action:
-        - "ses:SendEmail"
+        - "ses:SendTemplatedEmail"
       Resource: "*"
 
 functions:
@@ -36,3 +47,7 @@ functions:
           path: email/send
           method: post
           cors: true
+
+resources:
+  # API Gateway Errors
+  - ${file(resources/api-gateway-errors.yml)}
