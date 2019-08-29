@@ -102,8 +102,8 @@ jobs:
             export ACCOUNT_ID=985566274543
             chmod +x scripts/aws-cli-assumerole.sh
             source scripts/aws-cli-assumerole.sh
-            sls create_domain --stage prod --stageCert PROD --accountId ${ACCOUNT_ID}
-            sls deploy --stage prod --stageCert PROD --accountId ${ACCOUNT_ID}
+            sls create_domain --stage prod --stageCert PROD --accountId ${ACCOUNT_ID} -l
+            sls deploy --stage prod --stageCert PROD --accountId ${ACCOUNT_ID} -l
 
 workflows:
   version: 2
