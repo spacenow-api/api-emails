@@ -41,6 +41,8 @@ provider:
 functions:
   send:
     handler: src/email.send
+    environment:
+      SLS_DEBUG: true
     events:
       - http:
           path: email/send
