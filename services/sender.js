@@ -4,8 +4,8 @@ const ses = new aws.SES({ region: "us-east-1" })
 function generateEmailParams(template, data) {
   return {
     Source: process.env.EMAIL,
-    Destination: { ToAddresses: [process.env.EMAIL] },
-    ReplyToAddresses: [data.email],
+    Destination: { ToAddresses: [data.email] },
+    ReplyToAddresses: [process.env.EMAIL],
     ConfigurationSetName: "Emails",
     Template: template,
     TemplateData: JSON.stringify(data)
