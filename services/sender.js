@@ -14,6 +14,6 @@ function generateEmailParams(template, data) {
 
 exports.sender = async (event) => {
   const body = JSON.parse(event.body)
-  const emailParams = generateEmailParams(body.template, body.data)
+  const emailParams = generateEmailParams(body.template, JSON.parse(body.data))
   return ses.sendTemplatedEmail(emailParams).promise()
 }
