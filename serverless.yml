@@ -9,14 +9,11 @@ custom:
   domains:
     default: api-emails.${opt:stage, 'sandpit'}.cloud.spacenow.com
     prod: api-emails.spacenow.com
-  certificates:
-    default: ${ssm:/${opt:stageCert, 'SANDPIT'}/ACM_CERTIFICATE}
-    prod: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/ACM_CERTIFICATE}
   customDomain:
     domainName: ${self:custom.domains.${opt:stage, 'sandpit'}, self:custom.domains.default}
     basePath: ""
     stage: ${opt:stage, 'sandpit'}
-    certificateArn: ${self:custom.certificates.${opt:stage, 'sandpit'}, self:custom.certificates.default}
+    certificateArn: ${ssm:/${opt:stageCert, 'SANDPIT'}/ACM_CERTIFICATE}
     createRoute53Record: true
     endpointType: "regional"
 
