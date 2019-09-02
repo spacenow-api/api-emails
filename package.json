@@ -4,9 +4,9 @@
   "description": "A Node.js starter for the Serverless Framework with async/await and unit test support",
   "main": "handler.js",
   "scripts": {
-    "create-template": "aws ses create-template --cli-input-json file://templates/reset-email.json",
-    "update-template": "aws ses update-template --cli-input-json file://templates/reset-email.json",
-    "send": "serverless invoke local --function send --path ./mocks/send-reset-email.json",
+    "create-template": "aws ses create-template --cli-input-json file://templates/report-listing.json",
+    "update-template": "aws ses update-template --cli-input-json file://templates/report-listing.json",
+    "send": "serverless invoke local --function send --path ./mocks/send-report-listing.json",
     "debug": "export SLS_DEBUG=* && node --inspect ./node_modules/.bin/serverless offline -s dev -P 6008"
   },
   "author": "Lucas Nascimento",
@@ -19,7 +19,8 @@
     "aws-sdk": "~2.451.0",
     "serverless-domain-manager": "^3.3.0",
     "serverless-dotenv-plugin": "^2.1.1",
-    "serverless-offline": "^5.10.1"
+    "serverless-offline": "^5.10.1",
+    "serverless-prune-plugin": "^1.4.0"
   },
   "dependencies": {
     "babel-runtime": "~6.26.0",

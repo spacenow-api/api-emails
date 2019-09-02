@@ -4,6 +4,7 @@ plugins:
   - serverless-dotenv-plugin
   - serverless-offline
   - serverless-domain-manager
+  - serverless-prune-plugin
 
 custom:
   domains:
@@ -16,6 +17,9 @@ custom:
     certificateArn: ${ssm:/${opt:stageCert, 'SANDPIT'}/ACM_CERTIFICATE}
     createRoute53Record: true
     endpointType: "regional"
+  prune:
+    automatic: true
+    number: 5
 
 dotenv:
   path: ./.env

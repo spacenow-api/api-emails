@@ -1,0 +1,3 @@
+{
+  "body": "{ \"template\": \"report-listing\", \"data\": { \"email\": \"csalucasnascimento@gmail.com\", \"guest\": \"Lucas Nascimento\", \"guestId\": \"13412341234\", \"spaceId\": \"839\", \"spaceOwner\": \"Camila Concha\", \"spaceOwnerEmail\": \"camila@spacenow.com\", \"reportDetails\": \"this space is not a real one\" } }"
+}
