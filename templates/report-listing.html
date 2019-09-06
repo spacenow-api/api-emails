@@ -274,7 +274,7 @@
                           >
                             <a
                               style="text-decoration: none; color: #142D3F;cursor: text;"
-                              >Tuesday, July 17, 2018</a
+                              >{{currentDate}}</a
                             >
                           </td>
                         </tr>
@@ -401,7 +401,7 @@
                       valign="top"
                       style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:16px; mso-line-height-rule:exactly;line-height:26px;color:#172439;"
                     >
-                      The guest {{ guest }} with the id {{ guestId }} reported
+                      The guest&nbsp; {{ guest }} with the id&nbsp; {{ guestId }} reported
                       the following space:
                     </td>
                   </tr>
@@ -425,7 +425,7 @@
                       valign="top"
                       style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:16px; mso-line-height-rule:exactly;line-height:26px;color:#172439;"
                     >
-                      SpaceId: {{ spaceId }}
+                      SpaceId:&nbsp; {{ spaceId }}
                     </td>
                   </tr>
                   <tr>
@@ -448,7 +448,7 @@
                       valign="top"
                       style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:16px; mso-line-height-rule:exactly;line-height:26px;color:#172439;"
                     >
-                      Space owner: {{ spaceOwner }}
+                      Space owner:&nbsp; {{ spaceOwner }}
                     </td>
                   </tr>
                   <tr>
@@ -457,7 +457,7 @@
                       valign="top"
                       style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:16px; mso-line-height-rule:exactly;line-height:26px;color:#172439;"
                     >
-                      Space owner's email: {{ spaceOwnerEmail }}
+                      Space owner's email:&nbsp; {{ spaceOwnerEmail }}
                     </td>
                   </tr>
                   <tr>
@@ -484,6 +484,15 @@
                     </td>
                   </tr>
                   <tr>
+                    <td
+                      align="left"
+                      valign="top"
+                      style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:16px; mso-line-height-rule:exactly;line-height:26px;color:#172439;"
+                    >
+                      {{ reportMessage }}
+                    </td>
+                  </tr>
+                  <tr>
                     <td height="40" style="font-size: 0; line-height:40px;">
                       &nbsp;
                     </td>
@@ -504,7 +513,7 @@
                             align="center"
                           >
                             <a
-                              href="#"
+                              href="https://spacenow.com/space/{{spaceId}}"
                               target="_blank"
                               style="color: #ffffff; text-decoration: none; display: inline-block;"
                               >See the space</a
