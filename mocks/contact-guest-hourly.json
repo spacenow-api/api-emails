@@ -1,0 +1,3 @@
+{
+  "body": "{ \"template\": \"contact-guest-hourly\", \"data\": { \"email\": \"camila@spacenow.com\", \"listingPeriod\": \"hourly\", \"currentDate\": \"September 9th, 2019\", \"date\": \"September 9th, 2019\", \"endTime\": \"18:00\", \"guestEmail\": \"camila@spacenow.com\", \"guestName\": \"Camila Concha\", \"hostName\": \"Rafael Nascimento\", \"listingCity\": \"Bondi Junction\", \"listingCountry\": \"AU\", \"listingCurrency\": \"AUD\", \"listingPrice\": \"100\", \"listingTitle\": \"Meeting Room\", \"message\": \"ewd\", \"phone\": \"2323\", \"startTime\": \"08:00\", \"listingPhoto\": \"https://sandpit-spacenow-images.s3.ap-southeast-2.amazonaws.com/upload/189a0007b84161bc55013de2cbd7ced6.jpeg\" } }"
+}

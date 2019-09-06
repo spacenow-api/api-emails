@@ -4,9 +4,9 @@
   "description": "A Node.js starter for the Serverless Framework with async/await and unit test support",
   "main": "handler.js",
   "scripts": {
-    "create-template": "aws ses create-template --cli-input-json file://templates/report-listing.json",
+    "create-template": "aws ses create-template --cli-input-json file://templates/enquiry-guest.json",
     "update-template": "aws ses update-template --cli-input-json file://templates/report-listing.json",
-    "send": "serverless invoke local --function send --path ./mocks/send-report-listing.json",
+    "send": "serverless invoke local --function send --path ./mocks/send-welcome-email.json",
     "debug": "export SLS_DEBUG=* && node --inspect ./node_modules/.bin/serverless offline -s dev -P 6008"
   },
   "author": "Lucas Nascimento",
