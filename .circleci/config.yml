@@ -35,41 +35,6 @@ jobs:
             sls create_domain --accountId ${ACCOUNT_ID}
             sls deploy --accountId ${ACCOUNT_ID}
 
-  deploy-non-prod:
-    docker:
-      - image: circleci/node:8.10
-
-    working_directory: ~/repo
-
-    steps:
-      - checkout
-
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "yarn.lock" }}
-            - v1-dependencies-
-
-      - run:
-          name: Install Serverless CLI and dependencies
-          command: |
-            sudo npm i -g serverless@latest
-            yarn
-            sudo apt-get install awscli
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-
-
-      - run:
-          name: Deploy non prod application
-          command: |
-            export ACCOUNT_ID=211853473677
-            chmod +x scripts/aws-cli-assumerole.sh
-            source scripts/aws-cli-assumerole.sh
-            sls create_domain --stage nonprod --stageCert NONPROD --accountId ${ACCOUNT_ID}
-            sls deploy --stage nonprod --stageCert NONPROD --accountId ${ACCOUNT_ID}
-
   deploy-prod:
     docker:
       - image: circleci/node:8.10
@@ -115,25 +80,10 @@ workflows:
             branches:
               only:
                 - master
-      - non-prod-approval:
-          type: approval
-          requires:
-            - deploy-dev
-          filters:
-            branches:
-              only:
-                - master
-      - deploy-non-prod:
-          requires:
-            - non-prod-approval
-          filters:
-            branches:
-              only:
-                - master
       - prod-approval:
           type: approval
           requires:
-            - deploy-non-prod
+            - deploy-dev
           filters:
             branches:
               only:
