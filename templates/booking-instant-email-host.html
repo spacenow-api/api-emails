@@ -337,9 +337,9 @@
                   <td align="left" valign="top"
                     style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:16px; mso-line-height-rule:exactly;line-height:30px;color:#172439;">
                     <strong>Guest details</strong>: <br />
-                    Name: <br />
-                    Start date: <br />
-                    Finish date: <br />
+                    Name:&nbsp;{{guestName}}<br />
+                    Start date:&nbsp;{{checkInDate}}<br />
+                    Finish date:&nbsp;{{checkOutDate}}<br />
                   </td>
                 </tr>
                 <tr>
@@ -370,8 +370,7 @@
                             style="border-collapse: collapse;" class="container">
                             <tr>
                               <td valign="top" align="left">
-                                <!--[if (gte mso 9)|(IE)]>
-                                                            <table width="100%" align="center" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"><tr><td align="center" valign="top"><![endif]-->
+                                <!--[if (gte mso 9)|(IE)]><table width="100%" align="center" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"><tr><td align="center" valign="top"><![endif]-->
                                 <div style="width: 254px; display: inline-block; vertical-align: top;"
                                   class="container">
                                   <table width="254" align="left" cellpadding="0" cellspacing="0" border="0"
@@ -380,7 +379,7 @@
                                       <td class="pad_top15" align="center" valign="top"
                                         style="border-radius: 4px; -webkit-border-radius: 4px;">
                                         <img
-                                          src="https://prod-spacenow-images.s3-ap-southeast-2.amazonaws.com/emails/images/img_08_02.png"
+                                          src="{{coverPhoto}}"
                                           alt="" title="" width="244"
                                           style="display:block;font-family:Arial, sans-serif;font-size:20px;line-height:30px;color:#000000;font-weight:bold; text-transform:uppercase; max-width:284px;border-radius: 4px; -webkit-border-radius: 4px;"
                                           border="0" class="full_img480" />
@@ -402,26 +401,26 @@
                                     <tr>
                                       <td align="left" valign="top"
                                         style="padding: 0 17px 10px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: bold; font-size:12px; mso-line-height-rule:exactly;line-height:16px;color:#1F252A;">
-                                        Creative Space in Alexandria
+                                        {{listTitle}}
                                       </td>
                                     </tr>
                                     <tr>
                                       <td align="left" valign="top"
                                         style="padding: 0 17px 10px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:9px; mso-line-height-rule:exactly;line-height:12px;color:#1F252A;">
-                                        Address street, Suburb
+                                        {{listAddress}}
                                       </td>
                                     </tr>
                                     <tr>
                                       <td align="left" valign="top"
                                         style="padding: 0 17px 10px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:9px; mso-line-height-rule:exactly;line-height:12px;color:#1F252A;">
-                                        Starting date 10 sep - 3 weeks
+                                        Starting date {{checkinDateShort}} - {{totalPeriod}}
                                       </td>
                                     </tr>
                                     <tr>
                                       <td align="left" valign="top"
                                         style="padding: 0 17px 10px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: 600; font-size:10px; mso-line-height-rule:exactly;line-height:12px;color:#1F252A;">
-                                        <strong>$ 3,000</strong>
-                                        <span style="font-size: 8px;">Daily</span>
+                                        <strong>${{basePrice}}</strong>
+                                        <span style="font-size: 8px;">{{priceType}}</span>
                                       </td>
                                     </tr>
                                     <tr>
@@ -439,16 +438,10 @@
                                                     <table align="center" cellpadding="0" cellspacing="0" border="0"
                                                       style="border-collapse: collapse;">
                                                       <tr>
-                                                        <td height="21" align="center" valign="middle">
-                                                          <img
-                                                            src="https://prod-spacenow-images.s3-ap-southeast-2.amazonaws.com/emails/images/img_08_icon1.png"
-                                                            alt="" title="" width="17" style="outline: none"
-                                                            border="0" />
-                                                        </td>
                                                         <td height="21" align="center" valign="middle"
                                                           style="padding-top: 1px; color: #172439;font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: 600;font-size: 6px; line-height: 9px;">
                                                           <a href="#" target="_blank"
-                                                            style="color: #172439; text-decoration: none;">&nbsp;Venue&nbsp;</a>
+                                                            style="color: #172439; text-decoration: none;">&nbsp;{{categoryName}}&nbsp;</a>
                                                         </td>
                                                       </tr>
                                                     </table>
@@ -466,18 +459,9 @@
                                                     <table align="center" cellpadding="0" cellspacing="0" border="0"
                                                       style="border-collapse: collapse;">
                                                       <tr>
-                                                        <td height="21" align="center" valign="middle">
-                                                          <img
-                                                            src="https://prod-spacenow-images.s3-ap-southeast-2.amazonaws.com/emails/images/img_08_icon2.png"
-                                                            alt="" title="" width="14" style="outline: none"
-                                                            border="0" />
-                                                        </td>
                                                         <td height="21" align="center" valign="middle"
                                                           style="padding-top: 1px; color: #172439;font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: 600;font-size: 6px; line-height: 9px;">
-                                                          <a href="#" target="_blank"
-                                                            style="color: #172439; text-decoration: none;">&nbsp;Health
-                                                            &
-                                                            Fitness&nbsp;</a>
+                                                          <a href="#" target="_blank" style="color: #172439; text-decoration: none;">&nbsp;{{subCategoryName}}&nbsp;</a>
                                                         </td>
                                                       </tr>
                                                     </table>
@@ -502,25 +486,6 @@
                               </td>
                             </tr>
                           </table>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-                <tr>
-                  <td height="40" style="font-size: 0; line-height:40px;">
-                    &nbsp;
-                  </td>
-                </tr>
-                <tr>
-                  <td align="center" valign="top">
-                    <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
-                      <tr>
-                        <td bgcolor="#6ADC91"
-                          style="padding: 22px 0px; border-radius:37px; -webkit-border-radius: 37px; color: #ffffff;font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: bold;font-size: 18px; line-height: 24px; white-space: nowrap;"
-                          align="center">
-                          <a href="https://www.novica.com/?cellid=JRL2019080130&amp;utm_medium=email&amp;utm_source=eblast" target="_blank"
-                            style="color: #ffffff; text-decoration: none; display: inline-block;">Message Guest</a>
                         </td>
                       </tr>
                     </table>
