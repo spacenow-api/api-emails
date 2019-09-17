@@ -89,12 +89,6 @@ module.exports = {
       listingObj.listSettingsParentId
     )
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
-    const userProfilePicture = await listingCommons.getProfilePicture(
-      bookingObj.hostId
-    )
-    const timeAvailability = await listingCommons.getTimeAvailability(
-      listingObj.id
-    )
     const hostMetadata = {
       user: hostObj.firstName,
       hostName: hostObj.firstName,
@@ -144,10 +138,6 @@ module.exports = {
       .tz('Australia/Sydney')
       .format('Do MMM')
       .toString()
-    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(
-      listingObj.listSettingsParentId
-    )
-    const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const userProfilePicture = await listingCommons.getProfilePicture(
       bookingObj.hostId
     )
@@ -196,9 +186,6 @@ module.exports = {
     const listingObj = await listingCommons.getListingById(bookingObj.listingId)
     const hostObj = await getUserById(bookingObj.hostId)
     const guestObj = await getUserById(bookingObj.guestId)
-    const locationObj = await Location.findOne({
-      where: { id: listingObj.locationId }
-    })
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
@@ -207,20 +194,6 @@ module.exports = {
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
       .toString()
-    const checkInShort = moment(bookingObj.checkIn)
-      .tz('Australia/Sydney')
-      .format('Do MMM')
-      .toString()
-    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(
-      listingObj.listSettingsParentId
-    )
-    const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
-    const userProfilePicture = await listingCommons.getProfilePicture(
-      bookingObj.hostId
-    )
-    const timeAvailability = await listingCommons.getTimeAvailability(
-      listingObj.id
-    )
     const hostMetadata = {
       user: hostObj.firstName,
       guestName: guestObj.firstName,
@@ -247,31 +220,10 @@ module.exports = {
     const listingObj = await listingCommons.getListingById(bookingObj.listingId)
     const hostObj = await getUserById(bookingObj.hostId)
     const guestObj = await getUserById(bookingObj.guestId)
-    const locationObj = await Location.findOne({
-      where: { id: listingObj.locationId }
-    })
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
       .toString()
-    const checkOut = moment(bookingObj.checkOut)
-      .tz('Australia/Sydney')
-      .format('ddd, Do MMM, YYYY')
-      .toString()
-    const checkInShort = moment(bookingObj.checkIn)
-      .tz('Australia/Sydney')
-      .format('Do MMM')
-      .toString()
-    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(
-      listingObj.listSettingsParentId
-    )
-    const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
-    const userProfilePicture = await listingCommons.getProfilePicture(
-      bookingObj.hostId
-    )
-    const timeAvailability = await listingCommons.getTimeAvailability(
-      listingObj.id
-    )
     const guestMetadata = {
       user: guestObj.firstName,
       confirmationCode: bookingObj.confirmationCode,
@@ -291,7 +243,6 @@ module.exports = {
    */
   sendEmailDeclined: async (bookingId) => {
     const { data: bookingObj } = await getBookingById(bookingId)
-    const listingObj = await listingCommons.getListingById(bookingObj.listingId)
     const hostObj = await getUserById(bookingObj.hostId)
     const guestObj = await getUserById(bookingObj.guestId)
     const checkIn = moment(bookingObj.checkIn)
@@ -307,7 +258,7 @@ module.exports = {
     }
     await senderService.senderByTemplateData(
       'booking-declined-email',
-      'arthemus@spacenow.com',
+      guestObj.email,
       declinedMetadata
     )
   }
