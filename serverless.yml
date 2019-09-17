@@ -25,8 +25,8 @@ dotenv:
   path: ./.env
   basePath: ./
   include:
-    - ADMIN_EMAIL
     - DOMAIN
+    - ADMIN_EMAIL
     - DATABASE_SCHEMA
     - DATABASE_HOST
     - DATABASE_USERNAME
@@ -52,8 +52,8 @@ provider:
       - subnet-070ac699acd775765
       - subnet-0eca793083726120c
   environment:
-    ADMIN_EMAIL: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/ADMIN_EMAIL, env:ADMIN_EMAIL}
     DOMAIN: ${env:DOMAIN}
+    ADMIN_EMAIL: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/ADMIN_EMAIL~true}
     DATABASE_SCHEMA: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/DATABASE_SCHEMA~true}
     DATABASE_HOST: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/DATABASE_HOST~true}
     DATABASE_USERNAME: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/DATABASE_USER~true}
