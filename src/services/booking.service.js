@@ -286,14 +286,29 @@ module.exports = {
     )
   },
 
+  /**
+   * Send email to a guest who has a booking declined.
+   */
   sendEmailDeclined: async (bookingId) => {
-    // const guestMetadata = {
-    //   user: guestObj.firstName,
-    //   confirmationCode: bookingObj.confirmationCode,
-    //   checkInDate: checkIn,
-    //   hostName: hostObj.firstName,
-    //   listTitle: listingObj.title
-    // }
-    // await senderService.senderByTemplateData('booking-request-email-guest', guestObj.email, guestMetadata)
+    const { data: bookingObj } = await getBookingById(bookingId)
+    const listingObj = await listingCommons.getListingById(bookingObj.listingId)
+    const hostObj = await getUserById(bookingObj.hostId)
+    const guestObj = await getUserById(bookingObj.guestId)
+    const checkIn = moment(bookingObj.checkIn)
+      .tz('Australia/Sydney')
+      .format('ddd, Do MMM, YYYY')
+      .toString()
+    const declinedMetadata = {
+      guestName: guestObj.firstName,
+      hostName: hostObj.firstName,
+      confirmationCode: bookingObj.confirmationCode,
+      checkInDate: checkIn,
+      appLink: process.env.NEW_LISTING_PROCESS_HOST
+    }
+    await senderService.senderByTemplateData(
+      'booking-declined-email',
+      'arthemus@spacenow.com',
+      declinedMetadata
+    )
   }
 }

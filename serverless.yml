@@ -97,6 +97,13 @@ functions:
           path: email/booking/{bookingId}/request/guest
           method: post
           cors: true
+  sendEmailByBookingDeclined:
+    handler: src/functions/sendEmailByBookingDeclined.main
+    events:
+      - http:
+          path: email/booking/{bookingId}/declined
+          method: post
+          cors: true
 
 resources:
   - ${file(src/resources/api-gateway-errors.yml)}
