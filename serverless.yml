@@ -10,13 +10,25 @@ custom:
   domains:
     default: api-emails.${opt:stage, 'sandpit'}.cloud.spacenow.com
     prod: api-emails.spacenow.com
+  subnet:
+    default:
+      privateA: subnet-0c75bbd1ea60481d4
+      privateB: subnet-070ac699acd775765
+      privateC: subnet-0eca793083726120c
+    prod:
+      privateA: subnet-04d5af2458ebdabbf
+      privateB: subnet-010ee1d571a9ca82c
+      privateC: subnet-069abf1da82eb3acc
+  securityGroup:
+    default: sg-0dbf2b9d996f4c91e
+    prod: sg-00b4a2172f7e29276
   customDomain:
     domainName: ${self:custom.domains.${opt:stage, 'sandpit'}, self:custom.domains.default}
-    basePath: ''
+    basePath: ""
     stage: ${opt:stage, 'sandpit'}
     certificateArn: ${ssm:/${opt:stageCert, 'SANDPIT'}/ACM_CERTIFICATE}
     createRoute53Record: true
-    endpointType: 'regional'
+    endpointType: "regional"
   prune:
     automatic: true
     number: 5
@@ -40,17 +52,17 @@ provider:
   stage: ${opt:stage, 'sandpit'}
   region: ap-southeast-2
   iamRoleStatements:
-    - Effect: 'Allow'
+    - Effect: "Allow"
       Action:
-        - 'ses:SendTemplatedEmail'
-      Resource: '*'
+        - "ses:SendTemplatedEmail"
+      Resource: "*"
   vpc:
     securityGroupIds:
-      - sg-0dbf2b9d996f4c91e
+      - ${self:custom.securityGroup.${opt:stage, 'sandpit'}, self:custom.securityGroup.default}
     subnetIds:
-      - subnet-0c75bbd1ea60481d4
-      - subnet-070ac699acd775765
-      - subnet-0eca793083726120c
+      - ${self:custom.subnet.${opt:stage, 'sandpit'}.privateA, self:custom.subnet.default.privateA}
+      - ${self:custom.subnet.${opt:stage, 'sandpit'}.privateB, self:custom.subnet.default.privateB}
+      - ${self:custom.subnet.${opt:stage, 'sandpit'}.privateC, self:custom.subnet.default.privateC}
   environment:
     DOMAIN: ${env:DOMAIN}
     ADMIN_EMAIL: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/ADMIN_EMAIL~true}
