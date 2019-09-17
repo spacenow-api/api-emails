@@ -4,10 +4,11 @@
   "description": "A Node.js starter for the Serverless Framework with async/await and unit test support",
   "main": "handler.js",
   "scripts": {
+    "dev": "./node_modules/.bin/serverless offline -s dev -P 6010",
+    "debug": "export SLS_DEBUG=* && node --inspect ./node_modules/.bin/serverless offline -s dev -P 6010",
     "create-template": "aws ses create-template --cli-input-json file://templates/enquiry-guest.json",
     "update-template": "aws ses update-template --cli-input-json file://templates/report-listing.json",
-    "send": "serverless invoke local --function send --path ./mocks/send-welcome-email.json",
-    "debug": "export SLS_DEBUG=* && node --inspect ./node_modules/.bin/serverless offline -s dev -P 6008"
+    "send": "serverless invoke local --function send --path ./mocks/send-welcome-email.json"
   },
   "author": "Lucas Nascimento",
   "license": "MIT",
@@ -17,15 +18,17 @@
   },
   "devDependencies": {
     "aws-sdk": "~2.451.0",
-    "serverless-domain-manager": "^3.3.0",
-    "serverless-dotenv-plugin": "^2.1.1",
-    "serverless-offline": "^5.10.1",
-    "serverless-prune-plugin": "^1.4.0"
+    "serverless": "~1.50.1",
+    "serverless-domain-manager": "~3.3.0",
+    "serverless-dotenv-plugin": "~2.1.1",
+    "serverless-offline": "~5.10.1",
+    "serverless-prune-plugin": "~1.4.0"
   },
   "dependencies": {
-    "babel-runtime": "~6.26.0",
+    "axios": "~0.19.0",
     "moment": "~2.24.0",
-    "source-map-support": "~0.4.18",
+    "mysql2": "~1.6.5",
+    "sequelize": "~5.17.0",
     "uuid": "~3.3.2"
   }
 }
