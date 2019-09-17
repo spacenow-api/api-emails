@@ -13,6 +13,23 @@ function generateEmailParams(template, data) {
   }
 }
 
+exports.senderByTemplateData = async (
+  templateName,
+  emailDestination,
+  templateData
+) => {
+  return ses
+    .sendTemplatedEmail({
+      Source: process.env.EMAIL,
+      Destination: { ToAddresses: [emailDestination] },
+      ReplyToAddresses: [process.env.EMAIL],
+      ConfigurationSetName: 'Emails',
+      Template: templateName,
+      TemplateData: JSON.stringify(templateData)
+    })
+    .promise()
+}
+
 exports.sender = async (event) => {
   const body = JSON.parse(event.body)
   const emailParams = generateEmailParams(body.template, JSON.parse(body.data))

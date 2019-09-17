@@ -69,6 +69,20 @@ functions:
           path: email/send
           method: post
           cors: true
+  sendEmailByBookingInstantHost:
+    handler: src/functions/sendEmailByBookingInstantHost.main
+    events:
+      - http:
+          path: email/booking/{bookingId}/instant/host
+          method: post
+          cors: true
+  sendEmailByBookingInstantGuest:
+    handler: src/functions/sendEmailByBookingInstantGuest.main
+    events:
+      - http:
+          path: email/booking/{bookingId}/instant/guest
+          method: post
+          cors: true
 
 resources:
   - ${file(src/resources/api-gateway-errors.yml)}
