@@ -1,8 +1,8 @@
 service: api-emails
 
 plugins:
-  - serverless-dotenv-plugin
   - serverless-offline
+  - serverless-dotenv-plugin
   - serverless-domain-manager
   - serverless-prune-plugin
 
@@ -44,6 +44,13 @@ provider:
       Action:
         - 'ses:SendTemplatedEmail'
       Resource: '*'
+  vpc:
+    securityGroupIds:
+      - sg-0dbf2b9d996f4c91e
+    subnetIds:
+      - subnet-0c75bbd1ea60481d4
+      - subnet-070ac699acd775765
+      - subnet-0eca793083726120c
   environment:
     EMAIL: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/ADMIN_EMAIL, env:EMAIL}
     DOMAIN: ${env:DOMAIN}
@@ -56,7 +63,7 @@ provider:
 
 functions:
   send:
-    handler: src/email.send
+    handler: src/functions/sendEmailByTemplate.main
     events:
       - http:
           path: email/send
@@ -64,5 +71,4 @@ functions:
           cors: true
 
 resources:
-  # API Gateway Errors
-  - ${file(resources/api-gateway-errors.yml)}
+  - ${file(src/resources/api-gateway-errors.yml)}

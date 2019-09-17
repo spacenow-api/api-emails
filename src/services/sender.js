@@ -1,12 +1,13 @@
 const aws = require('aws-sdk')
-const ses = new aws.SES({ region: "us-east-1" })
+
+const ses = new aws.SES({ region: 'us-east-1' })
 
 function generateEmailParams(template, data) {
   return {
     Source: process.env.EMAIL,
     Destination: { ToAddresses: [data.email] },
     ReplyToAddresses: [process.env.EMAIL],
-    ConfigurationSetName: "Emails",
+    ConfigurationSetName: 'Emails',
     Template: template,
     TemplateData: JSON.stringify(data)
   }
