@@ -25,7 +25,7 @@ dotenv:
   path: ./.env
   basePath: ./
   include:
-    - EMAIL
+    - ADMIN_EMAIL
     - DOMAIN
     - DATABASE_SCHEMA
     - DATABASE_HOST
@@ -52,7 +52,7 @@ provider:
       - subnet-070ac699acd775765
       - subnet-0eca793083726120c
   environment:
-    EMAIL: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/ADMIN_EMAIL, env:EMAIL}
+    ADMIN_EMAIL: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/ADMIN_EMAIL, env:ADMIN_EMAIL}
     DOMAIN: ${env:DOMAIN}
     DATABASE_SCHEMA: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/DATABASE_SCHEMA~true}
     DATABASE_HOST: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/DATABASE_HOST~true}
@@ -81,6 +81,20 @@ functions:
     events:
       - http:
           path: email/booking/{bookingId}/instant/guest
+          method: post
+          cors: true
+  sendEmailByBookingRequestHost:
+    handler: src/functions/sendEmailByBookingRequestHost.main
+    events:
+      - http:
+          path: email/booking/{bookingId}/request/host
+          method: post
+          cors: true
+  sendEmailByBookingRequestGuest:
+    handler: src/functions/sendEmailByBookingRequestGuest.main
+    events:
+      - http:
+          path: email/booking/{bookingId}/request/guest
           method: post
           cors: true
 

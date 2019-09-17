@@ -4,9 +4,9 @@ const ses = new aws.SES({ region: 'us-east-1' })
 
 function generateEmailParams(template, data) {
   return {
-    Source: process.env.EMAIL,
+    Source: process.env.ADMIN_EMAIL,
     Destination: { ToAddresses: [data.email] },
-    ReplyToAddresses: [process.env.EMAIL],
+    ReplyToAddresses: [process.env.ADMIN_EMAIL],
     ConfigurationSetName: 'Emails',
     Template: template,
     TemplateData: JSON.stringify(data)
@@ -20,9 +20,9 @@ exports.senderByTemplateData = async (
 ) => {
   return ses
     .sendTemplatedEmail({
-      Source: process.env.EMAIL,
+      Source: process.env.ADMIN_EMAIL,
       Destination: { ToAddresses: [emailDestination] },
-      ReplyToAddresses: [process.env.EMAIL],
+      ReplyToAddresses: [process.env.ADMIN_EMAIL],
       ConfigurationSetName: 'Emails',
       Template: templateName,
       TemplateData: JSON.stringify(templateData)

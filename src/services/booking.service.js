@@ -45,6 +45,22 @@ async function getReservations(bookingObj) {
   return reservations
 }
 
+function getAcceptLink(bookingId, hostId) {
+  return `${
+    process.env.NEW_LISTING_PROCESS_HOST
+  }/account/booking?b=${bookingId}&a=${listingCommons.getHashValue(
+    hostId + 'APPROVE'
+  )}`
+}
+
+function getDeclineLink(bookingId, hostId) {
+  return `${
+    process.env.NEW_LISTING_PROCESS_HOST
+  }/account/booking?b=${bookingId}&a=${listingCommons.getHashValue(
+    hostId + 'DECLINE'
+  )}`
+}
+
 module.exports = {
   /**
    * Send email to host by a booking instant.
@@ -170,5 +186,114 @@ module.exports = {
       guestObj.email,
       guestMetada
     )
+  },
+
+  /**
+   * Send email by requested booking to host.
+   */
+  sendEmailRequestHost: async (bookingId) => {
+    const { data: bookingObj } = await getBookingById(bookingId)
+    const listingObj = await listingCommons.getListingById(bookingObj.listingId)
+    const hostObj = await getUserById(bookingObj.hostId)
+    const guestObj = await getUserById(bookingObj.guestId)
+    const locationObj = await Location.findOne({
+      where: { id: listingObj.locationId }
+    })
+    const checkIn = moment(bookingObj.checkIn)
+      .tz('Australia/Sydney')
+      .format('ddd, Do MMM, YYYY')
+      .toString()
+    const checkOut = moment(bookingObj.checkOut)
+      .tz('Australia/Sydney')
+      .format('ddd, Do MMM, YYYY')
+      .toString()
+    const checkInShort = moment(bookingObj.checkIn)
+      .tz('Australia/Sydney')
+      .format('Do MMM')
+      .toString()
+    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(
+      listingObj.listSettingsParentId
+    )
+    const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
+    const userProfilePicture = await listingCommons.getProfilePicture(
+      bookingObj.hostId
+    )
+    const timeAvailability = await listingCommons.getTimeAvailability(
+      listingObj.id
+    )
+    const hostMetadata = {
+      user: hostObj.firstName,
+      guestName: guestObj.firstName,
+      listTitle: listingObj.title,
+      checkInDate: checkIn,
+      checkOutDate: checkOut,
+      basePrice: bookingObj.basePrice,
+      total: bookingObj.totalPrice,
+      acceptLink: getAcceptLink(bookingObj.bookingId, hostObj.id),
+      declineLink: getDeclineLink(bookingObj.bookingId, hostObj.id)
+    }
+    await senderService.senderByTemplateData(
+      'booking-request-email-host',
+      hostObj.email,
+      hostMetadata
+    )
+  },
+
+  /**
+   * Send email by requested booking to guest.
+   */
+  sendEmailRequestGuest: async (bookingId) => {
+    const { data: bookingObj } = await getBookingById(bookingId)
+    const listingObj = await listingCommons.getListingById(bookingObj.listingId)
+    const hostObj = await getUserById(bookingObj.hostId)
+    const guestObj = await getUserById(bookingObj.guestId)
+    const locationObj = await Location.findOne({
+      where: { id: listingObj.locationId }
+    })
+    const checkIn = moment(bookingObj.checkIn)
+      .tz('Australia/Sydney')
+      .format('ddd, Do MMM, YYYY')
+      .toString()
+    const checkOut = moment(bookingObj.checkOut)
+      .tz('Australia/Sydney')
+      .format('ddd, Do MMM, YYYY')
+      .toString()
+    const checkInShort = moment(bookingObj.checkIn)
+      .tz('Australia/Sydney')
+      .format('Do MMM')
+      .toString()
+    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(
+      listingObj.listSettingsParentId
+    )
+    const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
+    const userProfilePicture = await listingCommons.getProfilePicture(
+      bookingObj.hostId
+    )
+    const timeAvailability = await listingCommons.getTimeAvailability(
+      listingObj.id
+    )
+    const guestMetadata = {
+      user: guestObj.firstName,
+      confirmationCode: bookingObj.confirmationCode,
+      checkInDate: checkIn,
+      hostName: hostObj.firstName,
+      listTitle: listingObj.title
+    }
+    await senderService.senderByTemplateData(
+      'booking-request-email-guest',
+      guestObj.email,
+      guestMetadata
+    )
+  },
+
+  sendEmailDeclined: async (bookingId) => {
+    // const guestMetadata = {
+    //   user: guestObj.firstName,
+    //   confirmationCode: bookingObj.confirmationCode,
+    //   checkInDate: checkIn,
+    //   hostName: hostObj.firstName,
+    //   listTitle: listingObj.title
+    // }
+    // await senderService.senderByTemplateData('booking-request-email-guest', guestObj.email, guestMetadata)
   }
 }
