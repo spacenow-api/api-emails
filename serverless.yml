@@ -58,11 +58,11 @@ provider:
       Resource: "*"
   vpc:
     securityGroupIds:
-      - ${self:custom.securityGroup.${opt:stage}}
+      - ${self:custom.securityGroup.${opt:stage, 'sandpit'}}
     subnetIds:
-      - ${self:custom.subnet.${opt:stage}.privateA}
-      - ${self:custom.subnet.${opt:stage}.privateB}
-      - ${self:custom.subnet.${opt:stage}.privateC}
+      - ${self:custom.subnet.${opt:stage, 'sandpit'}.privateA}
+      - ${self:custom.subnet.${opt:stage, 'sandpit'}.privateB}
+      - ${self:custom.subnet.${opt:stage, 'sandpit'}.privateC}
   environment:
     DOMAIN: ${env:DOMAIN}
     ADMIN_EMAIL: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/ADMIN_EMAIL~true}
