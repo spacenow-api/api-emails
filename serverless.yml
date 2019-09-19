@@ -20,7 +20,7 @@ custom:
       privateB: subnet-010ee1d571a9ca82c
       privateC: subnet-069abf1da82eb3acc
   securityGroup:
-    default: sg-0dbf2b9d996f4c91e
+    sandpit: sg-0dbf2b9d996f4c91e
     prod: sg-00b4a2172f7e29276
   customDomain:
     domainName: ${self:custom.domains.${opt:stage, 'sandpit'}, self:custom.domains.default}
