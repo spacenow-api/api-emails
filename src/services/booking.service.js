@@ -27,7 +27,7 @@ async function getUserById(userId) {
   }
 }
 
-async function getReservations(bookingObj) {
+function getReservations(bookingObj) {
   if (bookingObj.priceType !== 'daily') return []
   const reservations = []
   const originalReservations = bookingObj.reservations
