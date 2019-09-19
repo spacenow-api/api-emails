@@ -540,39 +540,27 @@
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <tr>
-                                                                                                {{#each days}}
                                                                                                 <td align="center"
                                                                                                     valign="top">
-                                                                                                    <table align="left"
+                                                                                                    {{#each days}}
+                                                                                                    <table width="43"
+                                                                                                        align="left"
                                                                                                         cellpadding="0"
                                                                                                         cellspacing="0"
                                                                                                         border="0"
-                                                                                                        style="border-collapse: collapse;">
+                                                                                                        bgcolor="#6ADC91"
+                                                                                                        style="border-collapse: collapse; border-radius: 25px;">
                                                                                                         <tr>
-                                                                                                            <td align="center"
-                                                                                                                valign="top">
-                                                                                                                <table
-                                                                                                                    width="43"
-                                                                                                                    align="left"
-                                                                                                                    cellpadding="0"
-                                                                                                                    cellspacing="0"
-                                                                                                                    border="0"
-                                                                                                                    bgcolor="#6ADC91"
-                                                                                                                    style="border-collapse: collapse; border-radius: 25px;">
-                                                                                                                    <tr>
-                                                                                                                        <td height="43"
-                                                                                                                            align="center"
-                                                                                                                            valign="middle"
-                                                                                                                            style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:16px; mso-line-height-rule:exactly;line-height:16px;color:#172439;">
-                                                                                                                            {{number}}
-                                                                                                                        </td>
-                                                                                                                    </tr>
-                                                                                                                </table>
+                                                                                                            <td height="43"
+                                                                                                                align="center"
+                                                                                                                valign="middle"
+                                                                                                                style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:16px; mso-line-height-rule:exactly;line-height:16px;color:#172439;">
+                                                                                                                {{number}}
                                                                                                             </td>
                                                                                                         </tr>
                                                                                                     </table>
+                                                                                                    {{/each}}
                                                                                                 </td>
-                                                                                                {{/each}}
                                                                                             </tr>
                                                                                             {{/each}}
                                                                                             {{else}}
@@ -580,11 +568,13 @@
                                                                                                 <td align="left"
                                                                                                     valign="top"
                                                                                                     style="padding-bottom: 8px; font-family: 'Montserrat', Helvetica, Arial, sans-serif ; font-weight: 600; font-size:14px; mso-line-height-rule:exactly;line-height:22px;color:#1F252A;">
-                                                                                                    <spam>Check-in:</spam>
+                                                                                                    <spam>Check-in:
+                                                                                                    </spam>
                                                                                                     <br />{{checkInDate}}
                                                                                                     <br />
                                                                                                     <br />
-                                                                                                    <spam>Check-out:</spam>
+                                                                                                    <spam>Check-out:
+                                                                                                    </spam>
                                                                                                     <br />{{checkOutDate}}
                                                                                                 </td>
                                                                                             </tr>
