@@ -11,7 +11,7 @@ custom:
     default: api-emails.${opt:stage, 'sandpit'}.cloud.spacenow.com
     prod: api-emails.spacenow.com
   subnet:
-    default:
+    sandpit:
       privateA: subnet-0c75bbd1ea60481d4
       privateB: subnet-070ac699acd775765
       privateC: subnet-0eca793083726120c
@@ -58,11 +58,11 @@ provider:
       Resource: "*"
   vpc:
     securityGroupIds:
-      - ${self:custom.securityGroup.${opt:stage, 'sandpit'}, self:custom.securityGroup.default}
+      - ${self:custom.securityGroup.${opt:stage}}
     subnetIds:
-      - ${self:custom.subnet.${opt:stage, 'sandpit'}.privateA, self:custom.subnet.default.privateA}
-      - ${self:custom.subnet.${opt:stage, 'sandpit'}.privateB, self:custom.subnet.default.privateB}
-      - ${self:custom.subnet.${opt:stage, 'sandpit'}.privateC, self:custom.subnet.default.privateC}
+      - ${self:custom.subnet.${opt:stage}.privateA}
+      - ${self:custom.subnet.${opt:stage}.privateB}
+      - ${self:custom.subnet.${opt:stage}.privateC}
   environment:
     DOMAIN: ${env:DOMAIN}
     ADMIN_EMAIL: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/ADMIN_EMAIL~true}
