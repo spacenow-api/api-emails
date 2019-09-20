@@ -24,11 +24,11 @@ custom:
     prod: sg-00b4a2172f7e29276
   customDomain:
     domainName: ${self:custom.domains.${opt:stage, 'sandpit'}, self:custom.domains.default}
-    basePath: ""
+    basePath: ''
     stage: ${opt:stage, 'sandpit'}
     certificateArn: ${ssm:/${opt:stageCert, 'SANDPIT'}/ACM_CERTIFICATE}
     createRoute53Record: true
-    endpointType: "regional"
+    endpointType: 'regional'
   prune:
     automatic: true
     number: 5
@@ -52,10 +52,10 @@ provider:
   stage: ${opt:stage, 'sandpit'}
   region: ap-southeast-2
   iamRoleStatements:
-    - Effect: "Allow"
+    - Effect: 'Allow'
       Action:
-        - "ses:SendTemplatedEmail"
-      Resource: "*"
+        - 'ses:SendTemplatedEmail'
+      Resource: '*'
   vpc:
     securityGroupIds:
       - ${self:custom.securityGroup.${opt:stage, 'sandpit'}}
