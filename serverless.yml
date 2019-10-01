@@ -49,6 +49,7 @@ dotenv:
 provider:
   name: aws
   runtime: nodejs10.x
+  timeout: 20
   stage: ${opt:stage, 'sandpit'}
   region: ap-southeast-2
   iamRoleStatements:
