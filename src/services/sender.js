@@ -5,7 +5,10 @@ const ses = new aws.SES({ region: 'us-east-1' })
 function generateEmailParams(template, data) {
   return {
     Source: 'no-reply@spacenow.com',
-    Destination: { ToAddresses: [data.email], BccAddresses: ['baydr@spacenow.com', 'barrett@spacenow.com'] },
+    Destination: {
+      ToAddresses: [data.email],
+      BccAddresses: ['baydr@spacenow.com', 'barrett@spacenow.com', 'camila@spacenow.com']
+    },
     ReplyToAddresses: ['no-reply@spacenow.com'],
     ConfigurationSetName: 'Emails',
     Template: template,
@@ -13,15 +16,14 @@ function generateEmailParams(template, data) {
   }
 }
 
-exports.senderByTemplateData = async (
-  templateName,
-  emailDestination,
-  templateData
-) => {
+exports.senderByTemplateData = async (templateName, emailDestination, templateData) => {
   return ses
     .sendTemplatedEmail({
       Source: 'no-reply@spacenow.com',
-      Destination: { ToAddresses: [emailDestination], BccAddresses: ['baydr@spacenow.com', 'barrett@spacenow.com'] },
+      Destination: {
+        ToAddresses: [emailDestination],
+        BccAddresses: ['baydr@spacenow.com', 'barrett@spacenow.com', 'camila@spacenow.com']
+      },
       ReplyToAddresses: ['no-reply@spacenow.com'],
       ConfigurationSetName: 'Emails',
       Template: templateName,
@@ -30,7 +32,7 @@ exports.senderByTemplateData = async (
     .promise()
 }
 
-exports.sender = async (event) => {
+exports.sender = async event => {
   const body = JSON.parse(event.body)
   const emailParams = generateEmailParams(body.template, JSON.parse(body.data))
   return ses.sendTemplatedEmail(emailParams).promise()
