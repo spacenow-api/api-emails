@@ -50,6 +50,7 @@ provider:
   name: aws
   runtime: nodejs10.x
   timeout: 20
+  versionFunctions: false
   stage: ${opt:stage, 'sandpit'}
   region: ap-southeast-2
   iamRoleStatements:
@@ -77,6 +78,7 @@ provider:
 functions:
   send:
     handler: src/functions/sendEmailByTemplate.main
+    memorySize: 1024
     events:
       - http:
           path: email/send
@@ -84,6 +86,7 @@ functions:
           cors: true
   sendEmailByBookingInstantHost:
     handler: src/functions/sendEmailByBookingInstantHost.main
+    memorySize: 1024
     events:
       - http:
           path: email/booking/{bookingId}/instant/host
@@ -91,6 +94,7 @@ functions:
           cors: true
   sendEmailByBookingInstantGuest:
     handler: src/functions/sendEmailByBookingInstantGuest.main
+    memorySize: 1024
     events:
       - http:
           path: email/booking/{bookingId}/instant/guest
@@ -98,6 +102,7 @@ functions:
           cors: true
   sendEmailByBookingRequestHost:
     handler: src/functions/sendEmailByBookingRequestHost.main
+    memorySize: 1024
     events:
       - http:
           path: email/booking/{bookingId}/request/host
@@ -105,6 +110,7 @@ functions:
           cors: true
   sendEmailByBookingRequestGuest:
     handler: src/functions/sendEmailByBookingRequestGuest.main
+    memorySize: 1024
     events:
       - http:
           path: email/booking/{bookingId}/request/guest
@@ -112,6 +118,7 @@ functions:
           cors: true
   sendEmailByBookingDeclined:
     handler: src/functions/sendEmailByBookingDeclined.main
+    memorySize: 1024
     events:
       - http:
           path: email/booking/{bookingId}/declined
