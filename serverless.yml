@@ -124,6 +124,14 @@ functions:
           path: email/booking/{bookingId}/declined
           method: post
           cors: true
+  sendEmailByBookingCheckOut:
+    handler: src/functions/sendEmailByBookingCheckOut.main
+    memorySize: 1024
+    events:
+      - http:
+          path: email/booking/{bookingId}/checkout
+          method: post
+          cors: true
 
 resources:
   - ${file(src/resources/api-gateway-errors.yml)}
