@@ -271,7 +271,7 @@ module.exports = {
     const hostObj = await getUserById(bookingObj.hostId)
     const guestObj = await getUserById(bookingObj.guestId)
     const reviewPageLink = `${process.env.NEW_LISTING_PROCESS_HOST}/review/${bookingId}`
-    await senderService.senderByTemplateData('booking-request-review-guest', hostObj.email, {
+    await senderService.senderByTemplateData('booking-request-review-guest', guestObj.email, {
       name: hostObj.firstName,
       link: `${reviewPageLink}/guest`
     })
