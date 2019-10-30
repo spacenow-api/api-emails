@@ -156,3 +156,5 @@ Session.vim
 # env
 env.yml
 .env
+
+scripts.sh

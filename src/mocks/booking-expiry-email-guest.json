@@ -1,0 +1,3 @@
+{
+  "body": "{ \"template\": \"booking-expiry-email-guest\", \"data\": { \"email\": \"camila@spacenow.com\", \"guestName\": \"Camila Concha\", \"hostName\": \"Lucas Nascimento\", \"checkInDate\": \"10/10/2019\"} }"
+}
