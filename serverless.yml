@@ -49,7 +49,7 @@ dotenv:
 provider:
   name: aws
   runtime: nodejs10.x
-  timeout: 20
+  timeout: 120
   versionFunctions: false
   stage: ${opt:stage, 'sandpit'}
   region: ap-southeast-2
@@ -122,6 +122,14 @@ functions:
     events:
       - http:
           path: email/booking/{bookingId}/declined
+          method: post
+          cors: true
+  sendEmailByBookingCheckOut:
+    handler: src/functions/sendEmailByBookingCheckOut.main
+    memorySize: 1024
+    events:
+      - http:
+          path: email/booking/{bookingId}/checkout
           method: post
           cors: true
 

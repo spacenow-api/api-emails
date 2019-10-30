@@ -261,5 +261,23 @@ module.exports = {
       guestObj.email,
       declinedMetadata
     )
+  },
+
+  /**
+   * Send an email when bookings has finished.
+   */
+  sendEmailCheckOut: async (bookingId) => {
+    const { data: bookingObj } = await getBookingById(bookingId)
+    const hostObj = await getUserById(bookingObj.hostId)
+    const guestObj = await getUserById(bookingObj.guestId)
+    const reviewPageLink = `${process.env.NEW_LISTING_PROCESS_HOST}/review/${bookingId}`
+    await senderService.senderByTemplateData('booking-request-review-guest', guestObj.email, {
+      name: hostObj.firstName,
+      link: `${reviewPageLink}/guest`
+    })
+    await senderService.senderByTemplateData('booking-request-review-host', hostObj.email, {
+      name: guestObj.firstName,
+      link: `${reviewPageLink}/host`
+    })
   }
 }
