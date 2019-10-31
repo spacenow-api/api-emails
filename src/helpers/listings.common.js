@@ -54,7 +54,7 @@ module.exports = {
       where: { listingId }
     })
     if (listingPhotosArray && listingPhotosArray.length > 0) {
-      const coverPhoto = listingPhotosArray.filter((o) => o.isCover)
+      const coverPhoto = listingPhotosArray.filter(o => o.isCover)
       if (coverPhoto && coverPhoto.length > 0) return coverPhoto[0].name
       return listingPhotosArray[0].name
     }
@@ -97,7 +97,7 @@ module.exports = {
     let availability = []
     for (let i = 0; i < 7; i += 1) {
       let dayValue = ''
-      const dayOf = accessHours.find((o) => o.weekday == i)
+      const dayOf = accessHours.find(o => o.weekday == i)
       if (dayOf && dayOf.allday) {
         dayValue = '24 Hours'
       } else if (dayOf) {

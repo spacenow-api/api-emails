@@ -6,7 +6,15 @@ const moment = require('moment')
 const listingCommons = require('./../helpers/listings.common')
 const senderService = require('./sender')
 
-const { User, UserProfile, Location } = require('./../models')
+const {
+  User,
+  UserProfile,
+  Location,
+  ListingAccessDays,
+  ListingAccessHours,
+  ListingData,
+  Location
+} = require('./../models')
 
 async function getBookingById(id) {
   return axios.get(`${process.env.API_BOOKING}/${id}`)
@@ -27,6 +35,20 @@ async function getUserById(userId) {
   }
 }
 
+async function getCheckInOutTime(listingId, date) {
+  const weekDay = moment(date).day()
+  const accessDay = await ListingAccessDays.findOne({
+    where: { listingId: listingId }
+  })
+  const accessHours = await ListingAccessHours.findOne({
+    where: {
+      listingAccessDaysId: accessDay.id,
+      weekday: `${weekDay}`
+    }
+  })
+  return accessHours
+}
+
 function getReservations(bookingObj) {
   if (bookingObj.priceType !== 'daily') return []
   const reservations = []
@@ -34,7 +56,7 @@ function getReservations(bookingObj) {
   for (let i = 0; i < originalReservations.length; i += 1) {
     const mInstance = moment(originalReservations[i])
     const monthName = mInstance.format('MMMM')
-    let reservationObj = reservations.find((o) => o.month === monthName)
+    let reservationObj = reservations.find(o => o.month === monthName)
     if (!reservationObj) {
       reservationObj = { month: '', days: [] }
       reservations.push(reservationObj)
@@ -46,17 +68,13 @@ function getReservations(bookingObj) {
 }
 
 function getAcceptLink(bookingId, hostId) {
-  return `${
-    process.env.NEW_LISTING_PROCESS_HOST
-  }/account/booking?b=${bookingId}&a=${listingCommons.getHashValue(
+  return `${process.env.NEW_LISTING_PROCESS_HOST}/account/booking?b=${bookingId}&a=${listingCommons.getHashValue(
     hostId + 'APPROVE'
   )}`
 }
 
 function getDeclineLink(bookingId, hostId) {
-  return `${
-    process.env.NEW_LISTING_PROCESS_HOST
-  }/account/booking?b=${bookingId}&a=${listingCommons.getHashValue(
+  return `${process.env.NEW_LISTING_PROCESS_HOST}/account/booking?b=${bookingId}&a=${listingCommons.getHashValue(
     hostId + 'DECLINE'
   )}`
 }
@@ -65,7 +83,7 @@ module.exports = {
   /**
    * Send email to host by a booking instant.
    */
-  sendEmailInstantHost: async (bookingId) => {
+  sendEmailInstantHost: async bookingId => {
     const { data: bookingObj } = await getBookingById(bookingId)
     const listingObj = await listingCommons.getListingById(bookingObj.listingId)
     const hostObj = await getUserById(bookingObj.hostId)
@@ -85,9 +103,7 @@ module.exports = {
       .tz('Australia/Sydney')
       .format('Do MMM')
       .toString()
-    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(
-      listingObj.listSettingsParentId
-    )
+    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const hostMetadata = {
       user: hostObj.firstName,
@@ -98,27 +114,20 @@ module.exports = {
       checkOutDate: checkOut,
       listTitle: listingObj.title,
       listAddress: `${locationObj.address1}, ${locationObj.city}`,
-      totalPeriod: `${listingCommons.getPeriodFormatted(
-        bookingObj.reservations.length,
-        bookingObj.priceType
-      )}`,
+      totalPeriod: `${listingCommons.getPeriodFormatted(bookingObj.reservations.length, bookingObj.priceType)}`,
       basePrice: bookingObj.basePrice,
       priceType: bookingObj.priceType,
       coverPhoto: coverPhoto,
       categoryName: categoryAndSubObj.category,
       subCategoryName: categoryAndSubObj.subCaregory
     }
-    await senderService.senderByTemplateData(
-      'booking-instant-email-host',
-      hostObj.email,
-      hostMetadata
-    )
+    await senderService.senderByTemplateData('booking-instant-email-host', hostObj.email, hostMetadata)
   },
 
   /**
    * Send email to Guest by a booking instant.
    */
-  sendEmailInstantGuest: async (bookingId) => {
+  sendEmailInstantGuest: async bookingId => {
     const { data: bookingObj } = await getBookingById(bookingId)
     const listingObj = await listingCommons.getListingById(bookingObj.listingId)
     const hostObj = await getUserById(bookingObj.hostId)
@@ -138,12 +147,8 @@ module.exports = {
       .tz('Australia/Sydney')
       .format('Do MMM')
       .toString()
-    const userProfilePicture = await listingCommons.getProfilePicture(
-      bookingObj.hostId
-    )
-    const timeAvailability = await listingCommons.getTimeAvailability(
-      listingObj.id
-    )
+    const userProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
+    const timeAvailability = await listingCommons.getTimeAvailability(listingObj.id)
     const guestMetada = {
       user: guestObj.firstName,
       hostName: hostObj.firstName,
@@ -157,35 +162,35 @@ module.exports = {
       listTitle: listingObj.title,
       fullAddress: `${locationObj.address1}, ${locationObj.city}`,
       basePrice: bookingObj.basePrice,
-      totalSpace: listingCommons.getTotalSpaceWithoutFee(
-        bookingObj.basePrice,
-        bookingObj.quantity,
-        bookingObj.period
-      ),
-      serviceFee: listingCommons.getDefaultFeeValue(
-        bookingObj.basePrice,
-        bookingObj.guestServiceFee
-      ),
+      totalSpace: listingCommons.getTotalSpaceWithoutFee(bookingObj.basePrice, bookingObj.quantity, bookingObj.period),
+      serviceFee: listingCommons.getDefaultFeeValue(bookingObj.basePrice, bookingObj.guestServiceFee),
       totalPrice: listingCommons.getRoundValue(bookingObj.totalPrice),
       isDaily: bookingObj.priceType === 'daily',
       reservations: getReservations(bookingObj),
       timeTable: timeAvailability
     }
-    await senderService.senderByTemplateData(
-      'booking-instant-email-guest',
-      guestObj.email,
-      guestMetada
-    )
+    await senderService.senderByTemplateData('booking-instant-email-guest', guestObj.email, guestMetada)
   },
 
   /**
    * Send email by requested booking to host.
    */
-  sendEmailRequestHost: async (bookingId) => {
+  sendEmailRequestHost: async bookingId => {
     const { data: bookingObj } = await getBookingById(bookingId)
     const listingObj = await listingCommons.getListingById(bookingObj.listingId)
     const hostObj = await getUserById(bookingObj.hostId)
     const guestObj = await getUserById(bookingObj.guestId)
+    const listingData = await ListingData.findOne({
+      where: { listingId: listingObj.id }
+    })
+    const listingLocation = await Location.findOne({
+      where: { id: listingObj.locationId }
+    })
+    const IS_ABSORVE = 0.035
+    const NO_ABSORVE = 0.135
+    let serviceFee = listingData.isAbsorvedFee
+      ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
+      : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
@@ -194,6 +199,11 @@ module.exports = {
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
       .toString()
+    let term = 'day'
+    if (bookingObj.priceType !== 'daily') term = bookingObj.priceType.replace('ly', '')
+    let checkInTime = getCheckInOutTime(listingId, checkIn).openHour
+    let checkOutTime = getCheckInOutTime(listingId, checkOut).closeHour
+
     const hostMetadata = {
       user: hostObj.firstName,
       guestName: guestObj.firstName,
@@ -203,19 +213,33 @@ module.exports = {
       basePrice: bookingObj.basePrice,
       total: bookingObj.totalPrice,
       acceptLink: getAcceptLink(bookingObj.bookingId, hostObj.id),
-      declineLink: getDeclineLink(bookingObj.bookingId, hostObj.id)
+      declineLink: getDeclineLink(bookingObj.bookingId, hostObj.id),
+      currentDate: format(new Date(), 'EEEE, LLLL do, yyyy'),
+      term,
+      checkInMonth: format(new Date(bookingObj.checkIn), 'MMM')
+        .toString()
+        .toUpperCase(),
+      checkOutMonth: format(new Date(bookingObj.checkOut), 'MMM')
+        .toString()
+        .toUpperCase(),
+      checkInDay: format(new Date(bookingObj.checkIn), 'dd').toString(),
+      checkOutDay: format(new Date(bookingObj.checkOut), 'dd').toString(),
+      checkInTime,
+      checkOutTime,
+      serviceFee,
+      listAddress: listingLocation.address1 + ' ' + listingLocation.city,
+      period: bookingObj.priceType,
+      category: 'testing',
+      listImage: 'teste'
     }
-    await senderService.senderByTemplateData(
-      'booking-request-email-host',
-      hostObj.email,
-      hostMetadata
-    )
+    console.log('hostMetadata >>>>>>>>>>>>>', hostMetadata)
+    await senderService.senderByTemplateData('booking-request-email-host', hostObj.email, hostMetadata)
   },
 
   /**
    * Send email by requested booking to guest.
    */
-  sendEmailRequestGuest: async (bookingId) => {
+  sendEmailRequestGuest: async bookingId => {
     const { data: bookingObj } = await getBookingById(bookingId)
     const listingObj = await listingCommons.getListingById(bookingObj.listingId)
     const hostObj = await getUserById(bookingObj.hostId)
@@ -231,17 +255,13 @@ module.exports = {
       hostName: hostObj.firstName,
       listTitle: listingObj.title
     }
-    await senderService.senderByTemplateData(
-      'booking-request-email-guest',
-      guestObj.email,
-      guestMetadata
-    )
+    await senderService.senderByTemplateData('booking-request-email-guest', guestObj.email, guestMetadata)
   },
 
   /**
    * Send email to a guest who has a booking declined.
    */
-  sendEmailDeclined: async (bookingId) => {
+  sendEmailDeclined: async bookingId => {
     const { data: bookingObj } = await getBookingById(bookingId)
     const hostObj = await getUserById(bookingObj.hostId)
     const guestObj = await getUserById(bookingObj.guestId)
@@ -256,17 +276,13 @@ module.exports = {
       checkInDate: checkIn,
       appLink: process.env.NEW_LISTING_PROCESS_HOST
     }
-    await senderService.senderByTemplateData(
-      'booking-declined-email',
-      guestObj.email,
-      declinedMetadata
-    )
+    await senderService.senderByTemplateData('booking-declined-email', guestObj.email, declinedMetadata)
   },
 
   /**
    * Send an email when bookings has finished.
    */
-  sendEmailCheckOut: async (bookingId) => {
+  sendEmailCheckOut: async bookingId => {
     const { data: bookingObj } = await getBookingById(bookingId)
     const hostObj = await getUserById(bookingObj.hostId)
     const guestObj = await getUserById(bookingObj.guestId)
