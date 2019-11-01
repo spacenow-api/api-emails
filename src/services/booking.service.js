@@ -243,7 +243,7 @@ module.exports = {
       total: bookingObj.totalPrice,
       acceptLink: getAcceptLink(bookingObj.bookingId, hostObj.id),
       declineLink: getDeclineLink(bookingObj.bookingId, hostObj.id),
-      currentDate: format(new Date(), 'EEEE, LLLL do, yyyy').toString(),
+      currentDate: moment().format('ddd, Do MMM, YYYY'),
       term: 'day',
       checkInMonth: '123',
       checkOutMonth: '123',
