@@ -1,0 +1,3 @@
+{
+  "body": "{ \"template\": \"booking-request-email-host\", \"data\": { \"email\": \"camila@spacenow.com\" } }"
+}
