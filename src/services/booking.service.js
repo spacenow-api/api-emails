@@ -235,6 +235,7 @@ module.exports = {
     // }
     const hostMetadata = {
       user: hostObj.firstName,
+      email: hostObj.email,
       guestName: guestObj.firstName,
       listTitle: listingObj.title,
       checkInDate: checkIn,
