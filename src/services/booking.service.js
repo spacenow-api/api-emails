@@ -226,6 +226,7 @@ module.exports = {
       checkOutDay: format(new Date(bookingObj.checkOut), 'dd').toString(),
       checkInTime,
       checkOutTime,
+      subtotal: 1233,
       serviceFee,
       listAddress: listingLocation.address1 + ' ' + listingLocation.city,
       period: bookingObj.priceType,
