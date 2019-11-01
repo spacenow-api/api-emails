@@ -1,3 +1,4 @@
 {
-  "body": "{ \"template\": \"booking-request-email-host\", \"data\": { \"email\": \"camila@spacenow.com\" } }"
+  "template": "booking-request-email-host",
+  "data": "{  \"email\":\"camila@spacenow.com\", \"user\":\"Camila\", \"guestName\":\"Camila\", \"listTitle\":\"Space Title\", \"checkInDate\":\"21 Sept 2019\", \"checkOutDate\":\"21 Sept 2020\", \"basePrice\":\"200\", \"total\":\"400\", \"acceptLink\":\"camila@spacenow.com\", \"declineLink\":\"camila@spacenow.com\", \"currentDate\":\"221 sept 1990\", \"term\":\"day\", \"checkInMonth\":\"SEP\", \"checkOutMonth\":\"AUG\", \"checkInDay\":\"1\", \"checkOutDay\":\"2\", \"checkInTime\":\"9am\", \"checkOutTime\":\"10pm\", \"subtotal\":\"190\", \"serviceFee\":\"2\", \"listAddress\":\"19 Leofrene, Marrickville\", \"period\":\"daily\", \"category\":\"Office\", \"listImage\":\"camila@spacenow.com\"   }"
 }

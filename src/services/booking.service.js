@@ -204,6 +204,35 @@ module.exports = {
     let checkInTime = getCheckInOutTime(listingId, checkIn).openHour
     let checkOutTime = getCheckInOutTime(listingId, checkOut).closeHour
 
+    // const hostMetadata = {
+    //   user: hostObj.firstName,
+    //   guestName: guestObj.firstName,
+    //   listTitle: listingObj.title,
+    //   checkInDate: checkIn,
+    //   checkOutDate: checkOut,
+    //   basePrice: bookingObj.basePrice,
+    //   total: bookingObj.totalPrice,
+    //   acceptLink: getAcceptLink(bookingObj.bookingId, hostObj.id),
+    //   declineLink: getDeclineLink(bookingObj.bookingId, hostObj.id),
+    //   currentDate: format(new Date(), 'EEEE, LLLL do, yyyy').toString(),
+    //   term,
+    //   checkInMonth: format(new Date(bookingObj.checkIn), 'MMM')
+    //     .toString()
+    //     .toUpperCase(),
+    //   checkOutMonth: format(new Date(bookingObj.checkOut), 'MMM')
+    //     .toString()
+    //     .toUpperCase(),
+    //   checkInDay: format(new Date(bookingObj.checkIn), 'dd').toString(),
+    //   checkOutDay: format(new Date(bookingObj.checkOut), 'dd').toString(),
+    //   checkInTime,
+    //   checkOutTime,
+    //   subtotal: '123',
+    //   serviceFee,
+    //   listAddress: listingLocation.address1 + ' ' + listingLocation.city,
+    //   period: bookingObj.priceType,
+    //   category: 'testing',
+    //   listImage: 'teste'
+    // }
     const hostMetadata = {
       user: hostObj.firstName,
       guestName: guestObj.firstName,
@@ -214,21 +243,17 @@ module.exports = {
       total: bookingObj.totalPrice,
       acceptLink: getAcceptLink(bookingObj.bookingId, hostObj.id),
       declineLink: getDeclineLink(bookingObj.bookingId, hostObj.id),
-      currentDate: format(new Date(), 'EEEE, LLLL do, yyyy'),
-      term,
-      checkInMonth: format(new Date(bookingObj.checkIn), 'MMM')
-        .toString()
-        .toUpperCase(),
-      checkOutMonth: format(new Date(bookingObj.checkOut), 'MMM')
-        .toString()
-        .toUpperCase(),
-      checkInDay: format(new Date(bookingObj.checkIn), 'dd').toString(),
-      checkOutDay: format(new Date(bookingObj.checkOut), 'dd').toString(),
-      checkInTime,
-      checkOutTime,
-      subtotal: 1233,
+      currentDate: format(new Date(), 'EEEE, LLLL do, yyyy').toString(),
+      term: 'day',
+      checkInMonth: '123',
+      checkOutMonth: '123',
+      checkInDay: '123',
+      checkOutDay: '123',
+      checkInTime: '123',
+      checkOutTime: '123',
+      subtotal: '123',
       serviceFee,
-      listAddress: listingLocation.address1 + ' ' + listingLocation.city,
+      listAddress: 'address',
       period: bookingObj.priceType,
       category: 'testing',
       listImage: 'teste'
