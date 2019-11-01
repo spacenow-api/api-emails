@@ -243,7 +243,7 @@ module.exports = {
       total: bookingObj.totalPrice,
       acceptLink: getAcceptLink(bookingObj.bookingId, hostObj.id),
       declineLink: getDeclineLink(bookingObj.bookingId, hostObj.id),
-      currentDate: moment().format('ddd, Do MMM, YYYY'),
+      currentDate: '21 sept 1000', //moment().format('ddd, Do MMM, YYYY'),
       term: 'day',
       checkInMonth: '123',
       checkOutMonth: '123',
@@ -252,9 +252,9 @@ module.exports = {
       checkInTime: '123',
       checkOutTime: '123',
       subtotal: '123',
-      serviceFee,
+      serviceFee: '123',
       listAddress: 'address',
-      period: bookingObj.priceType,
+      period: 'daily',
       category: 'testing',
       listImage: 'teste'
     }
