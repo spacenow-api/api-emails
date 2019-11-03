@@ -195,9 +195,15 @@ module.exports = {
       .toString()
     let term = 'day'
     if (bookingObj.priceType !== 'daily') term = bookingObj.priceType.replace('ly', '')
-    let checkInTime = moment(getCheckInOutTime(listingObj.id, bookingObj.checkIn).openHour).format('h:mm a')
-    let checkOutTime = moment(getCheckInOutTime(listingObj.id, bookingObj.checkOut).closeHour).format('h:mm a')
+
+    let checkInObj = getCheckInOutTime(listingObj.id, bookingObj.checkIn)
+    let checkInTime = checkInObj.allday === 1 ? '24 hours' : moment(checkInObj.openHour).format('h:mm a')
+
+    let checkOutObj = getCheckInOutTime(listingObj.id, bookingObj.checkOut)
+    let checkOutTime = checkOutObj.allday === 1 ? '24 hours' : moment(checkOutObj.openHour).format('h:mm a')
+
     console.log('checkInTime', checkInTime)
+    console.log('checkOutTime', checkOutTime)
     const hostMetadata = {
       user: hostObj.firstName,
       guestName: guestObj.firstName,
@@ -226,11 +232,11 @@ module.exports = {
       checkOutDay: moment(new Date(bookingObj.checkOut))
         .format('dd')
         .toString(),
-      checkInTime: '9am',
-      checkOutTime: '10pm',
+      checkInTime: checkInTime,
+      checkOutTime: checkOutTime,
       subtotal: '123',
       serviceFee: serviceFee,
-      listAddress: listingLocation.address1 + ' ' + listingLocation.city,
+      listAddress: listingLocation.address1 + ', ' + listingLocation.city,
       period: bookingObj.priceType,
       category: 'testing',
       listImage: 'teste'
