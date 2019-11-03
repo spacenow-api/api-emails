@@ -197,10 +197,20 @@ module.exports = {
     if (bookingObj.priceType !== 'daily') term = bookingObj.priceType.replace('ly', '')
 
     let checkInObj = getCheckInOutTime(listingObj.id, bookingObj.checkIn)
-    let checkInTime = checkInObj.allday === '1' ? '24 hours' : moment(checkInObj.openHour).format('h:mm a')
+    let checkInTime =
+      checkInObj.allday === '1'
+        ? '24 hours'
+        : moment(checkInObj.openHour)
+            .tz('Australia/Sydney')
+            .format('h:mm a')
 
     let checkOutObj = getCheckInOutTime(listingObj.id, bookingObj.checkOut)
-    let checkOutTime = checkOutObj.allday === '1' ? '24 hours' : moment(checkOutObj.openHour).format('h:mm a')
+    let checkOutTime =
+      checkOutObj.allday === '1'
+        ? '24 hours'
+        : moment(checkOutObj.closeHour)
+            .tz('Australia/Sydney')
+            .format('h:mm a')
 
     console.log('checkInTime', checkInTime)
     console.log('checkOutTime', checkOutTime)
