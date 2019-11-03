@@ -196,7 +196,7 @@ module.exports = {
     let term = 'day'
     if (bookingObj.priceType !== 'daily') term = bookingObj.priceType.replace('ly', '')
 
-    let checkInObj = getCheckInOutTime(listingObj.id, bookingObj.checkIn)
+    let checkInObj = await getCheckInOutTime(listingObj.id, bookingObj.checkIn)
     console.log('checkInObj', checkInObj)
     console.log('typeof checkInObj.allday', typeof checkInObj.allday)
     let checkInTime =
@@ -206,7 +206,7 @@ module.exports = {
             .tz('Australia/Sydney')
             .format('h:mm a')
 
-    let checkOutObj = getCheckInOutTime(listingObj.id, bookingObj.checkOut)
+    let checkOutObj = await getCheckInOutTime(listingObj.id, bookingObj.checkOut)
     console.log('checkOutObj', checkOutObj)
     let checkOutTime =
       checkOutObj.allday === 1
@@ -228,21 +228,26 @@ module.exports = {
       acceptLink: getAcceptLink(bookingObj.bookingId, hostObj.id),
       declineLink: getDeclineLink(bookingObj.bookingId, hostObj.id),
       currentDate: moment()
+        .tz('Australia/Sydney')
         .format('EEEE, LLLL do, yyyy')
         .toString(),
       term: term,
       checkInMonth: moment(new Date(bookingObj.checkIn))
+        .tz('Australia/Sydney')
         .format('MMM')
         .toString()
         .toUpperCase(),
       checkOutMonth: moment(new Date(bookingObj.checkOut))
+        .tz('Australia/Sydney')
         .format('MMM')
         .toString()
         .toUpperCase(),
       checkInDay: moment(new Date(bookingObj.checkIn))
+        .tz('Australia/Sydney')
         .format('dd')
         .toString(),
       checkOutDay: moment(new Date(bookingObj.checkOut))
+        .tz('Australia/Sydney')
         .format('dd')
         .toString(),
       checkInTime: checkInTime,
