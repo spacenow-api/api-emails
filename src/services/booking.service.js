@@ -6,15 +6,7 @@ const moment = require('moment')
 const listingCommons = require('./../helpers/listings.common')
 const senderService = require('./sender')
 
-const {
-  User,
-  UserProfile,
-  Location,
-  ListingAccessDays,
-  ListingAccessHours,
-  ListingData,
-  Location
-} = require('./../models')
+const { User, UserProfile, Location, ListingAccessDays, ListingAccessHours, ListingData } = require('./../models')
 
 async function getBookingById(id) {
   return axios.get(`${process.env.API_BOOKING}/${id}`)
@@ -201,41 +193,11 @@ module.exports = {
       .toString()
     let term = 'day'
     if (bookingObj.priceType !== 'daily') term = bookingObj.priceType.replace('ly', '')
-    let checkInTime = getCheckInOutTime(listingId, checkIn).openHour
-    let checkOutTime = getCheckInOutTime(listingId, checkOut).closeHour
+    let checkInTime = getCheckInOutTime(listingObj.id, checkIn).openHour
+    let checkOutTime = getCheckInOutTime(listingObj.id, checkOut).closeHour
 
-    // const hostMetadata = {
-    //   user: hostObj.firstName,
-    //   guestName: guestObj.firstName,
-    //   listTitle: listingObj.title,
-    //   checkInDate: checkIn,
-    //   checkOutDate: checkOut,
-    //   basePrice: bookingObj.basePrice,
-    //   total: bookingObj.totalPrice,
-    //   acceptLink: getAcceptLink(bookingObj.bookingId, hostObj.id),
-    //   declineLink: getDeclineLink(bookingObj.bookingId, hostObj.id),
-    //   currentDate: format(new Date(), 'EEEE, LLLL do, yyyy').toString(),
-    //   term,
-    //   checkInMonth: format(new Date(bookingObj.checkIn), 'MMM')
-    //     .toString()
-    //     .toUpperCase(),
-    //   checkOutMonth: format(new Date(bookingObj.checkOut), 'MMM')
-    //     .toString()
-    //     .toUpperCase(),
-    //   checkInDay: format(new Date(bookingObj.checkIn), 'dd').toString(),
-    //   checkOutDay: format(new Date(bookingObj.checkOut), 'dd').toString(),
-    //   checkInTime,
-    //   checkOutTime,
-    //   subtotal: '123',
-    //   serviceFee,
-    //   listAddress: listingLocation.address1 + ' ' + listingLocation.city,
-    //   period: bookingObj.priceType,
-    //   category: 'testing',
-    //   listImage: 'teste'
-    // }
     const hostMetadata = {
       user: hostObj.firstName,
-      email: hostObj.email,
       guestName: guestObj.firstName,
       listTitle: listingObj.title,
       checkInDate: checkIn,
@@ -244,21 +206,34 @@ module.exports = {
       total: bookingObj.totalPrice,
       acceptLink: getAcceptLink(bookingObj.bookingId, hostObj.id),
       declineLink: getDeclineLink(bookingObj.bookingId, hostObj.id),
-      currentDate: '21 sept 1000', //moment().format('ddd, Do MMM, YYYY'),
-      term: 'day',
-      checkInMonth: '123',
-      checkOutMonth: '123',
-      checkInDay: '123',
-      checkOutDay: '123',
-      checkInTime: '123',
-      checkOutTime: '123',
+      currentDate: moment()
+        .format('EEEE, LLLL do, yyyy')
+        .toString(),
+      term: term,
+      checkInMonth: moment(new Date(bookingObj.checkIn))
+        .format('MMM')
+        .toString()
+        .toUpperCase(),
+      checkOutMonth: moment(new Date(bookingObj.checkOut))
+        .format('MMM')
+        .toString()
+        .toUpperCase(),
+      checkInDay: moment(new Date(bookingObj.checkIn))
+        .format('dd')
+        .toString(),
+      checkOutDay: moment(new Date(bookingObj.checkOut))
+        .format('dd')
+        .toString(),
+      checkInTime: '9am',
+      checkOutTime: '10pm',
       subtotal: '123',
-      serviceFee: '123',
-      listAddress: 'address',
-      period: 'daily',
+      serviceFee: serviceFee,
+      listAddress: listingLocation.address1 + ' ' + listingLocation.city,
+      period: bookingObj.priceType,
       category: 'testing',
       listImage: 'teste'
     }
+
     console.log('hostMetadata >>>>>>>>>>>>>', hostMetadata)
     await senderService.senderByTemplateData('booking-request-email-host', hostObj.email, hostMetadata)
   },
