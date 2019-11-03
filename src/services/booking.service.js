@@ -29,6 +29,7 @@ async function getUserById(userId) {
 
 async function getCheckInOutTime(listingId, date) {
   const weekDay = moment(date).day()
+  console.log('weekDay', weekDay)
   const accessDay = await ListingAccessDays.findOne({
     where: { listingId: listingId }
   })
@@ -38,6 +39,7 @@ async function getCheckInOutTime(listingId, date) {
       weekday: `${weekDay}`
     }
   })
+  console.log('access hours', accessHours)
   return accessHours
 }
 
@@ -193,9 +195,9 @@ module.exports = {
       .toString()
     let term = 'day'
     if (bookingObj.priceType !== 'daily') term = bookingObj.priceType.replace('ly', '')
-    let checkInTime = getCheckInOutTime(listingObj.id, checkIn).openHour
-    let checkOutTime = getCheckInOutTime(listingObj.id, checkOut).closeHour
-
+    let checkInTime = moment(getCheckInOutTime(listingObj.id, bookingObj.checkIn).openHour).format('h:mm a')
+    let checkOutTime = moment(getCheckInOutTime(listingObj.id, bookingObj.checkOut).closeHour).format('h:mm a')
+    console.log('checkInTime', checkInTime)
     const hostMetadata = {
       user: hostObj.firstName,
       guestName: guestObj.firstName,
