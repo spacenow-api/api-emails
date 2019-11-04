@@ -216,6 +216,7 @@ module.exports = {
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
 
     const guestProfilePicture = await listingCommons.getProfilePicture(guestObj.id)
+    console.log('guestProfilePicture', guestProfilePicture)
 
     const hostMetadata = {
       user: hostObj.firstName,
