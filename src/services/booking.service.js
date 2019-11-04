@@ -29,7 +29,6 @@ async function getUserById(userId) {
 
 async function getCheckInOutTime(listingId, date) {
   const weekDay = moment(date).day()
-  console.log('weekDay', weekDay)
   const accessDay = await ListingAccessDays.findOne({
     where: { listingId: listingId }
   })
@@ -39,7 +38,6 @@ async function getCheckInOutTime(listingId, date) {
       weekday: `${weekDay}`
     }
   })
-  console.log('access hours', accessHours)
   return accessHours
 }
 
@@ -215,7 +213,7 @@ module.exports = {
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
 
-    const guestProfilePicture = await listingCommons.getProfilePicture(guestObj.id)
+    const guestProfilePicture = await listingCommons.getProfilePicture(bookingObj.guestId)
     console.log('guestProfilePicture', guestProfilePicture)
 
     const hostMetadata = {
