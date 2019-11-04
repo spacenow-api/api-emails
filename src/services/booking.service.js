@@ -259,14 +259,13 @@ module.exports = {
       checkInTime: checkInTime,
       checkOutTime: checkOutTime,
       subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-      serviceFee: serviceFee,
+      serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       listAddress: `${locationObj.city}, ${locationObj.country}`,
       period: bookingObj.priceType,
-      category: categoryAndSubObj.subCaregory,
+      category: categoryAndSubObj.category,
       listImage: coverPhoto
     }
 
-    console.log('hostMetadata >>>>>>>>>>>>>', hostMetadata)
     await senderService.senderByTemplateData('booking-request-email-host', hostObj.email, hostMetadata)
   },
 
