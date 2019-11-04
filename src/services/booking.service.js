@@ -371,8 +371,6 @@ module.exports = {
       listImage: coverPhoto,
       category: categoryAndSubObj.category
     }
-
-    console.log('guestMetadata', guestMetadata)
     await senderService.senderByTemplateData('booking-request-email-guest', guestObj.email, guestMetadata)
   },
 
