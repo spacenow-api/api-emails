@@ -175,6 +175,7 @@ module.exports = {
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       period: bookingObj.period
     }
+    console.log('hostMetadata', hostMetadata)
     await senderService.senderByTemplateData('booking-instant-email-host', hostObj.email, hostMetadata)
   },
 
