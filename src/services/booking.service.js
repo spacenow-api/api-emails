@@ -221,13 +221,13 @@ module.exports = {
       listTitle: listingObj.title,
       checkInDate: checkIn,
       checkOutDate: checkOut,
-      basePrice: bookingObj.basePrice,
-      total: bookingObj.totalPrice,
+      basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      total: bookingObj.totalPrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       acceptLink: getAcceptLink(bookingObj.bookingId, hostObj.id),
       declineLink: getDeclineLink(bookingObj.bookingId, hostObj.id),
       currentDate: moment()
         .tz('Australia/Sydney')
-        .format('EEEE, LLLL do, yyyy')
+        .format('dddd, MMMM Do, YYYY')
         .toString(),
       term: term,
       checkInMonth: moment(new Date(bookingObj.checkIn))
@@ -248,17 +248,17 @@ module.exports = {
         .tz('Australia/Sydney')
         .format('DD')
         .toString(),
-      // checkInWeekday: moment(new Date(bookingObj.checkIn))
-      //   .tz('Australia/Sydney')
-      //   .format('dd')
-      //   .toString(),
-      // checkOutWeekday: moment(new Date(bookingObj.checkOut))
-      //   .tz('Australia/Sydney')
-      //   .format('dd')
-      //   .toString(),
+      checkInWeekday: moment(new Date(bookingObj.checkIn))
+        .tz('Australia/Sydney')
+        .format('ddd')
+        .toString(),
+      checkOutWeekday: moment(new Date(bookingObj.checkOut))
+        .tz('Australia/Sydney')
+        .format('ddd')
+        .toString(),
       checkInTime: checkInTime,
       checkOutTime: checkOutTime,
-      subtotal: bookingObj.totalPrice - serviceFee,
+      subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       serviceFee: serviceFee,
       listAddress: `${locationObj.city}, ${locationObj.country}`,
       period: bookingObj.priceType,

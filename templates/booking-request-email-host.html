@@ -394,7 +394,7 @@
                       valign="top"
                       style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:24px; font-weight: 600;mso-line-height-rule:exactly;line-height:29px;color:#172439;"
                     >
-                      Hi {{ user }}, great news.
+                      Hi&nbsp;{{ user }}, great news.
                     </td>
                   </tr>
                   <tr>
@@ -406,9 +406,9 @@
                       valign="top"
                       style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:16px; mso-line-height-rule:exactly;line-height:26px;color:#172439;"
                     >
-                      {{ guestName }} wants to book your space: {{ listTitle }} from {{ checkInDate }} to
-                      {{ checkOutDate }}. This booking will earn you a cool {{ total }}. Based on {{ basePrice }} per
-                      {term}}. <br /><br />
+                      {{ guestName }}&nbsp; wants to book your space:&nbsp; {{ listTitle }}&nbsp; from&nbsp; {{ checkInDate }}&nbsp; to&nbsp;
+                      {{ checkOutDate }}. This booking will earn you a cool &nbsp;{{ total }}. Based on &nbsp;{{ basePrice }}&nbsp; per&nbsp;
+                      {{term}}. <br /><br />
                       Your new guest:
                     </td>
                   </tr>
@@ -511,7 +511,7 @@
                                   valign="middle"
                                   style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
                                 >
-                                  <a style="text-decoration: none; color: #172439;cursor: text;">check-in</a>
+                                  <a style="text-decoration: none; color: #172439;cursor: text;">{{checkInWeekday}}&nbsp;check-in</a>
                                   <br />
                                   <a style="text-decoration: none; color: #172439;cursor: text;">{{ checkInTime }}</a>
                                 </td>
@@ -558,7 +558,7 @@
                                   valign="middle"
                                   style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
                                 >
-                                  <a style="text-decoration: none; color: #172439;cursor: text;">check-out</a>
+                                  <a style="text-decoration: none; color: #172439;cursor: text;">{{checkOutWeekday}}&nbsp;check-out</a>
                                   <br />
                                   <a style="text-decoration: none; color: #172439;cursor: text;">{{ checkOutTime }}</a>
                                 </td>
@@ -765,9 +765,7 @@
                           <td
                             align="center"
                             valign="top"
-                            style="-webkit-box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.1);
-            -moz-box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.1);
-            box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.1); border-radius: 8px;"
+                            style="border: solid 1px #e6e6e6; border-radius: 8px;"
                           >
                             <table
                               width="100%"
@@ -807,7 +805,8 @@
                                             alt=""
                                             title=""
                                             width="243"
-                                            style="display:block; border-top-left-radius: 4px; border-bottom-left-radius: 4px; -webkit-border-top-left-radius: 4px;-webkit-border-bottom-left-radius: 4px;"
+                                            style="display:block; border-top-left-radius: 4px; border-bottom-left-radius: 4px; -webkit-border-top-left-radius: 4px;-webkit-border-bottom-left-radius: 4px; height: 165px;
+                                            object-fit: cover;"
                                             border="0"
                                             class="full_img480"
                                           />
