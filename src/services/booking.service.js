@@ -142,7 +142,6 @@ module.exports = {
         .format('dddd, MMMM Do, YYYY')
         .toString(),
       guestPhoto: guestProfilePicture,
-      // term: term,
       checkInMonth: moment(new Date(bookingObj.checkIn))
         .tz('Australia/Sydney')
         .format('MMM')
@@ -202,27 +201,79 @@ module.exports = {
       .tz('Australia/Sydney')
       .format('Do MMM')
       .toString()
+    let checkInObj = await getCheckInOutTime(listingObj.id, bookingObj.checkIn)
+    let checkInTime =
+      checkInObj.allday === 1
+        ? '24 hours'
+        : moment(checkInObj.openHour)
+            .tz('Australia/Sydney')
+            .format('h:mm a')
+
+    let checkOutObj = await getCheckInOutTime(listingObj.id, bookingObj.checkOut)
+    let checkOutTime =
+      checkOutObj.allday === 1
+        ? '24 hours'
+        : moment(checkOutObj.closeHour)
+            .tz('Australia/Sydney')
+            .format('h:mm a')
     const userProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
-    const timeAvailability = await listingCommons.getTimeAvailability(listingObj.id)
+    // const timeAvailability = await listingCommons.getTimeAvailability(listingObj.id)
+    const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
+    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const guestMetada = {
       user: guestObj.firstName,
       hostName: hostObj.firstName,
       guestName: guestObj.firstName,
-      city: locationObj.city,
+      listCity: locationObj.city,
       checkInDate: checkIn,
       checkOutDate: checkOut,
       checkinDateShort: checkInShort,
       profilePicture: userProfilePicture,
-      shortAddress: `${locationObj.city}, ${locationObj.country}`,
+      // shortAddress: `${locationObj.city}, ${locationObj.country}`,
       listTitle: listingObj.title,
       fullAddress: `${locationObj.address1}, ${locationObj.city}`,
       basePrice: bookingObj.basePrice,
-      totalSpace: listingCommons.getTotalSpaceWithoutFee(bookingObj.basePrice, bookingObj.quantity, bookingObj.period),
+      totalPeriod: `${listingCommons.getPeriodFormatted(bookingObj.reservations.length, bookingObj.priceType)}`,
+      subtotal: listingCommons.getTotalSpaceWithoutFee(bookingObj.basePrice, bookingObj.quantity, bookingObj.period),
       serviceFee: listingCommons.getDefaultFeeValue(bookingObj.basePrice, bookingObj.guestServiceFee),
-      totalPrice: listingCommons.getRoundValue(bookingObj.totalPrice),
-      isDaily: bookingObj.priceType === 'daily',
-      reservations: getReservations(bookingObj),
-      timeTable: timeAvailability
+      total: listingCommons.getRoundValue(bookingObj.totalPrice),
+      priceType: bookingObj.priceType,
+      // reservations: getReservations(bookingObj),
+      // timeTable: timeAvailability,
+      currentDate: moment()
+        .tz('Australia/Sydney')
+        .format('dddd, MMMM Do, YYYY')
+        .toString(),
+      checkInMonth: moment(new Date(bookingObj.checkIn))
+        .tz('Australia/Sydney')
+        .format('MMM')
+        .toString()
+        .toUpperCase(),
+      checkOutMonth: moment(new Date(bookingObj.checkOut))
+        .tz('Australia/Sydney')
+        .format('MMM')
+        .toString()
+        .toUpperCase(),
+      checkInDay: moment(new Date(bookingObj.checkIn))
+        .tz('Australia/Sydney')
+        .format('DD')
+        .toString(),
+      checkOutDay: moment(new Date(bookingObj.checkOut))
+        .tz('Australia/Sydney')
+        .format('DD')
+        .toString(),
+      checkInWeekday: moment(new Date(bookingObj.checkIn))
+        .tz('Australia/Sydney')
+        .format('ddd')
+        .toString(),
+      checkOutWeekday: moment(new Date(bookingObj.checkOut))
+        .tz('Australia/Sydney')
+        .format('ddd')
+        .toString(),
+      checkInTime: checkInTime,
+      checkOutTime: checkOutTime,
+      listImage: coverPhoto,
+      category: categoryAndSubObj.category
     }
     await senderService.senderByTemplateData('booking-instant-email-guest', guestObj.email, guestMetada)
   },
