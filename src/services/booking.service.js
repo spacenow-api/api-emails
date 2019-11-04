@@ -381,7 +381,12 @@ module.exports = {
     const { data: bookingObj } = await getBookingById(bookingId)
     const hostObj = await getUserById(bookingObj.hostId)
     const guestObj = await getUserById(bookingObj.guestId)
+    const listingObj = await listingCommons.getListingById(bookingObj.listingId)
     const checkIn = moment(bookingObj.checkIn)
+      .tz('Australia/Sydney')
+      .format('ddd, Do MMM, YYYY')
+      .toString()
+    const checkOut = moment(bookingObj.checkOut)
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
       .toString()
@@ -390,7 +395,13 @@ module.exports = {
       hostName: hostObj.firstName,
       confirmationCode: bookingObj.confirmationCode,
       checkInDate: checkIn,
-      appLink: process.env.NEW_LISTING_PROCESS_HOST
+      checkOutDate: checkOut,
+      appLink: process.env.NEW_LISTING_PROCESS_HOST,
+      currentDate: moment()
+        .tz('Australia/Sydney')
+        .format('dddd, MMMM Do, YYYY')
+        .toString(),
+      listTitle: listingObj.title
     }
     await senderService.senderByTemplateData('booking-declined-email', guestObj.email, declinedMetadata)
   },
