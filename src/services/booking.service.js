@@ -83,6 +83,9 @@ module.exports = {
     const locationObj = await Location.findOne({
       where: { id: listingObj.locationId }
     })
+    const listingData = await ListingData.findOne({
+      where: { listingId: listingObj.id }
+    })
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
