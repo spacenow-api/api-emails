@@ -134,7 +134,7 @@ module.exports = {
       total: bookingObj.totalPrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       priceType: bookingObj.priceType,
-      coverPhoto: coverPhoto,
+      listImage: coverPhoto,
       category: categoryAndSubObj.category,
       subCategoryName: categoryAndSubObj.subCaregory,
       currentDate: moment()
