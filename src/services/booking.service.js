@@ -95,8 +95,26 @@ module.exports = {
       .tz('Australia/Sydney')
       .format('Do MMM')
       .toString()
+    // let term = 'day'
+    // if (bookingObj.priceType !== 'daily') term = bookingObj.priceType.replace('ly', '')
+    let checkInObj = await getCheckInOutTime(listingObj.id, bookingObj.checkIn)
+    let checkInTime =
+      checkInObj.allday === 1
+        ? '24 hours'
+        : moment(checkInObj.openHour)
+            .tz('Australia/Sydney')
+            .format('h:mm a')
+
+    let checkOutObj = await getCheckInOutTime(listingObj.id, bookingObj.checkOut)
+    let checkOutTime =
+      checkOutObj.allday === 1
+        ? '24 hours'
+        : moment(checkOutObj.closeHour)
+            .tz('Australia/Sydney')
+            .format('h:mm a')
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
+    const guestProfilePicture = await listingCommons.getProfilePicture(bookingObj.guestId)
     const hostMetadata = {
       user: hostObj.firstName,
       hostName: hostObj.firstName,
@@ -107,11 +125,49 @@ module.exports = {
       listTitle: listingObj.title,
       listAddress: `${locationObj.address1}, ${locationObj.city}`,
       totalPeriod: `${listingCommons.getPeriodFormatted(bookingObj.reservations.length, bookingObj.priceType)}`,
-      basePrice: bookingObj.basePrice,
+      total: bookingObj.totalPrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       priceType: bookingObj.priceType,
       coverPhoto: coverPhoto,
-      categoryName: categoryAndSubObj.category,
-      subCategoryName: categoryAndSubObj.subCaregory
+      category: categoryAndSubObj.category,
+      subCategoryName: categoryAndSubObj.subCaregory,
+      currentDate: moment()
+        .tz('Australia/Sydney')
+        .format('dddd, MMMM Do, YYYY')
+        .toString(),
+      guestPhoto: guestProfilePicture,
+      // term: term,
+      checkInMonth: moment(new Date(bookingObj.checkIn))
+        .tz('Australia/Sydney')
+        .format('MMM')
+        .toString()
+        .toUpperCase(),
+      checkOutMonth: moment(new Date(bookingObj.checkOut))
+        .tz('Australia/Sydney')
+        .format('MMM')
+        .toString()
+        .toUpperCase(),
+      checkInDay: moment(new Date(bookingObj.checkIn))
+        .tz('Australia/Sydney')
+        .format('DD')
+        .toString(),
+      checkOutDay: moment(new Date(bookingObj.checkOut))
+        .tz('Australia/Sydney')
+        .format('DD')
+        .toString(),
+      checkInWeekday: moment(new Date(bookingObj.checkIn))
+        .tz('Australia/Sydney')
+        .format('ddd')
+        .toString(),
+      checkOutWeekday: moment(new Date(bookingObj.checkOut))
+        .tz('Australia/Sydney')
+        .format('ddd')
+        .toString(),
+      checkInTime: checkInTime,
+      checkOutTime: checkOutTime,
+      subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      period: bookingObj.period
     }
     await senderService.senderByTemplateData('booking-instant-email-host', hostObj.email, hostMetadata)
   },
