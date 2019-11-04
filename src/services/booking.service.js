@@ -215,6 +215,8 @@ module.exports = {
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
 
+    const guestProfilePicture = await listingCommons.getProfilePicture(guestObj.id)
+
     const hostMetadata = {
       user: hostObj.firstName,
       guestName: guestObj.firstName,
@@ -263,7 +265,8 @@ module.exports = {
       listAddress: `${locationObj.address1}, ${locationObj.city}`,
       period: bookingObj.priceType,
       category: categoryAndSubObj.category,
-      listImage: coverPhoto
+      listImage: coverPhoto,
+      guestPhoto: guestProfilePicture
     }
 
     await senderService.senderByTemplateData('booking-request-email-host', hostObj.email, hostMetadata)
