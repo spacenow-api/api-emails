@@ -534,11 +534,11 @@ module.exports = {
     const guestObj = await getUserById(bookingObj.guestId)
     const reviewPageLink = `${process.env.NEW_LISTING_PROCESS_HOST}/review/${bookingId}`
     await senderService.senderByTemplateData('booking-request-review-guest', guestObj.email, {
-      name: hostObj.firstName,
+      hostName: hostObj.firstName,
       link: `${reviewPageLink}/guest`
     })
     await senderService.senderByTemplateData('booking-request-review-host', hostObj.email, {
-      name: guestObj.firstName,
+      guestName: guestObj.firstName,
       link: `${reviewPageLink}/host`
     })
   }
