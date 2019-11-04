@@ -296,6 +296,10 @@ module.exports = {
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
       .toString()
+
+    let term = 'day'
+    if (bookingObj.priceType !== 'daily') term = bookingObj.priceType.replace('ly', '')
+    let checkInObj = await getCheckInOutTime(listingObj.id, bookingObj.checkIn)
     let checkInTime =
       checkInObj.allday === 1
         ? '24 hours'
