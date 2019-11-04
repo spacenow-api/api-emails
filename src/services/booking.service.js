@@ -260,7 +260,7 @@ module.exports = {
       checkOutTime: checkOutTime,
       subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-      listAddress: `${locationObj.city}, ${locationObj.country}`,
+      listAddress: `${locationObj.address1}, ${locationObj.city}`,
       period: bookingObj.priceType,
       category: categoryAndSubObj.category,
       listImage: coverPhoto
