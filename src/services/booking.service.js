@@ -229,17 +229,14 @@ module.exports = {
       checkOutDate: checkOut,
       checkinDateShort: checkInShort,
       profilePicture: userProfilePicture,
-      // shortAddress: `${locationObj.city}, ${locationObj.country}`,
       listTitle: listingObj.title,
       fullAddress: `${locationObj.address1}, ${locationObj.city}`,
       basePrice: bookingObj.basePrice,
       totalPeriod: `${listingCommons.getPeriodFormatted(bookingObj.reservations.length, bookingObj.priceType)}`,
-      subtotal: listingCommons.getTotalSpaceWithoutFee(bookingObj.basePrice, bookingObj.quantity, bookingObj.period),
-      serviceFee: listingCommons.getDefaultFeeValue(bookingObj.basePrice, bookingObj.guestServiceFee),
-      total: listingCommons.getRoundValue(bookingObj.totalPrice),
+      subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      total: bookingObj.totalPrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       priceType: bookingObj.priceType,
-      // reservations: getReservations(bookingObj),
-      // timeTable: timeAvailability,
       currentDate: moment()
         .tz('Australia/Sydney')
         .format('dddd, MMMM Do, YYYY')
