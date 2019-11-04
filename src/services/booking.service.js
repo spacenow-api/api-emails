@@ -177,7 +177,7 @@ module.exports = {
     const listingData = await ListingData.findOne({
       where: { listingId: listingObj.id }
     })
-    const listingLocation = await Location.findOne({
+    const locationObj = await Location.findOne({
       where: { id: listingObj.locationId }
     })
     const IS_ABSORVE = 0.035
@@ -197,8 +197,6 @@ module.exports = {
     if (bookingObj.priceType !== 'daily') term = bookingObj.priceType.replace('ly', '')
 
     let checkInObj = await getCheckInOutTime(listingObj.id, bookingObj.checkIn)
-    console.log('checkInObj', checkInObj)
-    console.log('typeof checkInObj.allday', typeof checkInObj.allday)
     let checkInTime =
       checkInObj.allday === 1
         ? '24 hours'
@@ -207,7 +205,6 @@ module.exports = {
             .format('h:mm a')
 
     let checkOutObj = await getCheckInOutTime(listingObj.id, bookingObj.checkOut)
-    console.log('checkOutObj', checkOutObj)
     let checkOutTime =
       checkOutObj.allday === 1
         ? '24 hours'
@@ -215,8 +212,9 @@ module.exports = {
             .tz('Australia/Sydney')
             .format('h:mm a')
 
-    console.log('checkInTime', checkInTime)
-    console.log('checkOutTime', checkOutTime)
+    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
+    const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
+
     const hostMetadata = {
       user: hostObj.firstName,
       guestName: guestObj.firstName,
@@ -244,20 +242,28 @@ module.exports = {
         .toUpperCase(),
       checkInDay: moment(new Date(bookingObj.checkIn))
         .tz('Australia/Sydney')
-        .format('dd')
+        .format('DD')
         .toString(),
       checkOutDay: moment(new Date(bookingObj.checkOut))
         .tz('Australia/Sydney')
-        .format('dd')
+        .format('DD')
         .toString(),
+      // checkInWeekday: moment(new Date(bookingObj.checkIn))
+      //   .tz('Australia/Sydney')
+      //   .format('dd')
+      //   .toString(),
+      // checkOutWeekday: moment(new Date(bookingObj.checkOut))
+      //   .tz('Australia/Sydney')
+      //   .format('dd')
+      //   .toString(),
       checkInTime: checkInTime,
       checkOutTime: checkOutTime,
-      subtotal: '123',
+      subtotal: bookingObj.totalPrice - serviceFee,
       serviceFee: serviceFee,
-      listAddress: listingLocation.address1 + ', ' + listingLocation.city,
+      listAddress: `${locationObj.city}, ${locationObj.country}`,
       period: bookingObj.priceType,
-      category: 'testing',
-      listImage: 'teste'
+      category: categoryAndSubObj.subCaregory,
+      listImage: coverPhoto
     }
 
     console.log('hostMetadata >>>>>>>>>>>>>', hostMetadata)
