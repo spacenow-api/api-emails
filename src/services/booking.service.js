@@ -211,6 +211,8 @@ module.exports = {
         : moment(checkInObj.openHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
+    const IS_ABSORVE = 0.035
+    const NO_ABSORVE = 0.135
     let serviceFee = listingData.isAbsorvedFee
       ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
       : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
