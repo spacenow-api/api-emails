@@ -208,6 +208,9 @@ module.exports = {
         : moment(checkInObj.openHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
+    let serviceFee = listingData.isAbsorvedFee
+      ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
+      : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
 
     let checkOutObj = await getCheckInOutTime(listingObj.id, bookingObj.checkOut)
     let checkOutTime =
@@ -217,7 +220,6 @@ module.exports = {
             .tz('Australia/Sydney')
             .format('h:mm a')
     const userProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
-    // const timeAvailability = await listingCommons.getTimeAvailability(listingObj.id)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const guestMetada = {
@@ -272,6 +274,7 @@ module.exports = {
       listImage: coverPhoto,
       category: categoryAndSubObj.category
     }
+    console.log('guestMetada', guestMetada)
     await senderService.senderByTemplateData('booking-instant-email-guest', guestObj.email, guestMetada)
   },
 
