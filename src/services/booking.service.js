@@ -95,8 +95,11 @@ module.exports = {
       .tz('Australia/Sydney')
       .format('Do MMM')
       .toString()
-    // let term = 'day'
-    // if (bookingObj.priceType !== 'daily') term = bookingObj.priceType.replace('ly', '')
+    const IS_ABSORVE = 0.035
+    const NO_ABSORVE = 0.135
+    let serviceFee = listingData.isAbsorvedFee
+      ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
+      : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
     let checkInObj = await getCheckInOutTime(listingObj.id, bookingObj.checkIn)
     let checkInTime =
       checkInObj.allday === 1
