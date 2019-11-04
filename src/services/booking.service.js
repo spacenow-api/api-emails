@@ -193,7 +193,6 @@ module.exports = {
       .toString()
     let term = 'day'
     if (bookingObj.priceType !== 'daily') term = bookingObj.priceType.replace('ly', '')
-
     let checkInObj = await getCheckInOutTime(listingObj.id, bookingObj.checkIn)
     let checkInTime =
       checkInObj.allday === 1
@@ -212,9 +211,7 @@ module.exports = {
 
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
-
     const guestProfilePicture = await listingCommons.getProfilePicture(bookingObj.guestId)
-    console.log('guestProfilePicture', guestProfilePicture)
 
     const hostMetadata = {
       user: hostObj.firstName,
@@ -262,10 +259,11 @@ module.exports = {
       subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       listAddress: `${locationObj.address1}, ${locationObj.city}`,
-      period: bookingObj.priceType,
+      priceType: bookingObj.priceType,
       category: categoryAndSubObj.category,
       listImage: coverPhoto,
-      guestPhoto: guestProfilePicture
+      guestPhoto: guestProfilePicture,
+      period: bookingObj.period
     }
 
     await senderService.senderByTemplateData('booking-request-email-host', hostObj.email, hostMetadata)
@@ -279,16 +277,80 @@ module.exports = {
     const listingObj = await listingCommons.getListingById(bookingObj.listingId)
     const hostObj = await getUserById(bookingObj.hostId)
     const guestObj = await getUserById(bookingObj.guestId)
+    const listingData = await ListingData.findOne({
+      where: { listingId: listingObj.id }
+    })
+    const locationObj = await Location.findOne({
+      where: { id: listingObj.locationId }
+    })
+    const IS_ABSORVE = 0.035
+    const NO_ABSORVE = 0.135
+    let serviceFee = listingData.isAbsorvedFee
+      ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
+      : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
       .toString()
+    const checkOut = moment(bookingObj.checkOut)
+      .tz('Australia/Sydney')
+      .format('ddd, Do MMM, YYYY')
+      .toString()
+    const hostProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
+    const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
+    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
+
     const guestMetadata = {
-      user: guestObj.firstName,
+      guestName: guestObj.firstName,
       confirmationCode: bookingObj.confirmationCode,
       checkInDate: checkIn,
+      checkOutDate: checkOut,
       hostName: hostObj.firstName,
-      listTitle: listingObj.title
+      listTitle: listingObj.title,
+      currentDate: moment()
+        .tz('Australia/Sydney')
+        .format('dddd, MMMM Do, YYYY')
+        .toString(),
+      hostPhoto: hostProfilePicture,
+      hostName: hostObj.displayName,
+      checkInMonth: moment(new Date(bookingObj.checkIn))
+        .tz('Australia/Sydney')
+        .format('MMM')
+        .toString()
+        .toUpperCase(),
+      checkOutMonth: moment(new Date(bookingObj.checkOut))
+        .tz('Australia/Sydney')
+        .format('MMM')
+        .toString()
+        .toUpperCase(),
+      checkInDay: moment(new Date(bookingObj.checkIn))
+        .tz('Australia/Sydney')
+        .format('DD')
+        .toString(),
+      checkOutDay: moment(new Date(bookingObj.checkOut))
+        .tz('Australia/Sydney')
+        .format('DD')
+        .toString(),
+      checkInWeekday: moment(new Date(bookingObj.checkIn))
+        .tz('Australia/Sydney')
+        .format('ddd')
+        .toString(),
+      checkOutWeekday: moment(new Date(bookingObj.checkOut))
+        .tz('Australia/Sydney')
+        .format('ddd')
+        .toString(),
+      checkInTime: checkInTime,
+      checkOutTime: checkOutTime,
+      period: bookingObj.period,
+      term: term,
+      subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      priceType: bookingObj.priceType,
+      listAddress: `${locationObj.address1}, ${locationObj.city}`,
+      listingId: listingObj.id,
+      listImage: coverPhoto,
+      category: categoryAndSubObj.category
     }
     await senderService.senderByTemplateData('booking-request-email-guest', guestObj.email, guestMetadata)
   },
