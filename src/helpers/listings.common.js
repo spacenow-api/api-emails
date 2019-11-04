@@ -82,7 +82,7 @@ module.exports = {
 
   getProfilePicture: async function(userId) {
     const userProfileObj = await UserProfile.findOne({ where: { userId } })
-    if (userProfileObj) return userProfileObj.picture
+    if (userProfileObj) return userProfileObj.picture || 'https://app.spacenow.com/static/media/defaultPic.1050b195.png'
     return 'https://app.spacenow.com/static/media/defaultPic.1050b195.png'
   },
 
