@@ -296,6 +296,20 @@ module.exports = {
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
       .toString()
+    let checkInTime =
+      checkInObj.allday === 1
+        ? '24 hours'
+        : moment(checkInObj.openHour)
+            .tz('Australia/Sydney')
+            .format('h:mm a')
+
+    let checkOutObj = await getCheckInOutTime(listingObj.id, bookingObj.checkOut)
+    let checkOutTime =
+      checkOutObj.allday === 1
+        ? '24 hours'
+        : moment(checkOutObj.closeHour)
+            .tz('Australia/Sydney')
+            .format('h:mm a')
     const hostProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
