@@ -17,6 +17,7 @@ const ListSettingsParent = require('./../models/listSettingsParent.model')(seque
 const ListSettings = require('./../models/listSettings.model')(sequelize, DataTypes)
 const ListingAccessDays = require('./../models/listingAccessDays.model')(sequelize, DataTypes)
 const ListingAccessHours = require('./../models/listingAccessHours.model')(sequelize, DataTypes)
+const Message = require('./../models/message.model')(sequelize, DataTypes)
 
 module.exports = {
   User,
@@ -29,5 +30,6 @@ module.exports = {
   ListSettingsParent,
   ListSettings,
   ListingAccessDays,
-  ListingAccessHours
+  ListingAccessHours,
+  Message
 }

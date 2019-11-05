@@ -6,7 +6,15 @@ const moment = require('moment')
 const listingCommons = require('./../helpers/listings.common')
 const senderService = require('./sender')
 
-const { User, UserProfile, Location, ListingAccessDays, ListingAccessHours, ListingData } = require('./../models')
+const {
+  User,
+  UserProfile,
+  Location,
+  ListingAccessDays,
+  ListingAccessHours,
+  ListingData,
+  Message
+} = require('./../models')
 
 async function getBookingById(id) {
   return axios.get(`${process.env.API_BOOKING}/${id}`)
@@ -557,15 +565,19 @@ module.exports = {
     const hostObj = await getUserById(bookingObj.hostId)
     const guestObj = await getUserById(bookingObj.guestId)
     const listingObj = await listingCommons.getListingById(bookingObj.listingId)
-    const listingData = await ListingData.findOne({
-      where: { listingId: listingObj.id }
-    })
     const locationObj = await Location.findOne({
       where: { id: listingObj.locationId }
     })
-    // const createMessage = await Message.create({
-    //   where: { id: listingObj.locationId }
-    // })
+    let values = {
+      listingId: listingObj.id,
+      guestId: bookingObj.guestId,
+      hostId: bookingObj.hostId
+    }
+    let data = await Message.findOne(values)
+    if (!data) {
+      data = await Message.create(values.where)
+    }
+    console.log('message id ', data)
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
