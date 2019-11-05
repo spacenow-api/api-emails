@@ -600,7 +600,8 @@ module.exports = {
     await senderService.senderByTemplateData('booking-expiry-email-guest', guestObj.email, emailData)
     await senderService.senderByTemplateData('booking-expire-email-host', hostObj.email, {
       ...emailData,
-      messageId: messageData.id
+      messageId: messageData.id,
+      appLink: process.env.NEW_LISTING_PROCESS_HOST
     })
   }
 }
