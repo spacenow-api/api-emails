@@ -550,7 +550,7 @@ module.exports = {
   },
 
   /**
-   * Send an email when bookings has finished.
+   * Send an email when bookings has expired.
    */
   sendEmailExpiredBooking: async bookingId => {
     const { data: bookingObj } = await getBookingById(bookingId)
