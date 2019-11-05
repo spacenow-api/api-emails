@@ -347,7 +347,7 @@
                       valign="top"
                       style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:16px; mso-line-height-rule:exactly;line-height:30px;color:#172439;"
                     >
-                      {{ guest }} reported the following space:
+                      {{ guest }}&nbsp;reported the following space:
                     </td>
                   </tr>
                   <tr>
@@ -568,6 +568,10 @@
                       style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:16px; mso-line-height-rule:exactly;line-height:30px;color:#172439;"
                     >
                       <strong>Report Details:</strong>
+                      <br />
+                      Guest name:&nbsp;{{ guest }}
+                      <br />
+                      Guest email:&nbsp;{{ guestEmail }}
                       <br />
                       {{ reportDetails }}
                       <br />
