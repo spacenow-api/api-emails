@@ -568,7 +568,6 @@ module.exports = {
     const locationObj = await Location.findOne({
       where: { id: listingObj.locationId }
     })
-
     const valuesMessage = {
       where: { listingId: listingObj.id, hostId: bookingObj.hostId, guestId: bookingObj.guestId }
     }
@@ -576,7 +575,6 @@ module.exports = {
     if (!messageData) {
       messageData = await Message.create(valuesMessage.where)
     }
-    console.log('message id ', messageData)
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
@@ -599,7 +597,6 @@ module.exports = {
         .format('dddd, MMMM Do, YYYY')
         .toString()
     }
-    console.log('messageId: messageData.id', messageData.id)
     await senderService.senderByTemplateData('booking-expiry-email-guest', guestObj.email, emailData)
     await senderService.senderByTemplateData('booking-expire-email-host', hostObj.email, {
       ...emailData,
