@@ -568,10 +568,9 @@ module.exports = {
     const locationObj = await Location.findOne({
       where: { id: listingObj.locationId }
     })
-    let values = {
-      listingId: listingObj.id,
-      guestId: bookingObj.guestId,
-      hostId: bookingObj.hostId
+
+    const values = {
+      where: { listingId: listingObj.id, hostId: bookingObj.hostId, guestId: bookingObj.guestId }
     }
     let data = await Message.findOne(values)
     if (!data) {
