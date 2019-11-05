@@ -535,11 +535,19 @@ module.exports = {
     const reviewPageLink = `${process.env.NEW_LISTING_PROCESS_HOST}/review/${bookingId}`
     await senderService.senderByTemplateData('booking-request-review-guest', guestObj.email, {
       hostName: hostObj.firstName,
-      link: `${reviewPageLink}/guest`
+      link: `${reviewPageLink}/guest`,
+      currentDate: moment()
+        .tz('Australia/Sydney')
+        .format('dddd, MMMM Do, YYYY')
+        .toString()
     })
     await senderService.senderByTemplateData('booking-request-review-host', hostObj.email, {
       guestName: guestObj.firstName,
-      link: `${reviewPageLink}/host`
+      link: `${reviewPageLink}/host`,
+      currentDate: moment()
+        .tz('Australia/Sydney')
+        .format('dddd, MMMM Do, YYYY')
+        .toString()
     })
   }
 }
