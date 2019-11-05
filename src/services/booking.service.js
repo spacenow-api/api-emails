@@ -576,7 +576,7 @@ module.exports = {
       listingPhoto: coverPhoto,
       listingTitle: listingObj.title,
       listingAddress: `${locationObj.address1}, ${locationObj.city}`,
-      basePrice: listingObj.basePrice,
+      basePrice: bookingObj.basePrice,
       priceType: bookingObj.priceType,
       category: categoryAndSubObj.category,
       listingId: listingObj.id,
