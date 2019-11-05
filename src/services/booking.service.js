@@ -547,5 +547,50 @@ module.exports = {
         .format('dddd, MMMM Do, YYYY')
         .toString()
     })
+  },
+
+  /**
+   * Send an email when bookings has finished.
+   */
+  sendEmailExpiredBooking: async bookingId => {
+    const { data: bookingObj } = await getBookingById(bookingId)
+    const hostObj = await getUserById(bookingObj.hostId)
+    const guestObj = await getUserById(bookingObj.guestId)
+    const listingObj = await listingCommons.getListingById(bookingObj.listingId)
+    const listingData = await ListingData.findOne({
+      where: { listingId: listingObj.id }
+    })
+    const locationObj = await Location.findOne({
+      where: { id: listingObj.locationId }
+    })
+    const checkIn = moment(bookingObj.checkIn)
+      .tz('Australia/Sydney')
+      .format('ddd, Do MMM, YYYY')
+      .toString()
+    const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
+    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
+    await senderService.senderByTemplateData('booking-request-expired-guest', guestObj.email, {
+      guestName: guestObj.firstName,
+      hostName: hostObj.firstName,
+      checkInDate: checkIn,
+      listingPhoto: coverPhoto,
+      listingTitle: listingObj.title,
+      listingAddress: `${locationObj.address1}, ${locationObj.city}`,
+      basePrice: listingObj.basePrice,
+      priceType: bookingObj.priceType,
+      category: categoryAndSubObj.category,
+      listingId: listingObj.id,
+      currentDate: moment()
+        .tz('Australia/Sydney')
+        .format('dddd, MMMM Do, YYYY')
+        .toString()
+    })
+    await senderService.senderByTemplateData('booking-request-expired-host', hostObj.email, {
+      hostName: hostObj.firstName,
+      currentDate: moment()
+        .tz('Australia/Sydney')
+        .format('dddd, MMMM Do, YYYY')
+        .toString()
+    })
   }
 }
