@@ -569,7 +569,7 @@ module.exports = {
       .toString()
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
-    let guestData = {
+    let emailData = {
       guestName: guestObj.firstName,
       hostName: hostObj.firstName,
       checkInDate: checkIn,
@@ -585,14 +585,8 @@ module.exports = {
         .format('dddd, MMMM Do, YYYY')
         .toString()
     }
-    console.log('guestData', guestData)
-    await senderService.senderByTemplateData('booking-expiry-email-guest', guestObj.email, guestData)
-    // await senderService.senderByTemplateData('booking-expiry-email-host', hostObj.email, {
-    //   hostName: hostObj.firstName,
-    //   currentDate: moment()
-    //     .tz('Australia/Sydney')
-    //     .format('dddd, MMMM Do, YYYY')
-    //     .toString()
-    // })
+    console.log('emailData', emailData)
+    await senderService.senderByTemplateData('booking-expiry-email-guest', guestObj.email, emailData)
+    await senderService.senderByTemplateData('booking-expiry-email-host', hostObj.email, emailData)
   }
 }
