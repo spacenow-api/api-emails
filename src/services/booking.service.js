@@ -293,7 +293,8 @@ module.exports = {
       checkOutTime: checkOutTime,
       listImage: coverPhoto,
       category: categoryAndSubObj.category,
-      appLink: process.env.NEW_LISTING_PROCESS_HOST
+      appLink: process.env.NEW_LISTING_PROCESS_HOST,
+      listingId: listingObj.id
     }
     await senderService.senderByTemplateData('booking-instant-email-guest', guestObj.email, guestMetada)
   },
