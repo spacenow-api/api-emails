@@ -320,7 +320,9 @@ module.exports = {
     if (bookingObj.priceType !== 'daily') term = bookingObj.priceType.replace('ly', '')
     let checkInObj = await getCheckInOutTime(listingObj.id, bookingObj.checkIn)
     let checkInTime =
-      checkInObj.allday === 1
+      bookingObj.priceType === 'hourly'
+        ? bookingObj.checkInHour
+        : checkInObj.allday === 1
         ? '24 hours'
         : moment(checkInObj.openHour)
             .tz('Australia/Sydney')
@@ -328,7 +330,9 @@ module.exports = {
 
     let checkOutObj = await getCheckInOutTime(listingObj.id, bookingObj.checkOut)
     let checkOutTime =
-      checkOutObj.allday === 1
+      bookingObj.priceType === 'hourly'
+        ? bookingObj.checkOutHour
+        : checkOutObj.allday === 1
         ? '24 hours'
         : moment(checkOutObj.closeHour)
             .tz('Australia/Sydney')
