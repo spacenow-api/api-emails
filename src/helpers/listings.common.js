@@ -38,18 +38,20 @@ module.exports = {
     console.log('quantity', quantity)
     let period = ''
     switch (periodType) {
-      case 'weekly': {
+      case 'weekly':
         period = quantity > 1 ? 'Weeks' : 'Week'
-      }
-      case 'monthly': {
+        break
+      case 'monthly':
         period = quantity > 1 ? 'Months' : 'Month'
-      }
-      case 'hourly': {
+        break
+      case 'hourly':
         period = quantity > 1 ? 'Hours' : 'Hour'
-      }
-      case 'daily': {
+        break
+      case 'daily':
         period = quantity > 1 ? 'Days' : 'Day'
-      }
+        break
+      default:
+        break
     }
     console.log('${quantity} ${period}', `${quantity} ${period}`)
     return `${quantity} ${period}`
