@@ -184,7 +184,9 @@ module.exports = {
       checkOutTime: checkOutTime,
       subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-      period: bookingObj.period
+      period: bookingObj.period,
+      appLink: process.env.NEW_LISTING_PROCESS_HOST,
+      listingId: listingObj.id
     }
     await senderService.senderByTemplateData('booking-instant-email-host', hostObj.email, hostMetadata)
   },
