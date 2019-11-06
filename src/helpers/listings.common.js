@@ -47,7 +47,7 @@ module.exports = {
       case 'hourly': {
         period = quantity > 1 ? 'Hours' : 'Hour'
       }
-      default: {
+      case 'daily': {
         period = quantity > 1 ? 'Days' : 'Day'
       }
     }
