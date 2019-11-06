@@ -341,8 +341,6 @@ module.exports = {
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const guestProfilePicture = await listingCommons.getProfilePicture(bookingObj.guestId)
-    console.log('hostMetadata', hostMetadata)
-    console.log('bookingObj.checkOutHour', bookingObj.checkOutHour)
 
     const hostMetadata = {
       user: hostObj.firstName,
@@ -396,7 +394,8 @@ module.exports = {
       guestPhoto: guestProfilePicture,
       period: bookingObj.period
     }
-
+    console.log('hostMetadata', hostMetadata)
+    console.log('bookingObj.checkOutHour', bookingObj.checkOutHour)
     await senderService.senderByTemplateData('booking-request-email-host', hostObj.email, hostMetadata)
   },
 
