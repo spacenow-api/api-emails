@@ -142,7 +142,7 @@ module.exports = {
       checkOutDate: checkOut,
       listTitle: listingObj.title,
       listAddress: `${locationObj.address1}, ${locationObj.city}`,
-      totalPeriod: `${listingCommons.getPeriodFormatted(bookingObj.reservations.length, bookingObj.priceType)}`,
+      totalPeriod: await `${listingCommons.getPeriodFormatted(bookingObj.reservations.length, bookingObj.priceType)}`,
       total: bookingObj.totalPrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       priceType: bookingObj.priceType,

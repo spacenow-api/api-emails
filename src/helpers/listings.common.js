@@ -50,6 +50,7 @@ module.exports = {
         period = quantity > 1 ? 'Days' : 'Day'
       }
     }
+    console.log('${quantity} ${period}', `${quantity} ${period}`)
     return `${quantity} ${period}`
   },
 
