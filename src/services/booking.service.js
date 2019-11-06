@@ -147,7 +147,7 @@ module.exports = {
       subCategoryName: categoryAndSubObj.subCaregory,
       currentDate: moment()
         .tz('Australia/Sydney')
-        .format('dddd, MMMM Do, YYYY')
+        .format('dddd MMMM D, YYYY')
         .toString(),
       guestPhoto: guestProfilePicture,
       checkInMonth: moment(new Date(bookingObj.checkIn))
@@ -253,7 +253,7 @@ module.exports = {
       priceType: bookingObj.priceType,
       currentDate: moment()
         .tz('Australia/Sydney')
-        .format('dddd, MMMM Do, YYYY')
+        .format('dddd MMMM D, YYYY')
         .toString(),
       checkInMonth: moment(new Date(bookingObj.checkIn))
         .tz('Australia/Sydney')
@@ -350,7 +350,7 @@ module.exports = {
       declineLink: getDeclineLink(bookingObj.bookingId, hostObj.id),
       currentDate: moment()
         .tz('Australia/Sydney')
-        .format('dddd, MMMM Do, YYYY')
+        .format('dddd MMMM D, YYYY')
         .toString(),
       term: term,
       checkInMonth: moment(new Date(bookingObj.checkIn))
@@ -452,7 +452,7 @@ module.exports = {
       listTitle: listingObj.title,
       currentDate: moment()
         .tz('Australia/Sydney')
-        .format('dddd, MMMM Do, YYYY')
+        .format('dddd MMMM D, YYYY')
         .toString(),
       hostPhoto: hostProfilePicture,
       hostName: hostObj.displayName,
@@ -524,7 +524,7 @@ module.exports = {
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       currentDate: moment()
         .tz('Australia/Sydney')
-        .format('dddd, MMMM Do, YYYY')
+        .format('dddd MMMM D, YYYY')
         .toString(),
       listTitle: listingObj.title
     }
@@ -544,7 +544,7 @@ module.exports = {
       link: `${reviewPageLink}/guest`,
       currentDate: moment()
         .tz('Australia/Sydney')
-        .format('dddd, MMMM Do, YYYY')
+        .format('dddd MMMM D, YYYY')
         .toString()
     })
     await senderService.senderByTemplateData('booking-request-review-host', hostObj.email, {
@@ -552,7 +552,7 @@ module.exports = {
       link: `${reviewPageLink}/host`,
       currentDate: moment()
         .tz('Australia/Sydney')
-        .format('dddd, MMMM Do, YYYY')
+        .format('dddd MMMM D, YYYY')
         .toString()
     })
   },
@@ -594,7 +594,7 @@ module.exports = {
       listingId: listingObj.id,
       currentDate: moment()
         .tz('Australia/Sydney')
-        .format('dddd, MMMM Do, YYYY')
+        .format('dddd MMMM D, YYYY')
         .toString()
     }
     await senderService.senderByTemplateData('booking-expiry-email-guest', guestObj.email, emailData)
