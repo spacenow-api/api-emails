@@ -133,6 +133,7 @@ module.exports = {
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const guestProfilePicture = await listingCommons.getProfilePicture(bookingObj.guestId)
+    const totalPeriod = await listingCommons.getPeriodFormatted(bookingObj.reservations.length, bookingObj.priceType)
     const hostMetadata = {
       user: hostObj.firstName,
       hostName: hostObj.firstName,
@@ -142,7 +143,7 @@ module.exports = {
       checkOutDate: checkOut,
       listTitle: listingObj.title,
       listAddress: `${locationObj.address1}, ${locationObj.city}`,
-      totalPeriod: await `${listingCommons.getPeriodFormatted(bookingObj.reservations.length, bookingObj.priceType)}`,
+      totalPeriod: totalPeriod,
       total: bookingObj.totalPrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       priceType: bookingObj.priceType,
@@ -244,6 +245,8 @@ module.exports = {
     const userProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
+    const quantity = bookingObj.priceType !== 'hourly' ? bookingObj.reservations.length : bookingObj.period
+    const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
     const guestMetada = {
       user: guestObj.firstName,
       hostName: hostObj.firstName,
@@ -256,7 +259,7 @@ module.exports = {
       listTitle: listingObj.title,
       fullAddress: `${locationObj.address1}, ${locationObj.city}`,
       basePrice: bookingObj.basePrice,
-      totalPeriod: `${listingCommons.getPeriodFormatted(bookingObj.reservations.length, bookingObj.priceType)}`,
+      totalPeriod: totalPeriod,
       subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       total: bookingObj.totalPrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
