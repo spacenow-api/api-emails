@@ -607,6 +607,7 @@ module.exports = {
       priceType: bookingObj.priceType,
       category: categoryAndSubObj.category,
       listingId: listingObj.id,
+      appLink: process.env.NEW_LISTING_PROCESS_HOST,
       currentDate: moment()
         .tz('Australia/Sydney')
         .format('dddd D MMMM, YYYY')
@@ -615,8 +616,7 @@ module.exports = {
     await senderService.senderByTemplateData('booking-expiry-email-guest', guestObj.email, emailData)
     await senderService.senderByTemplateData('booking-expire-email-host', hostObj.email, {
       ...emailData,
-      messageId: messageData.id,
-      appLink: process.env.NEW_LISTING_PROCESS_HOST
+      messageId: messageData.id
     })
   }
 }
