@@ -34,8 +34,6 @@ module.exports = {
   },
 
   getPeriodFormatted: function(quantity, periodType) {
-    console.log('periodType', periodType)
-    console.log('quantity', quantity)
     let period = ''
     switch (periodType) {
       case 'weekly':
@@ -53,7 +51,6 @@ module.exports = {
       default:
         break
     }
-    console.log('${quantity} ${period}', `${quantity} ${period}`)
     return `${quantity} ${period}`
   },
 

@@ -133,7 +133,8 @@ module.exports = {
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const guestProfilePicture = await listingCommons.getProfilePicture(bookingObj.guestId)
-    const totalPeriod = await listingCommons.getPeriodFormatted(bookingObj.reservations.length, bookingObj.priceType)
+    const quantity = bookingObj.priceType !== 'hourly' ? bookingObj.reservations.length : bookingObj.period
+    const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
     const hostMetadata = {
       user: hostObj.firstName,
       hostName: hostObj.firstName,
@@ -356,6 +357,8 @@ module.exports = {
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const guestProfilePicture = await listingCommons.getProfilePicture(bookingObj.guestId)
+    const quantity = bookingObj.priceType !== 'hourly' ? bookingObj.reservations.length : bookingObj.period
+    const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
 
     const hostMetadata = {
       user: hostObj.firstName,
@@ -407,7 +410,9 @@ module.exports = {
       category: categoryAndSubObj.category,
       listImage: coverPhoto,
       guestPhoto: guestProfilePicture,
-      period: bookingObj.period
+      period: bookingObj.period,
+      totalPeriod: totalPeriod,
+      listingId: listingObj.id
     }
     await senderService.senderByTemplateData('booking-request-email-host', hostObj.email, hostMetadata)
   },

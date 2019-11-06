@@ -425,6 +425,7 @@
                               src="{{guestPhoto}}"
                               alt=""
                               width="110"
+                              height="110"
                               border="0"
                               style="display: block; outline: none;     border-radius: 50%;"
                             />
@@ -599,7 +600,7 @@
                                   valign="top"
                                   style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
                                 >
-                                  x&nbsp;{{period}}&nbsp;{{term}}(s)
+                                  x&nbsp;{{totalPeriod}}
                                 </td>
                                 <td
                                   align="right"
@@ -767,6 +768,7 @@
                             valign="top"
                             style="border: solid 1px #e6e6e6; border-radius: 8px;"
                           >
+                          <a href="{{ appLink }}/space/{{ listingId }}">
                             <table
                               width="100%"
                               align="left"
@@ -898,6 +900,7 @@
                                 </td>
                               </tr>
                             </table>
+                          </a>
                           </td>
                         </tr>
                       </table>
