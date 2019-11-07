@@ -412,7 +412,8 @@ module.exports = {
       guestPhoto: guestProfilePicture,
       period: bookingObj.period,
       totalPeriod: totalPeriod,
-      listingId: listingObj.id
+      listingId: listingObj.id,
+      appLink: process.env.NEW_LISTING_PROCESS_HOST
     }
     await senderService.senderByTemplateData('booking-request-email-host', hostObj.email, hostMetadata)
   },
@@ -469,6 +470,8 @@ module.exports = {
     const hostProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
+    const quantity = bookingObj.priceType !== 'hourly' ? bookingObj.reservations.length : bookingObj.period
+    const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
 
     const guestMetadata = {
       guestName: guestObj.firstName,
@@ -521,7 +524,9 @@ module.exports = {
       listAddress: `${locationObj.address1}, ${locationObj.city}`,
       listingId: listingObj.id,
       listImage: coverPhoto,
-      category: categoryAndSubObj.category
+      category: categoryAndSubObj.category,
+      appLink: process.env.NEW_LISTING_PROCESS_HOST,
+      totalPeriod: totalPeriod
     }
     await senderService.senderByTemplateData('booking-request-email-guest', guestObj.email, guestMetadata)
   },

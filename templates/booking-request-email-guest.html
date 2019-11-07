@@ -437,7 +437,7 @@
                               alt=""
                               width="113"
                               border="0"
-                              style="display: block; outline: none;border-radius: 50%;"
+                              style="display: block; outline: none;border-radius: 50%;object-fit: cover;"
                             />
                           </td>
                           <td width="20" class="space15">&nbsp;</td>
@@ -610,7 +610,7 @@
                                   valign="top"
                                   style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
                                 >
-                                  x&nbsp;{{period}}&nbsp;{{term}}(s)
+                                  x&nbsp;{{totalPeriod}}
                                 </td>
                                 <td
                                   align="right"
@@ -705,7 +705,7 @@
                                     align="center"
                                   >
                                     <a
-                                      href="https://app.spacenow.com/space/{{listingId}}"
+                                      href="{{appLink}}/space/{{listingId}}"
                                       target="_blank"
                                       style="color: #ffffff; text-decoration: none; display: inline-block;"
                                       >View listing</a
@@ -753,6 +753,7 @@
                             valign="top"
                             style="border: solid 1px #e6e6e6; border-radius: 8px;"
                           >
+                          <a href="{{ appLink }}/space/{{ listingId }}">
                             <table
                               width="100%"
                               align="left"
@@ -923,6 +924,7 @@
                                 </td>
                               </tr>
                             </table>
+                          </a>
                           </td>
                         </tr>
                       </table>
@@ -941,7 +943,7 @@
                             align="center"
                           >
                             <a
-                              href="https://app.spacenow.com/account/booking"
+                              href="{{appLink}}/account/booking"
                               target="_blank"
                               style="color: #ffffff; text-decoration: none; display: inline-block;"
                               >View booking</a
