@@ -413,7 +413,8 @@ module.exports = {
       period: bookingObj.period,
       totalPeriod: totalPeriod,
       listingId: listingObj.id,
-      appLink: process.env.NEW_LISTING_PROCESS_HOST
+      appLink: process.env.NEW_LISTING_PROCESS_HOST,
+      message: bookingObj.message
     }
     await senderService.senderByTemplateData('booking-request-email-host', hostObj.email, hostMetadata)
   },
@@ -526,7 +527,8 @@ module.exports = {
       listImage: coverPhoto,
       category: categoryAndSubObj.category,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
-      totalPeriod: totalPeriod
+      totalPeriod: totalPeriod,
+      message: bookingObj.message
     }
     await senderService.senderByTemplateData('booking-request-email-guest', guestObj.email, guestMetadata)
   },
