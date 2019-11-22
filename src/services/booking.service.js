@@ -196,7 +196,7 @@ module.exports = {
       sender: 'Spacenow',
       receiver: hostObj.phoneNumber
     }
-    await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, { smsMessage })
+    await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, smsMessage)
   },
 
   /**
