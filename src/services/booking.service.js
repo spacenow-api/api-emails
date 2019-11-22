@@ -116,8 +116,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkInHour
         : checkInObj.allday === 1
-        ? '24 hours'
-        : moment(checkInObj.openHour)
+          ? '24 hours'
+          : moment(checkInObj.openHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
 
@@ -126,8 +126,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
         : checkOutObj.allday === 1
-        ? '24 hours'
-        : moment(checkOutObj.closeHour)
+          ? '24 hours'
+          : moment(checkOutObj.closeHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
@@ -196,7 +196,7 @@ module.exports = {
       sender: 'Spacenow',
       receiver: hostObj.phoneNumber
     }
-    await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, smsMessage )
+    await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, { smsMessage })
   },
 
   /**
@@ -230,8 +230,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkInHour
         : checkInObj.allday === 1
-        ? '24 hours'
-        : moment(checkInObj.openHour)
+          ? '24 hours'
+          : moment(checkInObj.openHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
 
@@ -240,8 +240,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
         : checkOutObj.allday === 1
-        ? '24 hours'
-        : moment(checkOutObj.closeHour)
+          ? '24 hours'
+          : moment(checkOutObj.closeHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
     const IS_ABSORVE = 0.035
@@ -345,8 +345,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkInHour
         : checkInObj.allday === 1
-        ? '24 hours'
-        : moment(checkInObj.openHour)
+          ? '24 hours'
+          : moment(checkInObj.openHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
 
@@ -355,8 +355,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
         : checkOutObj.allday === 1
-        ? '24 hours'
-        : moment(checkOutObj.closeHour)
+          ? '24 hours'
+          : moment(checkOutObj.closeHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
 
@@ -460,8 +460,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkInHour
         : checkInObj.allday === 1
-        ? '24 hours'
-        : moment(checkInObj.openHour)
+          ? '24 hours'
+          : moment(checkInObj.openHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
 
@@ -470,8 +470,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
         : checkOutObj.allday === 1
-        ? '24 hours'
-        : moment(checkOutObj.closeHour)
+          ? '24 hours'
+          : moment(checkOutObj.closeHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
     const hostProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
