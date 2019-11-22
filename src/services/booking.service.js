@@ -191,6 +191,12 @@ module.exports = {
       listingId: listingObj.id
     }
     await senderService.senderByTemplateData('booking-instant-email-host', hostObj.email, hostMetadata)
+    const smsMessage = {
+      message: 'You have a new booking on Spacenow',
+      sender: 'Spacenow',
+      receiver: hostObj.phoneNumber
+    }
+    await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, smsMessage )
   },
 
   /**

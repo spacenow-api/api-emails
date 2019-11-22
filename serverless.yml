@@ -45,6 +45,7 @@ dotenv:
     - DATABASE_PASSWORD
     - API_BOOKING
     - NEW_LISTING_PROCESS_HOST
+    - NOTIFICATION_API
 
 provider:
   name: aws
@@ -74,6 +75,7 @@ provider:
     DATABASE_PASSWORD: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/DATABASE_PASSWORD~true}
     API_BOOKING: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/API_BOOKING~true}
     NEW_LISTING_PROCESS_HOST: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/NEW_LISTING_PROCESS_HOST~true}
+    NOTIFICATION_API: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/NOTIFICATION_API~true}
 
 functions:
   send:
