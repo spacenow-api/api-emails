@@ -196,6 +196,7 @@ module.exports = {
       sender: 'Spacenow',
       receiver: hostObj.phoneNumber
     }
+    console.log("SMS Message ===>>>", smsMessage)
     await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, JSON.stringify(smsMessage))
   },
 
@@ -423,6 +424,13 @@ module.exports = {
       message: bookingObj.message
     }
     await senderService.senderByTemplateData('booking-request-email-host', hostObj.email, hostMetadata)
+    const smsMessage = {
+      message: 'You have a new request booking on Spacenow',
+      sender: 'Spacenow',
+      receiver: hostObj.phoneNumber
+    }
+    console.log("SMS Message ===>>>", smsMessage)
+    await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, JSON.stringify(smsMessage))
   },
 
   /**
@@ -569,6 +577,13 @@ module.exports = {
       listTitle: listingObj.title
     }
     await senderService.senderByTemplateData('booking-declined-email', guestObj.email, declinedMetadata)
+    const smsMessage = {
+      message: 'You booking has been declined on Spacenow',
+      sender: 'Spacenow',
+      receiver: guestObj.phoneNumber
+    }
+    console.log("SMS Message ===>>>", smsMessage)
+    await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, JSON.stringify(smsMessage))
   },
 
   /**
@@ -595,6 +610,20 @@ module.exports = {
         .format('dddd D MMMM, YYYY')
         .toString()
     })
+
+    const smsMessageGuest = {
+      message: 'Your check-out time is approaching',
+      sender: 'Spacenow',
+      receiver: guestObj.phoneNumber
+    }
+    const smsMessageHost = {
+      message: 'Your guest check-out time is approaching',
+      sender: 'Spacenow',
+      receiver: hostObj.phoneNumber
+    }
+    console.log("SMS Message ===>>>", smsMessage)
+    await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, JSON.stringify(smsMessageGuest))
+    await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, JSON.stringify(smsMessageHost))
   },
 
   /**
@@ -643,5 +672,18 @@ module.exports = {
       ...emailData,
       messageId: messageData.id
     })
+    const smsMessageGuest = {
+      message: 'Your bookings has expired on Spacenow',
+      sender: 'Spacenow',
+      receiver: guestObj.phoneNumber
+    }
+    const smsMessageHost = {
+      message: 'Your bookings has expired on Spacenow',
+      sender: 'Spacenow',
+      receiver: hostObj.phoneNumber
+    }
+    console.log("SMS Message ===>>>", smsMessage)
+    await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, JSON.stringify(smsMessageGuest))
+    await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, JSON.stringify(smsMessageHost))
   }
 }
