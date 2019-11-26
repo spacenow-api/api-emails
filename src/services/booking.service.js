@@ -636,7 +636,7 @@ module.exports = {
   },
 
   /**
-   * Email approved and ready to be payed.
+   * Email approved and ready to be paid.
    */
   sendEmailReadyToPay: async (bookingId) => {
     const { data: bookingObj } = await getBookingById(bookingId)
