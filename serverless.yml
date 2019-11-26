@@ -118,6 +118,14 @@ functions:
           path: email/booking/{bookingId}/request/guest
           method: post
           cors: true
+  sendEmailByBookingReadyToPay:
+    handler: src/functions/sendEmailByBookingReadyToPay.main
+    memorySize: 1024
+    events:
+      - http:
+          path: email/booking/{bookingId}/payment
+          method: post
+          cors: true
   sendEmailByBookingDeclined:
     handler: src/functions/sendEmailByBookingDeclined.main
     memorySize: 1024
