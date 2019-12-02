@@ -106,8 +106,8 @@ module.exports = {
       .tz('Australia/Sydney')
       .format('Do MMM')
       .toString()
-    const IS_ABSORVE = 0.035
-    const NO_ABSORVE = 0.135
+    const IS_ABSORVE = 0.11
+    const NO_ABSORVE = 0.01
     let serviceFee = listingData.isAbsorvedFee
       ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
       : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
@@ -158,7 +158,7 @@ module.exports = {
       listTitle: listingObj.title,
       listAddress: `${locationObj.address1}, ${locationObj.city}`,
       totalPeriod: totalPeriod,
-      total: bookingObj.totalPrice
+      total: (bookingObj.basePrice * bookingObj.period - serviceFee)
         .toFixed(2)
         .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       basePrice: bookingObj.basePrice
@@ -201,7 +201,7 @@ module.exports = {
         .toString(),
       checkInTime: checkInTime,
       checkOutTime: checkOutTime,
-      subtotal: (bookingObj.totalPrice - serviceFee)
+      subtotal: (bookingObj.basePrice * bookingObj.period)
         .toFixed(2)
         .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
