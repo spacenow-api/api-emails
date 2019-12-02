@@ -60,7 +60,6 @@ module.exports = {
           priceType: listing.bookingPeriod,
           category: categoryAndSubObj.category
         }
-        console.log(user.email)
         await senderService.senderByTemplateData('complete-listing-email', user.email, emailObj)
       }
       return listings
