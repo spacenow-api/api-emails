@@ -370,8 +370,8 @@ module.exports = {
     const locationObj = await Location.findOne({
       where: { id: listingObj.locationId }
     })
-    const IS_ABSORVE = 0.01
-    const NO_ABSORVE = 0.00
+    const IS_ABSORVE = 0.1
+    const NO_ABSORVE = 0.0
     let serviceFee = listingData.isAbsorvedFee
       ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
       : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
@@ -472,7 +472,7 @@ module.exports = {
         .toString(),
       checkInTime: checkInTime,
       checkOutTime: checkOutTime,
-      subtotal: (bookingObj.totalPrice - serviceFee)
+      subtotal: (bookingObj.basePrice * bookingObj.period)
         .toFixed(2)
         .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
