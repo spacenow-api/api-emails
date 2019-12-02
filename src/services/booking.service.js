@@ -434,7 +434,7 @@ module.exports = {
       basePrice: bookingObj.basePrice
         .toFixed(2)
         .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-      total: bookingObj.totalPrice
+      total: (bookingObj.totalPrice - (bookingObj.basePrice * bookingObj.period * (bookingObj.hostServiceFee === 0 ? 0 : .01)))
         .toFixed(2)
         .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       acceptLink: getAcceptLink(bookingObj.bookingId, hostObj.id),
