@@ -326,8 +326,8 @@ module.exports = {
     const locationObj = await Location.findOne({
       where: { id: listingObj.locationId }
     })
-    const IS_ABSORVE = 0.035
-    const NO_ABSORVE = 0.135
+    const IS_ABSORVE = 0.11
+    const NO_ABSORVE = 0.01
     let serviceFee = listingData.isAbsorvedFee
       ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
       : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
@@ -374,7 +374,7 @@ module.exports = {
       checkInDate: checkIn,
       checkOutDate: checkOut,
       basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-      total: bookingObj.totalPrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      total: (bookingObj.basePrice * bookingObj.period - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       acceptLink: getAcceptLink(bookingObj.bookingId, hostObj.id),
       declineLink: getDeclineLink(bookingObj.bookingId, hostObj.id),
       currentDate: moment()
@@ -410,7 +410,7 @@ module.exports = {
         .toString(),
       checkInTime: checkInTime,
       checkOutTime: checkOutTime,
-      subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      subtotal: (bookingObj.basePrice * bookingObj.period).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       listAddress: `${locationObj.address1}, ${locationObj.city}`,
       priceType: bookingObj.priceType,
@@ -423,6 +423,9 @@ module.exports = {
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       message: bookingObj.message
     }
+
+    console.log('HOST META DATA ==>>', hostMetadata)
+
     await senderService.senderByTemplateData('booking-request-email-host', hostObj.email, hostMetadata)
     const smsMessage = {
       message: 'You have a new request booking on Spacenow',
