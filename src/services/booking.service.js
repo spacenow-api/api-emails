@@ -83,7 +83,7 @@ module.exports = {
   /**
    * Send email to host by a booking instant.
    */
-  sendEmailInstantHost: async (bookingId) => {
+  sendEmailInstantHost: async bookingId => {
     const { data: bookingObj } = await getBookingById(bookingId)
     const listingObj = await listingCommons.getListingById(bookingObj.listingId)
     const hostObj = await getUserById(bookingObj.hostId)
@@ -121,10 +121,7 @@ module.exports = {
             .tz('Australia/Sydney')
             .format('h:mm a')
 
-    let checkOutObj = await getCheckInOutTime(
-      listingObj.id,
-      bookingObj.checkOut
-    )
+    let checkOutObj = await getCheckInOutTime(listingObj.id, bookingObj.checkOut)
     let checkOutTime =
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
@@ -133,21 +130,11 @@ module.exports = {
           : moment(checkOutObj.closeHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
-    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(
-      listingObj.listSettingsParentId
-    )
+    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
-    const guestProfilePicture = await listingCommons.getProfilePicture(
-      bookingObj.guestId
-    )
-    const quantity =
-      bookingObj.priceType !== 'hourly'
-        ? bookingObj.reservations.length
-        : bookingObj.period
-    const totalPeriod = await listingCommons.getPeriodFormatted(
-      quantity,
-      bookingObj.priceType
-    )
+    const guestProfilePicture = await listingCommons.getProfilePicture(bookingObj.guestId)
+    const quantity = bookingObj.priceType !== 'hourly' ? bookingObj.reservations.length : bookingObj.period
+    const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
     const hostMetadata = {
       user: hostObj.firstName,
       hostName: hostObj.firstName,
@@ -209,24 +196,20 @@ module.exports = {
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       listingId: listingObj.id
     }
-    await senderService.senderByTemplateData(
-      'booking-instant-email-host',
-      hostObj.email,
-      hostMetadata
-    )
+    await senderService.senderByTemplateData('booking-instant-email-host', hostObj.email, hostMetadata)
     const smsMessage = {
       message: 'You have a new booking on Spacenow',
       sender: 'Spacenow',
       receiver: hostObj.phoneNumber
     }
-    console.log("SMS Message ===>>>", smsMessage)
+    console.log('SMS Message ===>>>', smsMessage)
     await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, JSON.stringify(smsMessage))
   },
 
   /**
    * Send email to Guest by a booking instant.
    */
-  sendEmailInstantGuest: async (bookingId) => {
+  sendEmailInstantGuest: async bookingId => {
     const { data: bookingObj } = await getBookingById(bookingId)
     const listingObj = await listingCommons.getListingById(bookingObj.listingId)
     const hostObj = await getUserById(bookingObj.hostId)
@@ -259,10 +242,7 @@ module.exports = {
             .tz('Australia/Sydney')
             .format('h:mm a')
 
-    let checkOutObj = await getCheckInOutTime(
-      listingObj.id,
-      bookingObj.checkOut
-    )
+    let checkOutObj = await getCheckInOutTime(listingObj.id, bookingObj.checkOut)
     let checkOutTime =
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
@@ -276,21 +256,11 @@ module.exports = {
     let serviceFee = listingData.isAbsorvedFee
       ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
       : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
-    const userProfilePicture = await listingCommons.getProfilePicture(
-      bookingObj.hostId
-    )
+    const userProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
-    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(
-      listingObj.listSettingsParentId
-    )
-    const quantity =
-      bookingObj.priceType !== 'hourly'
-        ? bookingObj.reservations.length
-        : bookingObj.period
-    const totalPeriod = await listingCommons.getPeriodFormatted(
-      quantity,
-      bookingObj.priceType
-    )
+    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
+    const quantity = bookingObj.priceType !== 'hourly' ? bookingObj.reservations.length : bookingObj.period
+    const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
     const guestMetada = {
       user: guestObj.firstName,
       hostName: hostObj.firstName,
@@ -304,13 +274,9 @@ module.exports = {
       fullAddress: `${locationObj.address1}, ${locationObj.city}`,
       basePrice: bookingObj.basePrice,
       totalPeriod: totalPeriod,
-      subtotal: (bookingObj.totalPrice - serviceFee)
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-      total: bookingObj.totalPrice
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      total: bookingObj.totalPrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       priceType: bookingObj.priceType,
       currentDate: moment()
         .tz('Australia/Sydney')
@@ -349,17 +315,13 @@ module.exports = {
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       listingId: listingObj.id
     }
-    await senderService.senderByTemplateData(
-      'booking-instant-email-guest',
-      guestObj.email,
-      guestMetada
-    )
+    await senderService.senderByTemplateData('booking-instant-email-guest', guestObj.email, guestMetada)
   },
 
   /**
    * Send email by requested booking to host.
    */
-  sendEmailRequestHost: async (bookingId) => {
+  sendEmailRequestHost: async bookingId => {
     const { data: bookingObj } = await getBookingById(bookingId)
     const listingObj = await listingCommons.getListingById(bookingObj.listingId)
     const hostObj = await getUserById(bookingObj.hostId)
@@ -384,8 +346,7 @@ module.exports = {
       .format('ddd, Do MMM, YYYY')
       .toString()
     let term = 'day'
-    if (bookingObj.priceType !== 'daily')
-      term = bookingObj.priceType.replace('ly', '')
+    if (bookingObj.priceType !== 'daily') term = bookingObj.priceType.replace('ly', '')
     let checkInObj = await getCheckInOutTime(listingObj.id, bookingObj.checkIn)
     let checkInTime =
       bookingObj.priceType === 'hourly'
@@ -396,10 +357,7 @@ module.exports = {
             .tz('Australia/Sydney')
             .format('h:mm a')
 
-    let checkOutObj = await getCheckInOutTime(
-      listingObj.id,
-      bookingObj.checkOut
-    )
+    let checkOutObj = await getCheckInOutTime(listingObj.id, bookingObj.checkOut)
     let checkOutTime =
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
@@ -409,21 +367,11 @@ module.exports = {
             .tz('Australia/Sydney')
             .format('h:mm a')
 
-    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(
-      listingObj.listSettingsParentId
-    )
+    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
-    const guestProfilePicture = await listingCommons.getProfilePicture(
-      bookingObj.guestId
-    )
-    const quantity =
-      bookingObj.priceType !== 'hourly'
-        ? bookingObj.reservations.length
-        : bookingObj.period
-    const totalPeriod = await listingCommons.getPeriodFormatted(
-      quantity,
-      bookingObj.priceType
-    )
+    const guestProfilePicture = await listingCommons.getProfilePicture(bookingObj.guestId)
+    const quantity = bookingObj.priceType !== 'hourly' ? bookingObj.reservations.length : bookingObj.period
+    const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
 
     const hostMetadata = {
       user: hostObj.firstName,
@@ -431,12 +379,8 @@ module.exports = {
       listTitle: listingObj.title,
       checkInDate: checkIn,
       checkOutDate: checkOut,
-      basePrice: bookingObj.basePrice
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-      total: (bookingObj.basePrice * bookingObj.period - serviceFee)
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      total: (bookingObj.basePrice * bookingObj.period - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       acceptLink: getAcceptLink(bookingObj.bookingId, hostObj.id),
       declineLink: getDeclineLink(bookingObj.bookingId, hostObj.id),
       currentDate: moment()
@@ -472,9 +416,7 @@ module.exports = {
         .toString(),
       checkInTime: checkInTime,
       checkOutTime: checkOutTime,
-      subtotal: (bookingObj.basePrice * bookingObj.period)
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      subtotal: (bookingObj.basePrice * bookingObj.period).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       listAddress: `${locationObj.address1}, ${locationObj.city}`,
       priceType: bookingObj.priceType,
@@ -488,7 +430,7 @@ module.exports = {
       message: bookingObj.message
     }
 
-    console.log("HOST META DATA ==>>", hostMetadata)
+    console.log('HOST META DATA ==>>', hostMetadata)
 
     await senderService.senderByTemplateData('booking-request-email-host', hostObj.email, hostMetadata)
     const smsMessage = {
@@ -496,14 +438,14 @@ module.exports = {
       sender: 'Spacenow',
       receiver: hostObj.phoneNumber
     }
-    console.log("SMS Message ===>>>", smsMessage)
+    console.log('SMS Message ===>>>', smsMessage)
     await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, JSON.stringify(smsMessage))
   },
 
   /**
    * Send email by requested booking to guest.
    */
-  sendEmailRequestGuest: async (bookingId) => {
+  sendEmailRequestGuest: async bookingId => {
     const { data: bookingObj } = await getBookingById(bookingId)
     const listingObj = await listingCommons.getListingById(bookingObj.listingId)
     const hostObj = await getUserById(bookingObj.hostId)
@@ -529,8 +471,7 @@ module.exports = {
       .toString()
 
     let term = 'day'
-    if (bookingObj.priceType !== 'daily')
-      term = bookingObj.priceType.replace('ly', '')
+    if (bookingObj.priceType !== 'daily') term = bookingObj.priceType.replace('ly', '')
     let checkInObj = await getCheckInOutTime(listingObj.id, bookingObj.checkIn)
     let checkInTime =
       bookingObj.priceType === 'hourly'
@@ -541,10 +482,7 @@ module.exports = {
             .tz('Australia/Sydney')
             .format('h:mm a')
 
-    let checkOutObj = await getCheckInOutTime(
-      listingObj.id,
-      bookingObj.checkOut
-    )
+    let checkOutObj = await getCheckInOutTime(listingObj.id, bookingObj.checkOut)
     let checkOutTime =
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
@@ -553,21 +491,11 @@ module.exports = {
           : moment(checkOutObj.closeHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
-    const hostProfilePicture = await listingCommons.getProfilePicture(
-      bookingObj.hostId
-    )
+    const hostProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
-    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(
-      listingObj.listSettingsParentId
-    )
-    const quantity =
-      bookingObj.priceType !== 'hourly'
-        ? bookingObj.reservations.length
-        : bookingObj.period
-    const totalPeriod = await listingCommons.getPeriodFormatted(
-      quantity,
-      bookingObj.priceType
-    )
+    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
+    const quantity = bookingObj.priceType !== 'hourly' ? bookingObj.reservations.length : bookingObj.period
+    const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
 
     const guestMetadata = {
       guestName: guestObj.firstName,
@@ -612,16 +540,10 @@ module.exports = {
       checkOutTime: checkOutTime,
       period: bookingObj.period,
       term: term,
-      subtotal: (bookingObj.totalPrice - serviceFee)
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-      basePrice: bookingObj.basePrice
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-      total: bookingObj.totalPrice
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      total: bookingObj.totalPrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       priceType: bookingObj.priceType,
       listAddress: `${locationObj.address1}, ${locationObj.city}`,
       listingId: listingObj.id,
@@ -631,17 +553,13 @@ module.exports = {
       totalPeriod: totalPeriod,
       message: bookingObj.message
     }
-    await senderService.senderByTemplateData(
-      'booking-request-email-guest',
-      guestObj.email,
-      guestMetadata
-    )
+    await senderService.senderByTemplateData('booking-request-email-guest', guestObj.email, guestMetadata)
   },
 
   /**
    * Email approved and ready to be paid.
    */
-  sendEmailReadyToPay: async (bookingId) => {
+  sendEmailReadyToPay: async bookingId => {
     const { data: bookingObj } = await getBookingById(bookingId)
     const listingObj = await listingCommons.getListingById(bookingObj.listingId)
     const hostObj = await getUserById(bookingObj.hostId)
@@ -673,10 +591,7 @@ module.exports = {
           : moment(checkInObj.openHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
-    let checkOutObj = await getCheckInOutTime(
-      listingObj.id,
-      bookingObj.checkOut
-    )
+    let checkOutObj = await getCheckInOutTime(listingObj.id, bookingObj.checkOut)
     let checkOutTime =
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
@@ -690,21 +605,11 @@ module.exports = {
     let serviceFee = listingData.isAbsorvedFee
       ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
       : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
-    const userProfilePicture = await listingCommons.getProfilePicture(
-      bookingObj.hostId
-    )
+    const userProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
-    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(
-      listingObj.listSettingsParentId
-    )
-    const quantity =
-      bookingObj.priceType !== 'hourly'
-        ? bookingObj.reservations.length
-        : bookingObj.period
-    const totalPeriod = await listingCommons.getPeriodFormatted(
-      quantity,
-      bookingObj.priceType
-    )
+    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
+    const quantity = bookingObj.priceType !== 'hourly' ? bookingObj.reservations.length : bookingObj.period
+    const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
     const guestMetadata = {
       bookingId: bookingId,
       user: guestObj.firstName,
@@ -719,13 +624,9 @@ module.exports = {
       fullAddress: `${locationObj.address1}, ${locationObj.city}`,
       basePrice: bookingObj.basePrice,
       totalPeriod: totalPeriod,
-      subtotal: (bookingObj.totalPrice - serviceFee)
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-      total: bookingObj.totalPrice
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      total: bookingObj.totalPrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       priceType: bookingObj.priceType,
       currentDate: moment()
         .tz('Australia/Sydney')
@@ -764,17 +665,13 @@ module.exports = {
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       listingId: listingObj.id
     }
-    await senderService.senderByTemplateData(
-      'booking-ready-to-pay-email',
-      guestObj.email,
-      guestMetadata
-    )
+    await senderService.senderByTemplateData('booking-ready-to-pay-email', guestObj.email, guestMetadata)
   },
 
   /**
    * Send email to a guest who has a booking declined.
    */
-  sendEmailDeclined: async (bookingId) => {
+  sendEmailDeclined: async bookingId => {
     const { data: bookingObj } = await getBookingById(bookingId)
     const hostObj = await getUserById(bookingObj.hostId)
     const guestObj = await getUserById(bookingObj.guestId)
@@ -806,14 +703,14 @@ module.exports = {
       sender: 'Spacenow',
       receiver: guestObj.phoneNumber
     }
-    console.log("SMS Message ===>>>", smsMessage)
+    console.log('SMS Message ===>>>', smsMessage)
     await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, JSON.stringify(smsMessage))
   },
 
   /**
    * Send an email when bookings has finished.
    */
-  sendEmailCheckOut: async (bookingId) => {
+  sendEmailCheckOut: async bookingId => {
     const { data: bookingObj } = await getBookingById(bookingId)
     const hostObj = await getUserById(bookingObj.hostId)
     const guestObj = await getUserById(bookingObj.guestId)
@@ -845,7 +742,7 @@ module.exports = {
       sender: 'Spacenow',
       receiver: hostObj.phoneNumber
     }
-    console.log("SMS Message ===>>>", smsMessage)
+    console.log('SMS Message ===>>>', smsMessage)
     await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, JSON.stringify(smsMessageGuest))
     await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, JSON.stringify(smsMessageHost))
   },
@@ -853,7 +750,7 @@ module.exports = {
   /**
    * Send an email when bookings has expired.
    */
-  sendEmailExpiredBooking: async (bookingId) => {
+  sendEmailExpiredBooking: async bookingId => {
     const { data: bookingObj } = await getBookingById(bookingId)
     const hostObj = await getUserById(bookingObj.hostId)
     const guestObj = await getUserById(bookingObj.guestId)
@@ -877,9 +774,7 @@ module.exports = {
       .format('ddd, Do MMM, YYYY')
       .toString()
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
-    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(
-      listingObj.listSettingsParentId
-    )
+    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     let emailData = {
       guestName: guestObj.firstName,
       hostName: hostObj.firstName,
@@ -912,7 +807,7 @@ module.exports = {
       sender: 'Spacenow',
       receiver: hostObj.phoneNumber
     }
-    console.log("SMS Message ===>>>", smsMessage)
+    console.log('SMS Message ===>>>', smsMessage)
     await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, JSON.stringify(smsMessageGuest))
     await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, JSON.stringify(smsMessageHost))
   }
