@@ -56,7 +56,7 @@ module.exports = {
           listingId: listing.id,
           listImage: coverPhoto,
           listAddress: `${location.address1}, ${location.city}`,
-          listPrice: listingData.basePrice,
+          basePrice: listingData.basePrice,
           priceType: listing.bookingPeriod,
           category: categoryAndSubObj.category
         }
