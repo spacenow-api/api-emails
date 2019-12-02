@@ -28,6 +28,8 @@ module.exports = {
 
       const listings = await Listing.findAll({
         where: {
+          isPublished: false,
+          isReady: true,
           createdAt: { [Op.between]: [pastDay, date] }
         }
       })
