@@ -487,6 +487,9 @@ module.exports = {
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       message: bookingObj.message
     }
+
+    console.log("HOST META DATA ==>>", hostMetadata)
+
     await senderService.senderByTemplateData('booking-request-email-host', hostObj.email, hostMetadata)
     const smsMessage = {
       message: 'You have a new request booking on Spacenow',
