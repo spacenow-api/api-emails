@@ -107,7 +107,7 @@ module.exports = {
       .format('Do MMM')
       .toString()
     const IS_ABSORVE = 0.11
-    const NO_ABSORVE = 0.01
+    const NO_ABSORVE = 0.00
     let serviceFee = listingData.isAbsorvedFee
       ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
       : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
@@ -333,7 +333,7 @@ module.exports = {
       where: { id: listingObj.locationId }
     })
     const IS_ABSORVE = 0.11
-    const NO_ABSORVE = 0.01
+    const NO_ABSORVE = 0.00
     let serviceFee = listingData.isAbsorvedFee
       ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
       : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
