@@ -475,7 +475,7 @@ module.exports = {
       subtotal: (bookingObj.totalPrice - serviceFee)
         .toFixed(2)
         .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-      serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      serviceFee: (bookingObj.basePrice * bookingObj.period * (bookingObj.hostServiceFee === 0 ? 0 : .01)).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       listAddress: `${locationObj.address1}, ${locationObj.city}`,
       priceType: bookingObj.priceType,
       category: categoryAndSubObj.category,
