@@ -116,8 +116,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkInHour
         : checkInObj.allday === 1
-        ? '24 hours'
-        : moment(checkInObj.openHour)
+          ? '24 hours'
+          : moment(checkInObj.openHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
 
@@ -129,8 +129,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
         : checkOutObj.allday === 1
-        ? '24 hours'
-        : moment(checkOutObj.closeHour)
+          ? '24 hours'
+          : moment(checkOutObj.closeHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(
@@ -254,8 +254,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkInHour
         : checkInObj.allday === 1
-        ? '24 hours'
-        : moment(checkInObj.openHour)
+          ? '24 hours'
+          : moment(checkInObj.openHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
 
@@ -267,8 +267,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
         : checkOutObj.allday === 1
-        ? '24 hours'
-        : moment(checkOutObj.closeHour)
+          ? '24 hours'
+          : moment(checkOutObj.closeHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
     const IS_ABSORVE = 0.035
@@ -391,8 +391,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkInHour
         : checkInObj.allday === 1
-        ? '24 hours'
-        : moment(checkInObj.openHour)
+          ? '24 hours'
+          : moment(checkInObj.openHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
 
@@ -404,8 +404,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
         : checkOutObj.allday === 1
-        ? '24 hours'
-        : moment(checkOutObj.closeHour)
+          ? '24 hours'
+          : moment(checkOutObj.closeHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
 
@@ -485,6 +485,7 @@ module.exports = {
       totalPeriod: totalPeriod,
       listingId: listingObj.id,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
+      hostEarning: bookingObj.basePrice * bookingObj.period * (bookingObj.hostServiceFee === 0 ? 1 : .9),
       message: bookingObj.message
     }
     await senderService.senderByTemplateData('booking-request-email-host', hostObj.email, hostMetadata)
@@ -533,8 +534,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkInHour
         : checkInObj.allday === 1
-        ? '24 hours'
-        : moment(checkInObj.openHour)
+          ? '24 hours'
+          : moment(checkInObj.openHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
 
@@ -546,8 +547,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
         : checkOutObj.allday === 1
-        ? '24 hours'
-        : moment(checkOutObj.closeHour)
+          ? '24 hours'
+          : moment(checkOutObj.closeHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
     const hostProfilePicture = await listingCommons.getProfilePicture(
@@ -666,8 +667,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkInHour
         : checkInObj.allday === 1
-        ? '24 hours'
-        : moment(checkInObj.openHour)
+          ? '24 hours'
+          : moment(checkInObj.openHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
     let checkOutObj = await getCheckInOutTime(
@@ -678,8 +679,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
         : checkOutObj.allday === 1
-        ? '24 hours'
-        : moment(checkOutObj.closeHour)
+          ? '24 hours'
+          : moment(checkOutObj.closeHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
     const IS_ABSORVE = 0.035

@@ -7,7 +7,7 @@
     "dev": "./node_modules/.bin/serverless offline -s dev -P 6010",
     "debug": "export SLS_DEBUG=* && node --inspect ./node_modules/.bin/serverless offline -s dev -P 6010",
     "create-template": "aws ses create-template --cli-input-json file://templates/enquiry-guest.json",
-    "update-template": "aws ses update-template --cli-input-json file://templates/booking-request-email-host.json",
+    "update-template": "aws ses update-template --cli-input-json file://templates/booking-request-email-guest.json",
     "send": "serverless invoke local --function send --path ./mocks/send-welcome-email.json"
   },
   "author": "Lucas Nascimento",
