@@ -158,5 +158,6 @@ functions:
           path: email/listing/complete
           method: post
           cors: true
+      - schedule: rate(24 hours)
 resources:
   - ${file(src/resources/api-gateway-errors.yml)}
