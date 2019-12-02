@@ -150,5 +150,13 @@ functions:
           path: email/booking/{bookingId}/expired
           method: post
           cors: true
+  sendEmailCompleteListing:
+    handler: src/functions/sendEmailCompleteListing.main
+    memorySize: 1024
+    events:
+      - http:
+          path: email/listing/complete
+          method: post
+          cors: true
 resources:
   - ${file(src/resources/api-gateway-errors.yml)}
