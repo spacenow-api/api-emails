@@ -370,8 +370,8 @@ module.exports = {
     const locationObj = await Location.findOne({
       where: { id: listingObj.locationId }
     })
-    const IS_ABSORVE = 0.035
-    const NO_ABSORVE = 0.135
+    const IS_ABSORVE = 0.01
+    const NO_ABSORVE = 0.00
     let serviceFee = listingData.isAbsorvedFee
       ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
       : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
@@ -434,7 +434,7 @@ module.exports = {
       basePrice: bookingObj.basePrice
         .toFixed(2)
         .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-      total: (bookingObj.totalPrice - (bookingObj.basePrice * bookingObj.period * (bookingObj.hostServiceFee === 0 ? 0 : .01)))
+      total: (bookingObj.basePrice * bookingObj.period - serviceFee)
         .toFixed(2)
         .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       acceptLink: getAcceptLink(bookingObj.bookingId, hostObj.id),
@@ -475,7 +475,7 @@ module.exports = {
       subtotal: (bookingObj.totalPrice - serviceFee)
         .toFixed(2)
         .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-      serviceFee: (bookingObj.basePrice * bookingObj.period * (bookingObj.hostServiceFee === 0 ? 0 : .01)).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       listAddress: `${locationObj.address1}, ${locationObj.city}`,
       priceType: bookingObj.priceType,
       category: categoryAndSubObj.category,
@@ -485,7 +485,6 @@ module.exports = {
       totalPeriod: totalPeriod,
       listingId: listingObj.id,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
-      hostEarning: bookingObj.basePrice * bookingObj.period * (bookingObj.hostServiceFee === 0 ? 1 : .9),
       message: bookingObj.message
     }
     await senderService.senderByTemplateData('booking-request-email-host', hostObj.email, hostMetadata)
