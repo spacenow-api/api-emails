@@ -22,7 +22,7 @@ exports.senderByTemplateData = async (templateName, emailDestination, templateDa
       Source: 'no-reply@spacenow.com',
       Destination: {
         ToAddresses: [emailDestination],
-        BccAddresses: ['baydr@spacenow.com', 'barrett@spacenow.com', 'camila@spacenow.com']
+        BccAddresses: ['baydr@spacenow.com', 'barrett@spacenow.com']
       },
       ReplyToAddresses: ['no-reply@spacenow.com'],
       ConfigurationSetName: 'Emails',
