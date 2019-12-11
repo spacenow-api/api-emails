@@ -56,7 +56,7 @@ module.exports = {
           listingId: listing.id,
           listImage: coverPhoto,
           listAddress: `${location.address1}, ${location.city}`,
-          basePrice: listingData.basePrice,
+          basePrice: listingData.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
           priceType: listing.bookingPeriod,
           category: categoryAndSubObj.category
         }

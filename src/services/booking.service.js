@@ -107,7 +107,7 @@ module.exports = {
       .format('Do MMM')
       .toString()
     const IS_ABSORVE = 0.11
-    const NO_ABSORVE = 0.00
+    const NO_ABSORVE = 0.0
     let serviceFee = listingData.isAbsorvedFee
       ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
       : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
@@ -116,8 +116,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkInHour
         : checkInObj.allday === 1
-          ? '24 hours'
-          : moment(checkInObj.openHour)
+        ? '24 hours'
+        : moment(checkInObj.openHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
 
@@ -126,8 +126,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
         : checkOutObj.allday === 1
-          ? '24 hours'
-          : moment(checkOutObj.closeHour)
+        ? '24 hours'
+        : moment(checkOutObj.closeHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
@@ -145,12 +145,8 @@ module.exports = {
       listTitle: listingObj.title,
       listAddress: `${locationObj.address1}, ${locationObj.city}`,
       totalPeriod: totalPeriod,
-      total: (bookingObj.basePrice * bookingObj.period - serviceFee)
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-      basePrice: bookingObj.basePrice
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      total: (bookingObj.basePrice * bookingObj.period - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       priceType: bookingObj.priceType,
       listImage: coverPhoto,
       category: categoryAndSubObj.category,
@@ -188,9 +184,7 @@ module.exports = {
         .toString(),
       checkInTime: checkInTime,
       checkOutTime: checkOutTime,
-      subtotal: (bookingObj.basePrice * bookingObj.period)
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      subtotal: (bookingObj.basePrice * bookingObj.period).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       period: bookingObj.period,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
@@ -237,8 +231,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkInHour
         : checkInObj.allday === 1
-          ? '24 hours'
-          : moment(checkInObj.openHour)
+        ? '24 hours'
+        : moment(checkInObj.openHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
 
@@ -247,8 +241,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
         : checkOutObj.allday === 1
-          ? '24 hours'
-          : moment(checkOutObj.closeHour)
+        ? '24 hours'
+        : moment(checkOutObj.closeHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
     const IS_ABSORVE = 0.035
@@ -272,7 +266,7 @@ module.exports = {
       profilePicture: userProfilePicture,
       listTitle: listingObj.title,
       fullAddress: `${locationObj.address1}, ${locationObj.city}`,
-      basePrice: bookingObj.basePrice,
+      basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       totalPeriod: totalPeriod,
       subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
@@ -333,7 +327,7 @@ module.exports = {
       where: { id: listingObj.locationId }
     })
     const IS_ABSORVE = 0.11
-    const NO_ABSORVE = 0.00
+    const NO_ABSORVE = 0.0
     let serviceFee = listingData.isAbsorvedFee
       ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
       : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
@@ -352,8 +346,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkInHour
         : checkInObj.allday === 1
-          ? '24 hours'
-          : moment(checkInObj.openHour)
+        ? '24 hours'
+        : moment(checkInObj.openHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
 
@@ -362,8 +356,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
         : checkOutObj.allday === 1
-          ? '24 hours'
-          : moment(checkOutObj.closeHour)
+        ? '24 hours'
+        : moment(checkOutObj.closeHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
 
@@ -477,8 +471,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkInHour
         : checkInObj.allday === 1
-          ? '24 hours'
-          : moment(checkInObj.openHour)
+        ? '24 hours'
+        : moment(checkInObj.openHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
 
@@ -487,8 +481,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
         : checkOutObj.allday === 1
-          ? '24 hours'
-          : moment(checkOutObj.closeHour)
+        ? '24 hours'
+        : moment(checkOutObj.closeHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
     const hostProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
@@ -587,8 +581,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkInHour
         : checkInObj.allday === 1
-          ? '24 hours'
-          : moment(checkInObj.openHour)
+        ? '24 hours'
+        : moment(checkInObj.openHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
     let checkOutObj = await getCheckInOutTime(listingObj.id, bookingObj.checkOut)
@@ -596,8 +590,8 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
         : checkOutObj.allday === 1
-          ? '24 hours'
-          : moment(checkOutObj.closeHour)
+        ? '24 hours'
+        : moment(checkOutObj.closeHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
     const IS_ABSORVE = 0.035
@@ -622,7 +616,7 @@ module.exports = {
       profilePicture: userProfilePicture,
       listTitle: listingObj.title,
       fullAddress: `${locationObj.address1}, ${locationObj.city}`,
-      basePrice: bookingObj.basePrice,
+      basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       totalPeriod: totalPeriod,
       subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
@@ -782,7 +776,7 @@ module.exports = {
       listingPhoto: coverPhoto,
       listingTitle: listingObj.title,
       listingAddress: `${locationObj.address1}, ${locationObj.city}`,
-      basePrice: bookingObj.basePrice,
+      basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       priceType: bookingObj.priceType,
       category: categoryAndSubObj.category,
       listingId: listingObj.id,
