@@ -145,8 +145,7 @@ module.exports = {
       listTitle: listingObj.title,
       listAddress: `${locationObj.address1}, ${locationObj.city}`,
       totalPeriod: totalPeriod,
-      total: bookingObj.priceDetails.total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-      valueDiscount: bookingObj.priceDetails.valueDiscount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      total: (bookingObj.basePrice * bookingObj.period - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       priceType: bookingObj.priceType,
       listImage: coverPhoto,
@@ -246,11 +245,11 @@ module.exports = {
         : moment(checkOutObj.closeHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
-    // const IS_ABSORVE = 0.035
-    // const NO_ABSORVE = 0.135
-    // let serviceFee = listingData.isAbsorvedFee
-    //   ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
-    //   : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
+    const IS_ABSORVE = 0.035
+    const NO_ABSORVE = 0.135
+    let serviceFee = listingData.isAbsorvedFee
+      ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
+      : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
     const userProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
@@ -268,12 +267,9 @@ module.exports = {
       listTitle: listingObj.title,
       fullAddress: `${locationObj.address1}, ${locationObj.city}`,
       basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-      valueDiscount: bookingObj.priceDetails.valueDiscount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       totalPeriod: totalPeriod,
-      subtotal: (bookingObj.totalPrice - bookingObj.priceDetails.valueFee)
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-      serviceFee: bookingObj.priceDetails.valueFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       total: bookingObj.totalPrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       priceType: bookingObj.priceType,
       currentDate: moment()
