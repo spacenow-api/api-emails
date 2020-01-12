@@ -108,7 +108,8 @@ module.exports = {
       .toString()
     const IS_ABSORVE = 0.11
     const NO_ABSORVE = 0.0
-    let serviceFee = listingData.isAbsorvedFee
+    let serviceFee = listingData.isAbsorvedFee ? bookingObj.totalPrice * IS_ABSORVE : bookingObj.totalPrice * NO_ABSORVE
+    let serviceFeeNoDiscount = listingData.isAbsorvedFee
       ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
       : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
     let checkInObj = await getCheckInOutTime(listingObj.id, bookingObj.checkIn)
@@ -134,6 +135,11 @@ module.exports = {
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const guestProfilePicture = await listingCommons.getProfilePicture(bookingObj.guestId)
     const quantity = bookingObj.period
+    let totalBookingNoFee = bookingObj.basePrice * bookingObj.period - serviceFeeNoDiscount
+    let discountValue = 0
+    if (bookingObj.voucherCode) {
+      discountValue = totalBookingNoFee - bookingObj.totalPrice
+    }
 
     const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
     const hostMetadata = {
@@ -146,7 +152,7 @@ module.exports = {
       listTitle: listingObj.title,
       listAddress: `${locationObj.address1}, ${locationObj.city}`,
       totalPeriod: totalPeriod,
-      total: (bookingObj.basePrice * bookingObj.period - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      total: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       priceType: bookingObj.priceType,
       listImage: coverPhoto,
@@ -189,7 +195,8 @@ module.exports = {
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       period: bookingObj.period,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
-      listingId: listingObj.id
+      listingId: listingObj.id,
+      discountValue
     }
     await senderService.senderByTemplateData('booking-instant-email-host', hostObj.email, hostMetadata)
     const smsMessage = {
