@@ -143,7 +143,6 @@ module.exports = {
       discountValue = totalBookingNoDiscount - bookingObj.totalPrice
     }
     let totalBookingNoFee = totalBookingNoDiscount - discountValue
-
     let serviceFee = listingData.isAbsorvedFee ? totalBookingNoFee * IS_ABSORVE : totalBookingNoFee * NO_ABSORVE
 
     const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
