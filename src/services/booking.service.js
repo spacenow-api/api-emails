@@ -288,7 +288,7 @@ module.exports = {
       fullAddress: `${locationObj.address1}, ${locationObj.city}`,
       basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       totalPeriod: totalPeriod,
-      subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      subtotal: (bookingObj.basePrice * bookingObj.period - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       total: bookingObj.totalPrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       priceType: bookingObj.priceType,
@@ -328,7 +328,7 @@ module.exports = {
       category: categoryAndSubObj.category,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       listingId: listingObj.id,
-      discountValue: discountValue ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null
+      valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null
     }
     await senderService.senderByTemplateData('booking-instant-email-guest', guestObj.email, guestMetada)
   },
