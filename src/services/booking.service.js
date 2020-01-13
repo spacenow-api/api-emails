@@ -138,7 +138,7 @@ module.exports = {
 
     let serviceFeeNoDiscountGuest = listingData.isAbsorvedFee
       ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE_GUEST
-      : bookingObj.basePrice * bookingObj.period * IS_ABSORVE_GUEST
+      : bookingObj.basePrice * bookingObj.period * NO_ABSORVE_GUEST
 
     let totalBookingNoDiscountGuest = bookingObj.basePrice * bookingObj.period + serviceFeeNoDiscountGuest
     let discountValue = 0
@@ -147,8 +147,8 @@ module.exports = {
     }
 
     let serviceFee = listingData.isAbsorvedFee
-      ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
-      : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
+      ? (bookingObj.basePrice * bookingObj.period - discountValue) * IS_ABSORVE
+      : (bookingObj.basePrice * bookingObj.period - discountValue) * NO_ABSORVE
 
     const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
     const hostMetadata = {
