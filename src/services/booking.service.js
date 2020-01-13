@@ -200,7 +200,7 @@ module.exports = {
       period: bookingObj.period,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       listingId: listingObj.id,
-      discountValue
+      discountValue: discountValue > 0 ? discountValue : null
     }
     await senderService.senderByTemplateData('booking-instant-email-host', hostObj.email, hostMetadata)
     const smsMessage = {
