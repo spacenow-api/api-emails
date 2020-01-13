@@ -145,8 +145,10 @@ module.exports = {
     if (bookingObj.voucherCode) {
       discountValue = totalBookingNoDiscountGuest - bookingObj.totalPrice
     }
-    let totalBookingNoFee = totalBookingNoDiscount - discountValue
-    let serviceFee = listingData.isAbsorvedFee ? totalBookingNoFee * IS_ABSORVE : totalBookingNoFee * NO_ABSORVE
+
+    let serviceFee = listingData.isAbsorvedFee
+      ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
+      : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
 
     const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
     const hostMetadata = {
