@@ -109,6 +109,9 @@ module.exports = {
     const IS_ABSORVE = 0.11
     const NO_ABSORVE = 0.0
 
+    const IS_ABSORVE_GUEST = 0.035
+    const NO_ABSORVE_GUEST = 0.135
+
     let checkInObj = await getCheckInOutTime(listingObj.id, bookingObj.checkIn)
     let checkInTime =
       bookingObj.priceType === 'hourly'
@@ -133,14 +136,14 @@ module.exports = {
     const guestProfilePicture = await listingCommons.getProfilePicture(bookingObj.guestId)
     const quantity = bookingObj.period
 
-    let serviceFeeNoDiscount = listingData.isAbsorvedFee
-      ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
-      : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
+    let serviceFeeNoDiscountGuest = listingData.isAbsorvedFee
+      ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE_GUEST
+      : bookingObj.basePrice * bookingObj.period * IS_ABSORVE_GUEST
 
-    let totalBookingNoDiscount = bookingObj.basePrice * bookingObj.period + serviceFeeNoDiscount
+    let totalBookingNoDiscountGuest = bookingObj.basePrice * bookingObj.period + serviceFeeNoDiscountGuest
     let discountValue = 0
     if (bookingObj.voucherCode) {
-      discountValue = totalBookingNoDiscount - bookingObj.totalPrice
+      discountValue = totalBookingNoDiscountGuest - bookingObj.totalPrice
     }
     let totalBookingNoFee = totalBookingNoDiscount - discountValue
     let serviceFee = listingData.isAbsorvedFee ? totalBookingNoFee * IS_ABSORVE : totalBookingNoFee * NO_ABSORVE
@@ -156,7 +159,9 @@ module.exports = {
       listTitle: listingObj.title,
       listAddress: `${locationObj.address1}, ${locationObj.city}`,
       totalPeriod: totalPeriod,
-      total: (bookingObj.basePrice * bookingObj.period - discountValue).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      total: (bookingObj.basePrice * bookingObj.period - discountValue - serviceFee)
+        .toFixed(2)
+        .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       priceType: bookingObj.priceType,
       listImage: coverPhoto,
