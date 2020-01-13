@@ -106,11 +106,8 @@ module.exports = {
       .tz('Australia/Sydney')
       .format('Do MMM')
       .toString()
-    const IS_ABSORVE = 0.11
-    const NO_ABSORVE = 0.0
-
-    const IS_ABSORVE_GUEST = 0.035
-    const NO_ABSORVE_GUEST = 0.135
+    const HOST_FEE = 0.11
+    const GUEST_FEE = 0.035
 
     let checkInObj = await getCheckInOutTime(listingObj.id, bookingObj.checkIn)
     let checkInTime =
@@ -136,9 +133,7 @@ module.exports = {
     const guestProfilePicture = await listingCommons.getProfilePicture(bookingObj.guestId)
     const quantity = bookingObj.period
 
-    let serviceFeeNoDiscountGuest = listingData.isAbsorvedFee
-      ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE_GUEST
-      : bookingObj.basePrice * bookingObj.period * NO_ABSORVE_GUEST
+    let serviceFeeNoDiscountGuest = bookingObj.basePrice * bookingObj.period * GUEST_FEE
 
     let totalBookingNoDiscountGuest = bookingObj.basePrice * bookingObj.period + serviceFeeNoDiscountGuest
     let discountValue = 0
@@ -146,9 +141,7 @@ module.exports = {
       discountValue = totalBookingNoDiscountGuest - bookingObj.totalPrice
     }
 
-    let serviceFee = listingData.isAbsorvedFee
-      ? (bookingObj.basePrice * bookingObj.period - discountValue) * IS_ABSORVE
-      : (bookingObj.basePrice * bookingObj.period - discountValue) * NO_ABSORVE
+    let serviceFee = (bookingObj.basePrice * bookingObj.period - discountValue) * HOST_FEE
 
     const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
     const hostMetadata = {
