@@ -641,9 +641,7 @@ module.exports = {
             .format('h:mm a')
     const IS_ABSORVE = 0.035
     const NO_ABSORVE = 0.135
-    let serviceFee = listingData.isAbsorvedFee
-      ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
-      : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
+    let serviceFee = bookingObj.basePrice * bookingObj.period * IS_ABSORVE
     const userProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
