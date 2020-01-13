@@ -347,11 +347,11 @@ module.exports = {
     const locationObj = await Location.findOne({
       where: { id: listingObj.locationId }
     })
-    const IS_ABSORVE = 0.11
-    const NO_ABSORVE = 0.0
-    let serviceFee = listingData.isAbsorvedFee
-      ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
-      : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
+    // const IS_ABSORVE = 0.11
+    // const NO_ABSORVE = 0.0
+    // let serviceFee = listingData.isAbsorvedFee
+    //   ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
+    //   : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
@@ -388,6 +388,18 @@ module.exports = {
     const quantity = bookingObj.period
     const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
 
+    const HOST_FEE = 0.11
+    const GUEST_FEE = 0.035
+    let serviceFeeNoDiscountGuest = bookingObj.basePrice * bookingObj.period * GUEST_FEE
+
+    let totalBookingNoDiscountGuest = bookingObj.basePrice * bookingObj.period + serviceFeeNoDiscountGuest
+    let discountValue = 0
+    if (bookingObj.voucherCode) {
+      discountValue = totalBookingNoDiscountGuest - bookingObj.totalPrice
+    }
+
+    let serviceFee = (bookingObj.basePrice * bookingObj.period - discountValue) * HOST_FEE
+
     const hostMetadata = {
       user: hostObj.firstName,
       guestName: guestObj.firstName,
@@ -395,7 +407,9 @@ module.exports = {
       checkInDate: checkIn,
       checkOutDate: checkOut,
       basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-      total: (bookingObj.basePrice * bookingObj.period - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      total: (bookingObj.basePrice * bookingObj.period - discountValue - serviceFee)
+        .toFixed(2)
+        .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       acceptLink: getAcceptLink(bookingObj.bookingId, hostObj.id),
       declineLink: getDeclineLink(bookingObj.bookingId, hostObj.id),
       currentDate: moment()
@@ -442,7 +456,8 @@ module.exports = {
       totalPeriod: totalPeriod,
       listingId: listingObj.id,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
-      message: bookingObj.message
+      message: bookingObj.message,
+      valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null
     }
 
     console.log('HOST META DATA ==>>', hostMetadata)
@@ -471,11 +486,11 @@ module.exports = {
     const locationObj = await Location.findOne({
       where: { id: listingObj.locationId }
     })
-    const IS_ABSORVE = 0.035
-    const NO_ABSORVE = 0.135
-    let serviceFee = listingData.isAbsorvedFee
-      ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
-      : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
+    // const IS_ABSORVE = 0.035
+    // const NO_ABSORVE = 0.135
+    // let serviceFee = listingData.isAbsorvedFee
+    //   ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
+    //   : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
@@ -511,6 +526,14 @@ module.exports = {
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const quantity = bookingObj.period
     const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
+
+    const GUEST_FEE = 0.035
+    let serviceFee = bookingObj.basePrice * bookingObj.period * GUEST_FEE
+    let totalBookingNoDiscountGuest = bookingObj.basePrice * bookingObj.period + serviceFee
+    let discountValue = 0
+    if (bookingObj.voucherCode) {
+      discountValue = totalBookingNoDiscountGuest - bookingObj.totalPrice
+    }
 
     const guestMetadata = {
       guestName: guestObj.firstName,
@@ -566,7 +589,8 @@ module.exports = {
       category: categoryAndSubObj.category,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       totalPeriod: totalPeriod,
-      message: bookingObj.message
+      message: bookingObj.message,
+      valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null
     }
     await senderService.senderByTemplateData('booking-request-email-guest', guestObj.email, guestMetadata)
   },

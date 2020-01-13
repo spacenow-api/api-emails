@@ -620,6 +620,24 @@
                                 ${{ subtotal }}
                                 </td>
                               </tr>
+                              {{#if valueDiscount}}
+                                <tr>
+                                  <td
+                                    align="left"
+                                    valign="top"
+                                    style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
+                                  >
+                                    Promo code
+                                  </td>
+                                  <td
+                                    align="right"
+                                    valign="top"
+                                    style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
+                                  >
+                                    (${{valueDiscount}})
+                                  </td>
+                                </tr>
+                              {{/if}}
                               <tr>
                                 <td
                                   align="left"
