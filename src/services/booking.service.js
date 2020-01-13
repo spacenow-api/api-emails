@@ -91,9 +91,9 @@ module.exports = {
     const locationObj = await Location.findOne({
       where: { id: listingObj.locationId }
     })
-    const listingData = await ListingData.findOne({
-      where: { listingId: listingObj.id }
-    })
+    // const listingData = await ListingData.findOne({
+    //   where: { listingId: listingObj.id }
+    // })
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
@@ -267,6 +267,14 @@ module.exports = {
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const quantity = bookingObj.period
     const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
+
+    let serviceFee = bookingObj.basePrice * bookingObj.period * GUEST_FEE
+    let totalBookingNoDiscountGuest = bookingObj.basePrice * bookingObj.period + serviceFee
+    let discountValue = 0
+    if (bookingObj.voucherCode) {
+      discountValue = totalBookingNoDiscountGuest - bookingObj.totalPrice
+    }
+
     const guestMetada = {
       user: guestObj.firstName,
       hostName: hostObj.firstName,
@@ -319,7 +327,8 @@ module.exports = {
       listImage: coverPhoto,
       category: categoryAndSubObj.category,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
-      listingId: listingObj.id
+      listingId: listingObj.id,
+      discountValue: discountValue ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null
     }
     await senderService.senderByTemplateData('booking-instant-email-guest', guestObj.email, guestMetada)
   },

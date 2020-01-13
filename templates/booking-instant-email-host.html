@@ -638,7 +638,7 @@
                                   valign="top"
                                   style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
                                 >
-                                  Service fee
+                                  Spacenow 10% fee + GST
                                 </td>
                                 <td
                                   align="right"
@@ -658,7 +658,7 @@
                           <td height="30" style="font-size: 0; line-height:20px;">&nbsp;</td>
                         </tr>
                         <tr>
-                          <td align="center" valign="top">
+                          <td align="center" valign="top" style="border-bottom: 1px solid #E6E6E6; padding-bottom: 30px">
                             <table
                               width="93%"
                               align="center"
@@ -684,6 +684,11 @@
                                 </td>
                               </tr>
                             </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:12px; mso-line-height-rule:exactly;line-height:18px;color:#172439;padding-top: 20px; padding-left: 10px;">
+                            All prices are in Australian dollars and include GST
                           </td>
                         </tr>
                       </table>
@@ -804,7 +809,7 @@
                                             alt=""
                                             title=""
                                             width="243"
-                                            style="display:block; border-top-left-radius: 4px; border-bottom-left-radius: 4px; -webkit-border-top-left-radius: 4px;-webkit-border-bottom-left-radius: 4px;height: 165px;object-fit: cover;"
+                                            style="display:block; border-top-left-radius: 4px; border-bottom-left-radius: 4px; -webkit-border-top-left-radius: 4px;-webkit-border-bottom-left-radius: 4px;height: 204px;object-fit: cover;"
                                             border="0"
                                             class="full_img480"
                                           />
@@ -826,35 +831,9 @@
                                       style="border-collapse: collapse; width: 350px; max-width: 350px;"
                                       class="container244"
                                     >
+
                                       <tr>
                                         <td height="17" style="font-size: 0; line-height: 17px;">&nbsp;</td>
-                                      </tr>
-                                      <tr>
-                                        <td
-                                          align="left"
-                                          valign="top"
-                                          style="padding: 0 17px 10px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: bold; font-size:18px; mso-line-height-rule:exactly;line-height:22px;color:#1F252A;"
-                                        >
-                                          {{listTitle}}
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td
-                                          align="left"
-                                          valign="top"
-                                          style="padding: 0 17px 10px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#1F252A;"
-                                        >
-                                          {{listAddress}}
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td
-                                          align="left"
-                                          valign="top"
-                                          style="padding: 0 17px 10px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: 600; font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#1F252A;"
-                                        >
-                                          <strong>${{basePrice}}</strong> <span style="font-size: 8px;">{{priceType}}</span>
-                                        </td>
                                       </tr>
                                       <tr>
                                         <td valign="top" align="center">
@@ -925,10 +904,45 @@
                                         </td>
                                       </tr>
                                       <tr>
-                                        <td class="vspace30" height="17" style="font-size: 0; line-height: 17px;">
-                                          &nbsp;
+                                        <td height="17" style="font-size: 0; line-height: 17px;">&nbsp;</td>
+                                      </tr>
+                                      <tr>
+                                        <td
+                                          align="left"
+                                          valign="top"
+                                          style="padding: 0 17px 10px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: bold; font-size:18px; mso-line-height-rule:exactly;line-height:22px;color:#1F252A;"
+                                        >
+                                          <span  style="white-space: nowrap;
+                                          overflow: hidden !important;
+                                          text-overflow: ellipsis;width: 300px">{{listTitle}}</span>
                                         </td>
                                       </tr>
+                                      <tr>
+                                        <td
+                                          align="left"
+                                          valign="top"
+                                          style="padding: 0 17px 10px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#1F252A;"
+                                        >
+                                          {{listAddress}}
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td height="17" >&nbsp;
+                                        <div style="font-size: 0; line-height: 17px;border-top: 1px solid #cccccc; width:300px;padding-bottom: 15px;width: 330px"></div></td>
+                                      </tr>
+                                      <tr>
+                     
+                                            <td
+                                              align="left"
+                                              valign="top"
+                                              style="padding: 0 17px 10px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: 600; font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#1F252A;"
+                                            >
+                                              <span style="font-size: 9px;" >From</span> <strong> ${{basePrice}}</strong> <span style="font-size: 8px;">{{priceType}}</span>
+                                            </td>
+                                   
+                                          </tr>
+
+                           
                                     </table>
                                   </div>
                                   <!--[if (gte mso 9)|(IE)]></td></tr>
