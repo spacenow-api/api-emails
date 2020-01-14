@@ -37,7 +37,6 @@ async function getUserById(userId) {
 
 async function getCheckInOutTime(listingId, date) {
   const weekDay = moment(date).day()
-  console.log('weekDay', weekDay)
   const accessDay = await ListingAccessDays.findOne({
     where: { listingId: listingId }
   })
@@ -267,7 +266,6 @@ module.exports = {
               .tz('Australia/Sydney')
               .format('h:mm a')
         : 'Closed'
-    console.log('checkOutTime', checkOutTime)
     const GUEST_FEE = 0.035
     // const NO_ABSORVE = 0.135
     // let serviceFee = listingData.isAbsorvedFee
