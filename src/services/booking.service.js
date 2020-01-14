@@ -12,8 +12,8 @@ const {
   Location,
   ListingAccessDays,
   ListingAccessHours,
-  ListingData,
-  Message
+  ListingData
+  // Message
 } = require('./../models')
 
 async function getBookingById(id) {
@@ -816,17 +816,17 @@ module.exports = {
     const locationObj = await Location.findOne({
       where: { id: listingObj.locationId }
     })
-    const valuesMessage = {
-      where: {
-        listingId: listingObj.id,
-        hostId: bookingObj.hostId,
-        guestId: bookingObj.guestId
-      }
-    }
-    let messageData = await Message.findOne(valuesMessage)
-    if (!messageData) {
-      messageData = await Message.create(valuesMessage.where)
-    }
+    // const valuesMessage = {
+    //   where: {
+    //     listingId: listingObj.id,
+    //     hostId: bookingObj.hostId,
+    //     guestId: bookingObj.guestId
+    //   }
+    // }
+    // let messageData = await Message.findOne(valuesMessage)
+    // if (!messageData) {
+    //   messageData = await Message.create(valuesMessage.where)
+    // }
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
