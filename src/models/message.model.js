@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     {
-      tableName: 'message',
+      tableName: 'Message',
       indexes: [
         {
           unique: true,

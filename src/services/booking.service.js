@@ -852,8 +852,8 @@ module.exports = {
     }
     await senderService.senderByTemplateData('booking-expiry-email-guest', guestObj.email, emailData)
     await senderService.senderByTemplateData('booking-expire-email-host', hostObj.email, {
-      ...emailData,
-      messageId: messageData.id
+      ...emailData
+      // messageId: messageData.id
     })
     const smsMessageGuest = {
       message: 'Your bookings has expired on Spacenow',
