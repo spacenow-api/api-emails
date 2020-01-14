@@ -267,6 +267,7 @@ module.exports = {
               .tz('Australia/Sydney')
               .format('h:mm a')
         : 'Closed'
+    console.log('checkOutTime', checkOutTime)
     const GUEST_FEE = 0.035
     // const NO_ABSORVE = 0.135
     // let serviceFee = listingData.isAbsorvedFee
