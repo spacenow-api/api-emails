@@ -91,9 +91,9 @@ module.exports = {
     const locationObj = await Location.findOne({
       where: { id: listingObj.locationId }
     })
-    const listingData = await ListingData.findOne({
-      where: { listingId: listingObj.id }
-    })
+    // const listingData = await ListingData.findOne({
+    //   where: { listingId: listingObj.id }
+    // })
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
@@ -106,11 +106,9 @@ module.exports = {
       .tz('Australia/Sydney')
       .format('Do MMM')
       .toString()
-    const IS_ABSORVE = 0.11
-    const NO_ABSORVE = 0.0
-    let serviceFee = listingData.isAbsorvedFee
-      ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
-      : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
+    const HOST_FEE = 0.11
+    const GUEST_FEE = 0.035
+
     let checkInObj = await getCheckInOutTime(listingObj.id, bookingObj.checkIn)
     let checkInTime =
       bookingObj.priceType === 'hourly'
@@ -133,7 +131,18 @@ module.exports = {
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const guestProfilePicture = await listingCommons.getProfilePicture(bookingObj.guestId)
-    const quantity = bookingObj.priceType !== 'hourly' ? bookingObj.reservations.length : bookingObj.period
+    const quantity = bookingObj.period
+
+    let serviceFeeNoDiscountGuest = bookingObj.basePrice * bookingObj.period * GUEST_FEE
+
+    let totalBookingNoDiscountGuest = bookingObj.basePrice * bookingObj.period + serviceFeeNoDiscountGuest
+    let discountValue = 0
+    if (bookingObj.voucherCode) {
+      discountValue = totalBookingNoDiscountGuest - bookingObj.totalPrice
+    }
+
+    let serviceFee = (bookingObj.basePrice * bookingObj.period - discountValue) * HOST_FEE
+
     const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
     const hostMetadata = {
       user: hostObj.firstName,
@@ -145,7 +154,9 @@ module.exports = {
       listTitle: listingObj.title,
       listAddress: `${locationObj.address1}, ${locationObj.city}`,
       totalPeriod: totalPeriod,
-      total: (bookingObj.basePrice * bookingObj.period - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      total: (bookingObj.basePrice * bookingObj.period - discountValue - serviceFee)
+        .toFixed(2)
+        .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       priceType: bookingObj.priceType,
       listImage: coverPhoto,
@@ -188,7 +199,8 @@ module.exports = {
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       period: bookingObj.period,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
-      listingId: listingObj.id
+      listingId: listingObj.id,
+      discountValue: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null
     }
     await senderService.senderByTemplateData('booking-instant-email-host', hostObj.email, hostMetadata)
     const smsMessage = {
@@ -245,16 +257,24 @@ module.exports = {
         : moment(checkOutObj.closeHour)
             .tz('Australia/Sydney')
             .format('h:mm a')
-    const IS_ABSORVE = 0.035
-    const NO_ABSORVE = 0.135
-    let serviceFee = listingData.isAbsorvedFee
-      ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
-      : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
+    const GUEST_FEE = 0.035
+    // const NO_ABSORVE = 0.135
+    // let serviceFee = listingData.isAbsorvedFee
+    //   ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
+    //   : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
     const userProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
-    const quantity = bookingObj.priceType !== 'hourly' ? bookingObj.reservations.length : bookingObj.period
+    const quantity = bookingObj.period
     const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
+
+    let serviceFee = bookingObj.basePrice * bookingObj.period * GUEST_FEE
+    let totalBookingNoDiscountGuest = bookingObj.basePrice * bookingObj.period + serviceFee
+    let discountValue = 0
+    if (bookingObj.voucherCode) {
+      discountValue = totalBookingNoDiscountGuest - bookingObj.totalPrice
+    }
+
     const guestMetada = {
       user: guestObj.firstName,
       hostName: hostObj.firstName,
@@ -268,7 +288,7 @@ module.exports = {
       fullAddress: `${locationObj.address1}, ${locationObj.city}`,
       basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       totalPeriod: totalPeriod,
-      subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      subtotal: (bookingObj.basePrice * bookingObj.period).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       total: bookingObj.totalPrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       priceType: bookingObj.priceType,
@@ -307,7 +327,8 @@ module.exports = {
       listImage: coverPhoto,
       category: categoryAndSubObj.category,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
-      listingId: listingObj.id
+      listingId: listingObj.id,
+      valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null
     }
     await senderService.senderByTemplateData('booking-instant-email-guest', guestObj.email, guestMetada)
   },
@@ -326,11 +347,11 @@ module.exports = {
     const locationObj = await Location.findOne({
       where: { id: listingObj.locationId }
     })
-    const IS_ABSORVE = 0.11
-    const NO_ABSORVE = 0.0
-    let serviceFee = listingData.isAbsorvedFee
-      ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
-      : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
+    // const IS_ABSORVE = 0.11
+    // const NO_ABSORVE = 0.0
+    // let serviceFee = listingData.isAbsorvedFee
+    //   ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
+    //   : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
@@ -364,8 +385,20 @@ module.exports = {
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const guestProfilePicture = await listingCommons.getProfilePicture(bookingObj.guestId)
-    const quantity = bookingObj.priceType !== 'hourly' ? bookingObj.reservations.length : bookingObj.period
+    const quantity = bookingObj.period
     const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
+
+    const HOST_FEE = 0.11
+    const GUEST_FEE = 0.035
+    let serviceFeeNoDiscountGuest = bookingObj.basePrice * bookingObj.period * GUEST_FEE
+
+    let totalBookingNoDiscountGuest = bookingObj.basePrice * bookingObj.period + serviceFeeNoDiscountGuest
+    let discountValue = 0
+    if (bookingObj.voucherCode) {
+      discountValue = totalBookingNoDiscountGuest - bookingObj.totalPrice
+    }
+
+    let serviceFee = (bookingObj.basePrice * bookingObj.period - discountValue) * HOST_FEE
 
     const hostMetadata = {
       user: hostObj.firstName,
@@ -374,7 +407,9 @@ module.exports = {
       checkInDate: checkIn,
       checkOutDate: checkOut,
       basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-      total: (bookingObj.basePrice * bookingObj.period - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      total: (bookingObj.basePrice * bookingObj.period - discountValue - serviceFee)
+        .toFixed(2)
+        .replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       acceptLink: getAcceptLink(bookingObj.bookingId, hostObj.id),
       declineLink: getDeclineLink(bookingObj.bookingId, hostObj.id),
       currentDate: moment()
@@ -421,7 +456,8 @@ module.exports = {
       totalPeriod: totalPeriod,
       listingId: listingObj.id,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
-      message: bookingObj.message
+      message: bookingObj.message,
+      valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null
     }
 
     console.log('HOST META DATA ==>>', hostMetadata)
@@ -450,11 +486,11 @@ module.exports = {
     const locationObj = await Location.findOne({
       where: { id: listingObj.locationId }
     })
-    const IS_ABSORVE = 0.035
-    const NO_ABSORVE = 0.135
-    let serviceFee = listingData.isAbsorvedFee
-      ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
-      : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
+    // const IS_ABSORVE = 0.035
+    // const NO_ABSORVE = 0.135
+    // let serviceFee = listingData.isAbsorvedFee
+    //   ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
+    //   : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
@@ -488,8 +524,16 @@ module.exports = {
     const hostProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
-    const quantity = bookingObj.priceType !== 'hourly' ? bookingObj.reservations.length : bookingObj.period
+    const quantity = bookingObj.period
     const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
+
+    const GUEST_FEE = 0.035
+    let serviceFee = bookingObj.basePrice * bookingObj.period * GUEST_FEE
+    let totalBookingNoDiscountGuest = bookingObj.basePrice * bookingObj.period + serviceFee
+    let discountValue = 0
+    if (bookingObj.voucherCode) {
+      discountValue = totalBookingNoDiscountGuest - bookingObj.totalPrice
+    }
 
     const guestMetadata = {
       guestName: guestObj.firstName,
@@ -545,7 +589,8 @@ module.exports = {
       category: categoryAndSubObj.category,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       totalPeriod: totalPeriod,
-      message: bookingObj.message
+      message: bookingObj.message,
+      valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null
     }
     await senderService.senderByTemplateData('booking-request-email-guest', guestObj.email, guestMetadata)
   },
@@ -596,13 +641,11 @@ module.exports = {
             .format('h:mm a')
     const IS_ABSORVE = 0.035
     const NO_ABSORVE = 0.135
-    let serviceFee = listingData.isAbsorvedFee
-      ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
-      : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
+    let serviceFee = bookingObj.basePrice * bookingObj.period * IS_ABSORVE
     const userProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
-    const quantity = bookingObj.priceType !== 'hourly' ? bookingObj.reservations.length : bookingObj.period
+    const quantity = bookingObj.period
     const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
     const guestMetadata = {
       bookingId: bookingId,
