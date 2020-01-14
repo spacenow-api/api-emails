@@ -800,7 +800,7 @@ module.exports = {
       sender: 'Spacenow',
       receiver: hostObj.phoneNumber
     }
-    console.log('SMS Message ===>>>', smsMessage)
+    // console.log('SMS Message ===>>>', smsMessage)
     await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, JSON.stringify(smsMessageGuest))
     await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, JSON.stringify(smsMessageHost))
   },
@@ -865,7 +865,7 @@ module.exports = {
       sender: 'Spacenow',
       receiver: hostObj.phoneNumber
     }
-    console.log('SMS Message ===>>>', smsMessage)
+    // console.log('SMS Message ===>>>', smsMessage)
     await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, JSON.stringify(smsMessageGuest))
     await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, JSON.stringify(smsMessageHost))
   }
