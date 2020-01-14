@@ -37,6 +37,7 @@ async function getUserById(userId) {
 
 async function getCheckInOutTime(listingId, date) {
   const weekDay = moment(date).day()
+  console.log('weekDay', weekDay)
   const accessDay = await ListingAccessDays.findOne({
     where: { listingId: listingId }
   })
