@@ -30,7 +30,7 @@ module.exports = {
         where: {
           isPublished: false,
           isReady: true,
-          createdAt: { [Op.between]: [date, date] }
+          createdAt: date // { [Op.between]: [pastDay, date] }
         }
       })
       for (const listing of listings) {
