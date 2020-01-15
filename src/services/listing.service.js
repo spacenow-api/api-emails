@@ -30,7 +30,7 @@ module.exports = {
         where: {
           isPublished: false,
           isReady: true,
-          createdAt: { [Op.between]: [pastDay, date] } // {[Op.gt]: pastDate} //
+          createdAt: { [Op.between]: [pastDay, date] }
         }
       })
       console.log('pastDay', pastDay)
