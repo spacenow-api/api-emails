@@ -30,9 +30,10 @@ module.exports = {
         where: {
           isPublished: false,
           isReady: true,
-          createdAt: date // { [Op.between]: [pastDay, date] }
+          createdAt: { [Op.between]: [pastDay, date] } // {[Op.gt]: pastDate} //
         }
       })
+      console.log('pastDay', pastDay)
       console.log('date', date)
       for (const listing of listings) {
         const listingData = await ListingData.findOne({
