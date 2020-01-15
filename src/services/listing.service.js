@@ -22,7 +22,7 @@ module.exports = {
         .format('dddd D MMMM, YYYY')
         .toString()
       const pastDay = moment()
-        .subtract(24, 'hours')
+        .subtract(48, 'hours')
         .utc()
       const date = moment().utc()
 
@@ -30,7 +30,7 @@ module.exports = {
         where: {
           isPublished: false,
           isReady: true,
-          createdAt: { [Op.between]: [pastDay, date] }
+          createdAt: { [Op.between]: [date, date] }
         }
       })
       for (const listing of listings) {
