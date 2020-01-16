@@ -76,12 +76,15 @@ module.exports = {
   sendEmailPublishListing: async (id) => {
     try {
       let emailObj
+      let currentDate = moment()
+        .tz('Australia/Sydney')
+        .format('dddd D MMMM, YYYY')
+        .toString()
       const listing = await Listing.findOne({
         where: {
           id
         }
       })
-
       const listingData = await ListingData.findOne({
         where: { listingId: id }
       })
