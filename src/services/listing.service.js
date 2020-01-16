@@ -21,7 +21,7 @@ module.exports = {
         .format('dddd D MMMM, YYYY')
         .toString()
       const pastDay = moment()
-        .subtract(24, 'hours')
+        .subtract(48, 'hours')
         .utc()
       const date = moment().utc()
 
@@ -32,6 +32,8 @@ module.exports = {
           createdAt: { [Op.between]: [pastDay, date] }
         }
       })
+      console.log('pastDay', pastDay)
+      console.log('date', date)
       for (const listing of listings) {
         const listingData = await ListingData.findOne({
           where: { listingId: listing.id }

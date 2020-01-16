@@ -117,7 +117,7 @@ module.exports = function(sequelize, DataTypes) {
       isAbsorvedFee: {
         type: DataTypes.INTEGER(1),
         allowNull: false,
-        defaultValue: '0'
+        defaultValue: '1'
       },
       capacity: {
         type: DataTypes.INTEGER(5),
