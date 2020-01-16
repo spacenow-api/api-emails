@@ -111,7 +111,7 @@ module.exports = {
         priceType: listing.bookingPeriod,
         category: categoryAndSubObj.category
       }
-      await senderService.senderByTemplateData('complete-listing-email', user.email, emailObj)
+      await senderService.senderByTemplateData('publish-listing-confirmation', user.email, emailObj)
 
       return listings
     } catch (err) {
