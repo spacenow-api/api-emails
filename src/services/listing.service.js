@@ -33,8 +33,6 @@ module.exports = {
           createdAt: { [Op.between]: [pastDay, date] }
         }
       })
-      console.log('pastDay', pastDay)
-      console.log('date', date)
       for (const listing of listings) {
         const listingData = await ListingData.findOne({
           where: { listingId: listing.id }
