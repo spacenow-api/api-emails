@@ -52,8 +52,6 @@ module.exports = {
         message: messageItem.content
       }
       await senderService.senderByTemplateData('message-host-email', hostObj.email, emailObj)
-
-      return listings
     } catch (err) {
       console.error(err)
       return err
@@ -102,8 +100,6 @@ module.exports = {
         message: messageItem.content
       }
       await senderService.senderByTemplateData('message-guest-email', guestObj.email, emailObj)
-
-      return listings
     } catch (err) {
       console.error(err)
       return err
