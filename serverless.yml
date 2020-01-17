@@ -158,7 +158,7 @@ functions:
           path: email/listing/complete
           method: post
           cors: true
-      - schedule: rate(24 hours)
+      - schedule: rate(48 hours)
   sendEmailPublishListing:
     handler: src/functions/sendEmailPublishListing.main
     memorySize: 1024
