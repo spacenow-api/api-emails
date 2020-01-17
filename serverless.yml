@@ -159,5 +159,13 @@ functions:
           method: post
           cors: true
       - schedule: rate(24 hours)
+  sendEmailPublishListing:
+    handler: src/functions/sendEmailPublishListing.main
+    memorySize: 1024
+    events:
+      - http:
+          path: email/listing/{listingId}/publish
+          method: post
+          cors: true
 resources:
   - ${file(src/resources/api-gateway-errors.yml)}

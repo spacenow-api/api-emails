@@ -1,6 +1,5 @@
 'use strict'
 
-const axios = require('axios')
 const moment = require('moment')
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
@@ -62,6 +61,56 @@ module.exports = {
         }
         await senderService.senderByTemplateData('complete-listing-email', user.email, emailObj)
       }
+      return listings
+    } catch (err) {
+      console.error(err)
+      return err
+    }
+  },
+
+  /**
+   * Send an email to when space is published.
+   */
+  sendEmailPublishListing: async (id) => {
+    try {
+      let emailObj
+      let currentDate = moment()
+        .tz('Australia/Sydney')
+        .format('dddd D MMMM, YYYY')
+        .toString()
+      const listing = await Listing.findOne({
+        where: {
+          id
+        }
+      })
+      const listingData = await ListingData.findOne({
+        where: { listingId: id }
+      })
+      const user = await User.findOne({
+        where: { id: listing.userId }
+      })
+      const userProfile = await UserProfile.findOne({
+        where: { userId: user.id }
+      })
+      const location = await Location.findOne({
+        where: { id: listing.locationId }
+      })
+      const coverPhoto = await listingCommons.getCoverPhotoPath(id)
+      const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listing.listSettingsParentId)
+      emailObj = {
+        currentDate,
+        appLink: process.env.NEW_LISTING_PROCESS_HOST,
+        hostName: userProfile.firstName,
+        listTitle: listing.title,
+        listingId: listing.id,
+        listImage: coverPhoto,
+        listAddress: `${location.address1}, ${location.city}`,
+        basePrice: listingData.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+        priceType: listing.bookingPeriod,
+        category: categoryAndSubObj.category
+      }
+      await senderService.senderByTemplateData('publish-listing-confirmation', user.email, emailObj)
+
       return listings
     } catch (err) {
       console.error(err)
