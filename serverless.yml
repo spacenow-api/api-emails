@@ -167,5 +167,21 @@ functions:
           path: email/listing/{listingId}/publish
           method: post
           cors: true
+  sendEmailNewMessageGuest:
+    handler: src/functions/sendEmailNewMessageGuest.main
+    memorySize: 1024
+    events:
+      - http:
+          path: email/message/{messageItemId}/guest
+          method: post
+          cors: true
+  sendEmailNewMessageHost:
+    handler: src/functions/sendEmailNewMessageHost.main
+    memorySize: 1024
+    events:
+      - http:
+          path: email/message/{messageItemId}/host
+          method: post
+          cors: true
 resources:
   - ${file(src/resources/api-gateway-errors.yml)}
