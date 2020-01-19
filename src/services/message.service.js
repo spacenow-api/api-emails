@@ -2,12 +2,9 @@
 
 const moment = require('moment')
 const Sequelize = require('sequelize')
-const Op = Sequelize.Op
-
-// const listingCommons = require('./../helpers/listings.common')
 const senderService = require('./sender')
 
-const { ListingData, Listing, User, UserProfile, Location, MessageIte, Message } = require('./../models')
+const { User, UserProfile, Message } = require('./../models')
 
 module.exports = {
   /**
