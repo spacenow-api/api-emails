@@ -183,5 +183,6 @@ functions:
           path: email/message/{messageItemId}/host
           method: post
           cors: true
+
 resources:
   - ${file(src/resources/api-gateway-errors.yml)}
