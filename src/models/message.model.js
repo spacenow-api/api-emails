@@ -43,25 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     {
-      tableName: 'Message',
-      indexes: [
-        {
-          unique: true,
-          fields: ['listing_id']
-        },
-        {
-          unique: true,
-          fields: ['host_id']
-        },
-        {
-          unique: true,
-          fields: ['guest_id']
-        },
-        {
-          unique: true,
-          fields: ['is_read']
-        }
-      ]
+      tableName: 'Message'
     }
   )
 
