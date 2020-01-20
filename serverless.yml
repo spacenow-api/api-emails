@@ -183,6 +183,14 @@ functions:
           path: email/message/{messageItemId}/host
           method: post
           cors: true
+  sendEmailNewMessageHost:
+    handler: src/functions/sendEmailMessageNotification.main
+    memorySize: 1024
+    events:
+      - http:
+          path: email/message/notification
+          method: post
+          cors: true
 
 resources:
   - ${file(src/resources/api-gateway-errors.yml)}

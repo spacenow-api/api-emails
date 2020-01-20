@@ -47,7 +47,6 @@ module.exports = {
         guestPhoto: guestProfileObj.picture,
         message: messageItemObj.content
       }
-      console.log('emailObj', emailObj)
       await senderService.senderByTemplateData('message-host-email', hostObj.email, emailObj)
     } catch (err) {
       console.error(err)
@@ -96,6 +95,27 @@ module.exports = {
         message: messageItemObj.content
       }
       await senderService.senderByTemplateData('message-guest-email', guestObj.email, emailObj)
+    } catch (err) {
+      console.error(err)
+      return err
+    }
+  },
+
+  sendEmailMessageNotification: async messageItemId => {
+    // run cron job hourly
+    try {
+      // bring the unread messages
+      // brind the message items
+      // check the last message item
+      // si was sent between one and two hours from now ->  send email to the different than sentBy
+
+      const messageItemsObj = await MessageItem.findAll({
+        where: {
+          isRead: 0,
+          group: ['messageId']
+        }
+      })
+      console.log('messageItemsObj', messageItemsObj)
     } catch (err) {
       console.error(err)
       return err
