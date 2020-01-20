@@ -45,7 +45,6 @@ module.exports = {
         hostName: hostProfileObj.firstName,
         guestName: guestProfileObj.firstName,
         guestPhoto: guestProfileObj.picture,
-        guestLocation: guestProfileObj.location,
         message: messageItemObj.content
       }
       console.log('emailObj', emailObj)
@@ -94,7 +93,6 @@ module.exports = {
         hostName: hostProfileObj.firstName,
         guestName: guestProfileObj.firstName,
         hostPhoto: guestProfileObj.picture,
-        hostLocation: guestProfileObj.location,
         message: messageItemObj.content
       }
       await senderService.senderByTemplateData('message-guest-email', guestObj.email, emailObj)
