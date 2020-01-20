@@ -183,7 +183,7 @@ functions:
           path: email/message/{messageItemId}/host
           method: post
           cors: true
-  sendEmailNewMessageHost:
+  sendEmailMessageNotification:
     handler: src/functions/sendEmailMessageNotification.main
     memorySize: 1024
     events:
