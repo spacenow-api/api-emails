@@ -4,7 +4,7 @@ const moment = require('moment')
 const Sequelize = require('sequelize')
 const senderService = require('./sender')
 
-const { User, UserProfile, Message } = require('./../models')
+const { User, UserProfile, Message, MessageItem } = require('./../models')
 
 module.exports = {
   /**
