@@ -48,6 +48,7 @@ module.exports = {
         guestLocation: guestProfileObj.location,
         message: messageItemObj.content
       }
+      console.log('emailObj', emailObj)
       await senderService.senderByTemplateData('message-host-email', hostObj.email, emailObj)
     } catch (err) {
       console.error(err)
