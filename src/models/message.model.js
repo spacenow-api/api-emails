@@ -7,39 +7,32 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.UUID,
         allowNull: false,
         primaryKey: true,
-        defaultValue: DataTypes.UUIDV4,
-        field: 'id'
+        defaultValue: DataTypes.UUIDV4
       },
       listingId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        field: 'listing_id'
+        allowNull: false
       },
       hostId: {
         type: DataTypes.UUID,
-        allowNull: false,
-        field: 'host_id'
+        allowNull: false
       },
       guestId: {
         type: DataTypes.UUID,
-        allowNull: false,
-        field: 'guest_id'
+        allowNull: false
       },
       isRead: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: false,
-        field: 'is_read'
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,
-        type: DataTypes.DATE,
-        field: 'created_at'
+        type: DataTypes.DATE
       },
       updatedAt: {
         allowNull: false,
-        type: DataTypes.DATE,
-        field: 'updated_at'
+        type: DataTypes.DATE
       }
     },
     {
