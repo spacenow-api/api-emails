@@ -46,7 +46,7 @@ module.exports = {
         guestName: guestProfileObj.firstName,
         guestPhoto: guestProfileObj.picture,
         guestLocation: guestProfileObj.location,
-        message: messageItem.content
+        message: messageItemObj.content
       }
       await senderService.senderByTemplateData('message-host-email', hostObj.email, emailObj)
     } catch (err) {
@@ -77,7 +77,7 @@ module.exports = {
         }
       })
       const guestObj = await User.findOne({
-        where: { userId: messageObj.guestId }
+        where: { id: messageObj.guestId }
       })
       const hostProfileObj = await UserProfile.findOne({
         where: { userId: messageObj.hostId }
@@ -94,7 +94,7 @@ module.exports = {
         guestName: guestProfileObj.firstName,
         hostPhoto: guestProfileObj.picture,
         hostLocation: guestProfileObj.location,
-        message: messageItem.content
+        message: messageItemObj.content
       }
       await senderService.senderByTemplateData('message-guest-email', guestObj.email, emailObj)
     } catch (err) {
