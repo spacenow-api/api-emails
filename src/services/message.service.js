@@ -66,12 +66,12 @@ module.exports = {
         .format('dddd D MMMM, YYYY')
         .toString()
 
-      const messageItemObj = await MessageItem.find({
+      const messageItemObj = await MessageItem.findOne({
         where: {
           id: messageItemId
         }
       })
-      const messageObj = await Message.find({
+      const messageObj = await Message.findOne({
         where: {
           id: messageItemObj.messageId
         }
