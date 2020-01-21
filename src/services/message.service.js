@@ -118,13 +118,14 @@ module.exports = {
         where: {
           isRead: 0,
           createdAt: { [Op.between]: [pastHour, date] }
-        }
-        // order: ['createdAt'],
-        // group: ['messageId']
+        },
+        group: ['messageId', 'content'],
+        order: ['createdAt']
       })
       console.log('pastHour', pastHour.toString())
       console.log('date', date.toString())
       console.log('messageItemsObj', messageItemsObj)
+      return messageItemsObj
     } catch (err) {
       console.error(err)
       return err
