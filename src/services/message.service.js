@@ -122,7 +122,7 @@ module.exports = {
         group: ['messageId', 'content'],
         order: ['createdAt']
       })
-      // const groupBy = key => array =>
+
       const groupedObj = messageItemsObj.reduce(
         (objectsByKeyValue, obj) => ({
           ...objectsByKeyValue,
@@ -130,8 +130,13 @@ module.exports = {
         }),
         {}
       )
-      console.log('groupedObj', groupedObj)
-      return groupedObj
+      const messageItemValues = Object.values(fruits)
+
+      messageItemValues.forEach(item => {
+        // sendEmailNewMessageGuest(item[0].messageId)
+        console.log('item[0]', item[0])
+      })
+      return messageItemValues
     } catch (err) {
       console.error(err)
       return err
