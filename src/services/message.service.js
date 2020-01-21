@@ -109,7 +109,7 @@ module.exports = {
         .utc()
       const date = moment().utc()
 
-      const messageItemsObj = await Message.findAll({
+      const messageItemsObj = await MessageItem.findAll({
         where: {
           isRead: 0,
           createdAt: { [Op.between]: [pastHour, date] }
