@@ -120,7 +120,7 @@ module.exports = {
           createdAt: { [Op.between]: [pastHour, date] }
         },
         group: ['messageId', 'content'],
-        order: ['createdAt']
+        order: [['createdAt', 'DESC']]
       })
 
       const groupedObj = messageItemsObj.reduce(
