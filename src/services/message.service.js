@@ -103,12 +103,7 @@ module.exports = {
   },
 
   sendEmailMessageNotification: async () => {
-    // run cron job hourly
     try {
-      // bring the unread messages
-      // brind the message items
-      // check the last message item
-      // si was sent between one and two hours from now ->  send email to the different than sentBy
       const pastHour = moment()
         .subtract(1, 'hours')
         .utc()
@@ -119,6 +114,7 @@ module.exports = {
           isRead: 0,
           createdAt: { [Op.between]: [pastHour, date] }
         },
+        include: 'message',
         group: ['messageId', 'content'],
         order: [['createdAt', 'DESC']]
       })
@@ -133,7 +129,7 @@ module.exports = {
       const messageItemValues = Object.values(groupedObj)
 
       messageItemValues.forEach(item => {
-        // sendEmailNewMessageGuest(item[0].messageId)
+        // sendEmailNewMessageGuest(item[0].id)
         console.log('item[0]', item[0])
       })
       return messageItemValues
