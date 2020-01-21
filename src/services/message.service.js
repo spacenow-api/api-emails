@@ -122,10 +122,16 @@ module.exports = {
         group: ['messageId', 'content'],
         order: ['createdAt']
       })
-      console.log('pastHour', pastHour.toString())
-      console.log('date', date.toString())
-      console.log('messageItemsObj', messageItemsObj)
-      return messageItemsObj
+      // const groupBy = key => array =>
+      const groupedObj = messageItemsObj.reduce(
+        (objectsByKeyValue, obj) => ({
+          ...objectsByKeyValue,
+          [obj['messageId']]: (objectsByKeyValue[obj['messageId']] || []).concat(obj)
+        }),
+        {}
+      )
+      console.log('groupedObj', groupedObj)
+      return groupedObj
     } catch (err) {
       console.error(err)
       return err
