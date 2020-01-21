@@ -3,6 +3,7 @@
 const moment = require('moment')
 const Sequelize = require('sequelize')
 const senderService = require('./sender')
+const Op = Sequelize.Op
 
 const { User, UserProfile, Message, MessageItem } = require('./../models')
 
@@ -108,11 +109,17 @@ module.exports = {
       // brind the message items
       // check the last message item
       // si was sent between one and two hours from now ->  send email to the different than sentBy
+      const pastHour = moment()
+        .subtract(1, 'hours')
+        .utc()
+      const date = moment().utc()
 
       const messageItemsObj = await MessageItem.findAll({
         where: {
-          isRead: 0
+          isRead: 0,
+          createdAt: { [Op.between]: [pastHour, date] }
         },
+        sort: ['createdAt', 'ASC'],
         group: ['messageId']
       })
       console.log('messageItemsObj', messageItemsObj)
