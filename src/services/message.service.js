@@ -101,7 +101,7 @@ module.exports = {
     }
   },
 
-  sendEmailMessageNotification: async => {
+  sendEmailMessageNotification: async () => {
     // run cron job hourly
     try {
       // bring the unread messages
