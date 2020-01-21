@@ -119,7 +119,7 @@ module.exports = {
           isRead: 0,
           createdAt: { [Op.between]: [pastHour, date] }
         },
-        sort: ['createdAt', 'ASC'],
+        order: ['createdAt', 'DESC'],
         group: ['messageId']
       })
       console.log('messageItemsObj', messageItemsObj)
