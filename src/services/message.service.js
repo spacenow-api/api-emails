@@ -130,7 +130,7 @@ module.exports = {
         }),
         {}
       )
-      const messageItemValues = Object.values(fruits)
+      const messageItemValues = Object.values(groupedObj)
 
       messageItemValues.forEach(item => {
         // sendEmailNewMessageGuest(item[0].messageId)
