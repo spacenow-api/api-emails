@@ -127,7 +127,7 @@ module.exports = {
       )
       const messageItemValues = Object.values(groupedObj)
 
-      messageItemValues.forEach(async item => {
+      messageItemValues[0].forEach(async item => {
         const messageObj = await Message.findOne({
           where: {
             id: item[0].messageId
@@ -143,6 +143,7 @@ module.exports = {
           sendEmailNewMessageGuest(item[0].id)
         } else {
           console.log('no envia')
+          console.log('item[0].sendBy', item[0].sendBy)
           console.log('messageObj.hostId', messageObj.hostId)
         }
       })
