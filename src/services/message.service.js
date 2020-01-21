@@ -122,6 +122,8 @@ module.exports = {
         order: ['createdAt'],
         group: ['messageId']
       })
+      console.log('pastHour', pastHour)
+      console.log('date', date)
       console.log('messageItemsObj', messageItemsObj)
     } catch (err) {
       console.error(err)
