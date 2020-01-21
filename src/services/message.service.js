@@ -114,7 +114,6 @@ module.exports = {
           isRead: 0,
           createdAt: { [Op.between]: [pastHour, date] }
         },
-        include: 'message',
         group: ['messageId', 'content'],
         order: [['createdAt', 'DESC']]
       })
@@ -129,8 +128,16 @@ module.exports = {
       const messageItemValues = Object.values(groupedObj)
 
       messageItemValues.forEach(item => {
-        // sendEmailNewMessageGuest(item[0].id)
-        console.log('item[0]', item[0])
+        const messageObj = await Message.findOne({
+          where: {
+            id: item[0].messageId
+          }
+        })
+        if(messageObj.hostId === item[0].sendBy) {
+          sendEmailNewMessageHost(item[0].id)
+        } else if (messageObj.guestId === item[0].sendBy) {
+          sendEmailNewMessageGuest(item[0].id)
+        }
       })
       return messageItemValues
     } catch (err) {
