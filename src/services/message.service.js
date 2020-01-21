@@ -101,7 +101,7 @@ module.exports = {
     }
   },
 
-  sendEmailMessageNotification: async messageItemId => {
+  sendEmailMessageNotification: async => {
     // run cron job hourly
     try {
       // bring the unread messages
@@ -111,9 +111,9 @@ module.exports = {
 
       const messageItemsObj = await MessageItem.findAll({
         where: {
-          isRead: 0,
-          group: ['messageId']
-        }
+          isRead: 0
+        },
+        group: ['messageId']
       })
       console.log('messageItemsObj', messageItemsObj)
     } catch (err) {
