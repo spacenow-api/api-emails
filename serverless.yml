@@ -191,7 +191,7 @@ functions:
           path: email/message/notification
           method: post
           cors: true
-      - schedule: rate(1 hours)
+      # - schedule: rate(1 hours)
 
 resources:
   - ${file(src/resources/api-gateway-errors.yml)}
