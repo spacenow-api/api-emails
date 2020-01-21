@@ -127,13 +127,13 @@ module.exports = {
       )
       const messageItemValues = Object.values(groupedObj)
 
-      messageItemValues.forEach(item => {
+      messageItemValues.forEach(async item => {
         const messageObj = await Message.findOne({
           where: {
             id: item[0].messageId
           }
         })
-        if(messageObj.hostId === item[0].sendBy) {
+        if (messageObj.hostId === item[0].sendBy) {
           sendEmailNewMessageHost(item[0].id)
         } else if (messageObj.guestId === item[0].sendBy) {
           sendEmailNewMessageGuest(item[0].id)
