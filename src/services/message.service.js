@@ -110,17 +110,14 @@ module.exports = {
       const date = moment().utc()
 
       const messageItemsObj = await Message.findAll({
-        include: {
-          model: MessageItem,
-          where: {
-            isRead: 0,
-            createdAt: { [Op.between]: [pastHour, date] }
-          },
-          group: ['messageId', 'content'],
-          order: [['createdAt', 'DESC']]
-        }
+        where: {
+          isRead: 0,
+          createdAt: { [Op.between]: [pastHour, date] }
+        },
+        group: ['messageId', 'content'],
+        order: [['createdAt', 'DESC']],
+        include: [{ all: true, nested: true }]
       })
-      console.log('messageItemsObj really message includ item', messageItemsObj)
 
       const groupedObj = messageItemsObj.reduce(
         (objectsByKeyValue, obj) => ({
@@ -133,7 +130,6 @@ module.exports = {
 
       messageItemValues.forEach(async item => {
         try {
-          console.log('item', item[0])
           // const messageObj = await Message.findOne({
           //   where: {
           //     id: item[0].messageId
