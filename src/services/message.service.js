@@ -127,7 +127,7 @@ module.exports = {
       )
       const messageItemValues = Object.values(groupedObj)
 
-      messageItemValues[0].forEach(async item => {
+      messageItemValues.forEach(async item => {
         const messageObj = await Message.findOne({
           where: {
             id: item[0].messageId
