@@ -680,10 +680,15 @@ module.exports = {
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const quantity = bookingObj.period
     const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
+    let minimumTerm = listingData.minTerm ? listingData.minTerm : 1
+    let term = 'day'
+    if (listing.bookingPeriod !== 'daily') term = listing.bookingPeriod.replace('ly', '')
+    if (minimumTerm > 1) term = term + 's'
     const guestMetadata = {
       bookingId: bookingId,
       user: guestObj.firstName,
       hostName: hostObj.firstName,
+      hostPhoto: hostObj.picture,
       guestName: guestObj.firstName,
       listCity: locationObj.city,
       checkInDate: checkIn,
@@ -733,7 +738,9 @@ module.exports = {
       listImage: coverPhoto,
       category: categoryAndSubObj.category,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
-      listingId: listingObj.id
+      listingId: listingObj.id,
+      minimumTerm,
+      term
     }
     await senderService.senderByTemplateData('booking-ready-to-pay-email', guestObj.email, guestMetadata)
   },
