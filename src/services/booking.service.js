@@ -523,6 +523,8 @@ module.exports = {
 
     let term = 'day'
     if (bookingObj.priceType !== 'daily') term = bookingObj.priceType.replace('ly', '')
+    let minimumTerm = listingData.minTerm ? listingData.minTerm : 1
+    if (minimumTerm > 1) term = term + 's'
     let checkInObj = await getCheckInOutTime(listingObj.id, bookingObj.checkIn)
     let checkInTime =
       bookingObj.priceType === 'hourly'
@@ -566,6 +568,7 @@ module.exports = {
       checkInDate: checkIn,
       checkOutDate: checkOut,
       hostName: hostObj.firstName,
+      hostPhoto: hostObj.picture,
       listTitle: listingObj.title,
       currentDate: moment()
         .tz('Australia/Sydney')
@@ -615,7 +618,8 @@ module.exports = {
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       totalPeriod: totalPeriod,
       message: bookingObj.message,
-      valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null
+      valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null,
+      minimumTerm
     }
     await senderService.senderByTemplateData('booking-request-email-guest', guestObj.email, guestMetadata)
   },
