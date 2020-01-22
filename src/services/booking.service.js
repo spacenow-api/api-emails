@@ -147,12 +147,17 @@ module.exports = {
     }
 
     let serviceFee = (bookingObj.basePrice * bookingObj.period - discountValue) * HOST_FEE
+    let minimumTerm = listingData.minTerm ? listingData.minTerm : 1
+    let term = 'day'
+    if (listing.bookingPeriod !== 'daily') term = listing.bookingPeriod.replace('ly', '')
+    if (minimumTerm > 1) term = term + 's'
 
     const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
     const hostMetadata = {
       user: hostObj.firstName,
       hostName: hostObj.firstName,
       guestName: guestObj.firstName,
+      hostPhoto: hostObj.picture,
       checkinDateShort: checkInShort,
       checkInDate: checkIn,
       checkOutDate: checkOut,
@@ -205,7 +210,10 @@ module.exports = {
       period: bookingObj.period,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       listingId: listingObj.id,
-      discountValue: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null
+      discountValue: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null,
+      capacity: listingData.personCapacity ? listingData.personCapacity : 1,
+      minimumTerm,
+      term
     }
     await senderService.senderByTemplateData('booking-instant-email-host', hostObj.email, hostMetadata)
     const smsMessage = {
@@ -619,6 +627,7 @@ module.exports = {
       totalPeriod: totalPeriod,
       message: bookingObj.message,
       valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null,
+      capacity: listingData.personCapacity ? listingData.personCapacity : 1,
       minimumTerm
     }
     await senderService.senderByTemplateData('booking-request-email-guest', guestObj.email, guestMetadata)
@@ -739,6 +748,7 @@ module.exports = {
       category: categoryAndSubObj.category,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       listingId: listingObj.id,
+      capacity: listingData.personCapacity ? listingData.personCapacity : 1,
       minimumTerm,
       term
     }
