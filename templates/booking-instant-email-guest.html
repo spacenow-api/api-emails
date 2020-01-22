@@ -394,7 +394,7 @@
                       valign="top"
                       style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:24px; font-weight: 600;mso-line-height-rule:exactly;line-height:34px;color:#172439;"
                     >
-                      Hi&nbsp;{{guestName}}, <br />You’re checking in to&nbsp;{{hostName}}’s&nbsp;{{listCity}}&nbsp;Space on the&nbsp;{{checkinDateShort}}.
+                      Hi&nbsp;{{guestName}}, <br />You’re checking in to&nbsp;{{hostName}}’s&nbsp;{{listTitle}}&nbsp;Space on the&nbsp;{{checkinDateShort}}.
                     </td>
                   </tr>
                   <tr>
@@ -446,7 +446,7 @@
                                   valign="top"
                                   style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: bold; font-size:21px; mso-line-height-rule:exactly;line-height:25px;color:#172439;"
                                 >
-                                  {{hostName}}
+                                  {{guestName}}
                                 </td>
                               </tr>
                             </table>
@@ -653,7 +653,7 @@
                           <td height="30" style="font-size: 0; line-height:20px;">&nbsp;</td>
                         </tr>
                         <tr>
-                          <td align="center" valign="top">
+                          <td align="center" valign="top" style="border-bottom: 1px solid #E6E6E6;">
                             <table
                               width="93%"
                               align="center"
@@ -678,7 +678,22 @@
                                   AUD ${{total}}
                                 </td>
                               </tr>
+                              <tr>
+                                <td colspan="2" height="30" style="font-size: 0; line-height:30px;">&nbsp;</td>
+                              </tr>
                             </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td height="20" style="font-size: 0; line-height:20px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td
+                                  align="left"
+                                  valign="top"
+                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:11px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
+                                  >
+                            All prices are in Australian dollars and include GST
                           </td>
                         </tr>
                       </table>
@@ -707,7 +722,7 @@
                               <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                   <td
-                                    bgcolor="#6ADC91"
+                                    bgcolor="#2DA577"
                                     style="padding: 22px 0px; border-radius:8px; -webkit-border-radius: 8px; color: #ffffff;font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: bold;font-size: 18px; line-height: 24px; white-space: nowrap;"
                                     align="center"
                                   >
@@ -715,7 +730,7 @@
                                       href="https://app.spacenow.com/account/booking"
                                       target="_blank"
                                       style="color: #ffffff; text-decoration: none; display: inline-block;"
-                                      >Visit your dashboard</a
+                                      >Finalize your booking</a
                                     >
                                   </td>
                                 </tr>
@@ -746,191 +761,318 @@
                   <tr>
                     <td align="center" valign="top">
                       <table
-                        width="100%"
-                        align="center"
-                        cellpadding="0"
-                        cellspacing="0"
-                        border="0"
-                        style="border-collapse: collapse;"
-                        class="container480"
-                      >
-                        <tr>
-                          <td
-                            align="center"
-                            valign="top"
-                            style="border: solid 1px #e6e6e6; border-radius: 8px;"
-                          >
-                          <a href="{{ appLink }}/space/{{ listingId }}">
-                            <table
                               width="100%"
-                              align="left"
+                              align="center"
                               cellpadding="0"
                               cellspacing="0"
                               border="0"
                               style="border-collapse: collapse;"
-                              class="container"
-                            >
-                              <tr>
-                                <td valign="top" align="left">
-                                  <!--[if (gte mso 9)|(IE)]>
-                                                            <table width="100%" align="center" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"><tr><td align="center" valign="top"><![endif]-->
-                                  <div
-                                    style="width: 254px; display: inline-block; vertical-align: top;"
-                                    class="container"
-                                  >
-                                    <table
-                                      width="244"
+                              class="container480"
+                              >
+                        <tr>
+                          <td align="center" valign="top" style=" border: solid 1px #e6e6e6; border-radius: 8px;">
+                            <a href="{{ appLink }}/space/{{ listingId }}">
+                              <table
+                                      width="100%"
                                       align="left"
                                       cellpadding="0"
                                       cellspacing="0"
                                       border="0"
-                                      style="border-collapse: collapse; width: 244px;"
+                                      style="border-collapse: collapse;"
                                       class="container"
-                                    >
-                                      <tr>
-                                        <td
-                                          class="pad_top15"
-                                          align="center"
-                                          valign="top"
-                                          style="border-radius: 4px; -webkit-border-radius: 4px;"
-                                        >
-                                          <img
-                                            src="{{listImage}}"
-                                            alt=""
-                                            title=""
-                                            width="243"
-                                            style="display:block; border-top-left-radius: 4px; border-bottom-left-radius: 4px; -webkit-border-top-left-radius: 4px;-webkit-border-bottom-left-radius: 4px;height: 165px;object-fit: cover;"
-                                            border="0"
-                                            class="full_img480"
-                                          />
-                                        </td>
-                                      </tr>
-                                    </table>
-                                  </div>
-                                  <!--[if (gte mso 9)|(IE)]></td><td valign="top"><![endif]-->
-                                  <div
-                                    style="width: 350px; display: inline-block; vertical-align: top;"
-                                    class="container"
-                                  >
-                                    <table
-                                      width="350"
-                                      align="center"
-                                      cellpadding="0"
-                                      cellspacing="0"
-                                      border="0"
-                                      style="border-collapse: collapse; width: 350px; max-width: 350px;"
-                                      class="container244"
-                                    >
-                                      <tr>
-                                        <td height="17" style="font-size: 0; line-height: 17px;">&nbsp;</td>
-                                      </tr>
-                                      <tr>
-                                        <td
-                                          align="left"
-                                          valign="top"
-                                          style="padding: 0 17px 10px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: bold; font-size:18px; mso-line-height-rule:exactly;line-height:22px;color:#1F252A;"
-                                        >
-                                          {{listTitle}}
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td
-                                          align="left"
-                                          valign="top"
-                                          style="padding: 0 17px 10px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#1F252A;"
-                                        >
-                                          {{fullAddress}}
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td
-                                          align="left"
-                                          valign="top"
-                                          style="padding: 0 17px 10px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: 600; font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#1F252A;"
-                                        >
-                                          <strong>$ {{basePrice}}</strong> <span style="font-size: 8px;">{{priceType}}</span>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td valign="top" align="center">
-                                          <table
-                                            align="left"
-                                            cellpadding="0"
-                                            cellspacing="0"
-                                            border="0"
-                                            style="border-collapse: collapse;"
-                                          >
-                                            <tr>
-                                              <td width="17"></td>
-                                              <td
-                                                align="center"
-                                                valign="top"
-                                                style="border: 1px solid #CBCBCB; border-radius: 4px; display: inline-block;"
+                                      >
+                                <tr>
+                                  <td valign="top" align="left">
+                                    <!--[if (gte mso 9)|(IE)]>
+                                    <table width="100%" align="center" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"><tr><td align="center" valign="top"><![endif]-->
+                                    <div
+                                            style="width: 254px; display: inline-block; vertical-align: top;"
+                                            class="container"
+                                            >
+                                      <table
+                                              width="244"
+                                              align="left"
+                                              cellpadding="0"
+                                              cellspacing="0"
+                                              border="0"
+                                              style="border-collapse: collapse; width: 244px;"
+                                              class="container"
                                               >
-                                                <table
-                                                  width="99"
+                                        <tr>
+                                          <td
+                                                  class="pad_top15"
                                                   align="center"
-                                                  border="0"
-                                                  cellspacing="0"
-                                                  cellpadding="0"
-                                                  style="width: 99px;"
-                                                >
-                                                  <tr>
-                                                    <td valign="top" align="center">
-                                                      <table
-                                                        align="center"
-                                                        cellpadding="0"
-                                                        cellspacing="0"
-                                                        border="0"
-                                                        style="border-collapse: collapse;"
-                                                      >
-                                                        <tr>
-                                                          <td height="38" align="center" valign="middle">
-                                                            <img
-                                                              src="https://prod-spacenow-images.s3-ap-southeast-2.amazonaws.com/emails/images/img_08_icon1.png"
-                                                              alt=""
-                                                              title=""
-                                                              width="32"
-                                                              style="outline: none"
-                                                              border="0"
-                                                            />
-                                                          </td>
-                                                          <td
-                                                            height="38"
-                                                            align="center"
-                                                            valign="middle"
-                                                            style="padding-top: 1px; color: #172439;font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: 600;font-size: 12px; line-height: 14px;"
+                                                  valign="top"
+                                                  style="border-radius: 4px; -webkit-border-radius: 4px;"
+                                                  >
+                                            <img
+                                                    src="{{ listImage }}"
+                                                    alt=""
+                                                    title=""
+                                                    width="243"
+                                                    style="display:block; border-top-left-radius: 4px; border-bottom-left-radius: 4px; -webkit-border-top-left-radius: 4px;-webkit-border-bottom-left-radius: 4px;height: 180px;object-fit: cover;"
+                                                    border="0"
+                                                    class="full_img480"
+                                                    />
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </div>
+                                    <!--[if (gte mso 9)|(IE)]></td><td valign="top"><![endif]-->
+                                    <div
+                                            style="width: 350px; display: inline-block; vertical-align: top;"
+                                            class="container"
+                                            >
+                                      <table
+                                              width="350"
+                                              align="center"
+                                              cellpadding="0"
+                                              cellspacing="0"
+                                              border="0"
+                                              style="border-collapse: collapse; width: 350px; max-width: 350px;"
+                                              class="container244">
+                                        <tr>
+                                          <td width="17"> </td>
+                                          <td align="center" valign="top">
+                                            <table
+                                                    width="316"
+                                                    align="center"
+                                                    cellpadding="0"
+                                                    cellspacing="0"
+                                                    border="0"
+                                                    style="border-collapse: collapse; width: 316px; max-width: 316px;"
+                                                    class="container244"
+                                                    >
+                                              <tr>
+                                                <td height="16" style="font-size: 0; line-height: 16px;">&nbsp;</td>
+                                              </tr>
+                                              <tr>
+                                                <td valign="top" align="center">
+                                                  <table
+                                                          align="left"
+                                                          cellpadding="0"
+                                                          cellspacing="0"
+                                                          border="0"
+                                                          style="border-collapse: collapse;"
                                                           >
-                                                            <a
-                                                              href="#"
-                                                              target="_blank"
-                                                              style="color: #172439; text-decoration: none;"
-                                                              >&nbsp;{{category}}&nbsp;</a
-                                                            >
-                                                          </td>
-                                                        </tr>
-                                                      </table>
-                                                    </td>
-                                                  </tr>
-                                                </table>
-                                              </td>
-                                              <td width="17"></td>
-                                            </tr>
-                                          </table>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td class="vspace30" height="17" style="font-size: 0; line-height: 17px;">
-                                          &nbsp;
-                                        </td>
-                                      </tr>
-                                    </table>
-                                  </div>
-                                  <!--[if (gte mso 9)|(IE)]></td></tr>
-                                                        </table> <![endif]-->
-                                </td>
-                              </tr>
-                            </table>
+                                                    <tr>
+                                                      <td
+                                                              align="center"
+                                                              valign="top"
+                                                              style="border: 1px solid #CBCBCB; border-radius: 4px; display: inline-block;"
+                                                              >
+                                                        <table
+                                                                width="99"
+                                                                align="center"
+                                                                border="0"
+                                                                cellspacing="0"
+                                                                cellpadding="0"
+                                                                style="width: 99px;"
+                                                                >
+                                                          <tr>
+                                                            <td valign="top" align="center">
+                                                              <table
+                                                                      align="center"
+                                                                      cellpadding="0"
+                                                                      cellspacing="0"
+                                                                      border="0"
+                                                                      style="border-collapse: collapse;"
+                                                                      >
+                                                                <tr>
+                                                                  <td height="34" align="center" valign="middle">
+                                                                    <img
+                                                                            src="https://prod-spacenow-images.s3-ap-southeast-2.amazonaws.com/emails/images/img_08_icon1.png"
+                                                                            alt=""
+                                                                            title=""
+                                                                            width="25"
+                                                                            style="outline: none"
+                                                                            border="0"
+                                                                            />
+                                                                  </td>
+                                                                  <td
+                                                                          height="34"
+                                                                          align="center"
+                                                                          valign="middle"
+                                                                          style="padding-top: 1px; color: #172439;font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: 600;font-size: 12px; line-height: 14px;"
+                                                                          >
+                                                                    <a
+                                                                            href="#"
+                                                                            target="_blank"
+                                                                            style="color: #172439; text-decoration: none;"
+                                                                            >&nbsp;{{ category }}&nbsp;</a
+                                                                            >
+                                                                  </td>
+                                                                </tr>
+                                                              </table>
+                                                            </td>
+                                                          </tr>
+                                                        </table>
+                                                      </td>
+                                                    </tr>
+                                                  </table>
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td
+                                                        align="left"
+                                                        valign="top"
+                                                        style="padding: 13px 0px 7px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: bold; font-size:14px; mso-line-height-rule:exactly;line-height:19px;color:#1F252A;"
+                                                        >
+                                                  {{ listTitle }}
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td
+                                                        align="left"
+                                                        valign="top"
+                                                        style="padding: 0px 0px 10px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:13px; mso-line-height-rule:exactly;line-height:17px;color:#1F252A;"
+                                                        >
+                                                  {{ fullAddress }}
+                                                </td>
+                                              </tr>
+
+
+                                              <tr>
+                                                <td valign="top" align="center" style="padding-bottom: 10px;">
+                                                  <table
+                                                          align="left"
+                                                          cellpadding="0"
+                                                          cellspacing="0"
+                                                          border="0"
+                                                          style="border-collapse: collapse;"
+                                                          >
+                                                    <tr>
+                                                      <td valign="top" align="left" style="padding-right: 14px;">
+                                                        <table
+                                                                align="left"
+                                                                cellpadding="0"
+                                                                cellspacing="0"
+                                                                border="0"
+                                                                style="border-collapse: collapse;"
+                                                                >
+                                                          <tr>
+                                                            <td align="left" valign="middle" style="padding-right: 4px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:12px; font-weight: bold; mso-line-height-rule:exactly;line-height:15px;color:#1F252A;">
+                                                              {{capacity}}</td>
+                                                            <td align="left" valign="middle">
+                                                              <img
+                                                                      src="https://prod-spacenow-images.s3-ap-southeast-2.amazonaws.com/emails/images/person1.png"
+                                                                      alt=""
+                                                                      title=""
+                                                                      width="14"
+                                                                      style="outline: none"
+                                                                      border="0"
+                                                                      />
+                                                            </td>
+                                                          </tr>
+                                                        </table>
+                                                      </td>
+                                                      <td valign="top" align="left" style="padding-right: 14px;">
+                                                        <table
+                                                                align="left"
+                                                                cellpadding="0"
+                                                                cellspacing="0"
+                                                                border="0"
+                                                                style="border-collapse: collapse;"
+                                                                >
+                                                          <tr>
+                                                            <td align="left" valign="middle">
+                                                              <img
+                                                                      src="https://prod-spacenow-images.s3-ap-southeast-2.amazonaws.com/emails/images/time.png"
+                                                                      alt=""
+                                                                      title=""
+                                                                      width="15"
+                                                                      style="outline: none"
+                                                                      border="0"
+                                                                      />
+                                                            </td>
+                                                            <td align="left" valign="middle" style="padding-left: 4px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:12px; font-weight: bold; mso-line-height-rule:exactly;line-height:15px;color:#1F252A;">
+                                                              {{minimumTerm}}&nbsp;{{term}}</td>
+                                                          </tr>
+                                                        </table>
+                                                      </td>
+                                                      <td align="left" valign="middle">
+                                                        <img
+                                                                src="https://prod-spacenow-images.s3-ap-southeast-2.amazonaws.com/emails/images/starts.png"
+                                                                alt=""
+                                                                title=""
+                                                                width="63"
+                                                                style="outline: none"
+                                                                border="0"
+                                                                />
+                                                      </td>
+                                                    </tr>
+                                                  </table>
+                                                </td>
+                                              </tr>
+
+
+                                              <tr>
+                                                <td valign="top" align="center" style="border-top: 1px solid #eeeeee;">
+                                                  <table
+                                                          width="100%"
+                                                          align="center"
+                                                          cellpadding="0"
+                                                          cellspacing="0"
+                                                          border="0"
+                                                          style="border-collapse: collapse;"
+                                                          >
+                                                    <tr>
+                                                      <td
+                                                              align="left"
+                                                              valign="top"
+                                                              style="padding: 8px 0px 0px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: 600; font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#1F252A; "
+                                                              >
+                                                        <span style="font-size: 11px;">From:</span>&nbsp;
+                                                        <strong>$ {{ basePrice }}</strong>
+                                                        <span style="font-size: 8px;">{{ priceType }}</span>
+                                                      </td>
+                                                      <td align="right" valign="top" style="padding-top: 4px;">
+                                                        <table
+                                                                align="right"
+                                                                cellpadding="0"
+                                                                cellspacing="0"
+                                                                border="0"
+                                                                style="border-collapse: collapse;"
+                                                                >
+                                                          <tr>
+                                                            <td align="center" valign="middle">
+                                                              <img
+                                                                      src="{{hostPhoto}}"
+                                                                      alt=""
+                                                                      title=""
+                                                                      width="26"
+                                                                      style="outline: none"
+                                                                      border="0"
+                                                                      />
+                                                            </td>
+                                                            <td align="center" valign="middle" style="padding: 5px 5px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:10px; mso-line-height-rule:exactly;line-height:13px;color:#1F252A;">
+                                                              {{hostName}}
+                                                            </td>
+                                                          </tr>
+                                                        </table>
+                                                      </td>
+                                                    </tr>
+                                                  </table>
+                                                </td>
+                                              </tr>
+
+                                              <tr>
+                                                <td class="vspace30" height="7" style="font-size: 0; line-height: 7px;">
+                                                  &nbsp;
+                                                </td>
+                                              </tr>
+                                            </table>
+                                          </td>
+                                          <td width="17"> </td>
+                                        </tr>
+                                      </table>
+
+                                    </div>
+                                    <!--[if (gte mso 9)|(IE)]></td></tr>
+                                  </table> <![endif]-->
+                                  </td>
+                                </tr>
+                              </table>
                             </a>
                           </td>
                         </tr>
@@ -957,7 +1099,7 @@
                       <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                           <td
-                            bgcolor="#6ADC91"
+                            bgcolor="#2DA577"
                             style="padding: 22px 0px; border-radius:8px; -webkit-border-radius: 8px; color: #ffffff;font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: bold;font-size: 18px; line-height: 24px; white-space: nowrap;"
                             align="center"
                           >
@@ -965,7 +1107,7 @@
                               href="https://app.spacenow.com/account/booking"
                               target="_blank"
                               style="color: #ffffff; text-decoration: none; display: inline-block;"
-                              >Visit your dashboard</a
+                              >Finalize your booking</a
                             >
                           </td>
                         </tr>
@@ -1004,7 +1146,7 @@
             class="container"
           >
             <tr>
-              <td class="vspace35" height="80" style="font-size: 0; line-height:80px;">&nbsp;</td>
+              <td class="vspace35" height="45" style="font-size: 0; line-height:45px;">&nbsp;</td>
             </tr>
             <tr>
               <td align="center" valign="top">
@@ -1087,13 +1229,13 @@
               <td height="40" style="font-size: 0; line-height:40px;">&nbsp;</td>
             </tr>
             <tr>
-              <td
+              <td class="txt14"
                 align="center"
                 valign="top"
                 style="padding: 0px 18px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:11px; mso-line-height-rule:exactly;line-height:14px;color:#939393;"
               >
                 You received this email because you are subscribed to notiﬁcations from Spacenow.
-                <br />Update your
+                <br class="mobile-hide" /> update your
                 <a href="#" style="text-decoration: none;color:#939393;">email preferences</a> to choose the type of
                 emails you receive.
               </td>

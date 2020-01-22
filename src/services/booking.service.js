@@ -292,10 +292,16 @@ module.exports = {
       discountValue = totalBookingNoDiscountGuest - bookingObj.totalPrice
     }
 
+    let minimumTerm = listingData.minTerm ? listingData.minTerm : 1
+    let term = 'day'
+    if (listing.bookingPeriod !== 'daily') term = listing.bookingPeriod.replace('ly', '')
+    if (minimumTerm > 1) term = term + 's'
+
     const guestMetada = {
       user: guestObj.firstName,
       hostName: hostObj.firstName,
       guestName: guestObj.firstName,
+      hostPhoto: hostObj.picture,
       listCity: locationObj.city,
       checkInDate: checkIn,
       checkOutDate: checkOut,
@@ -345,7 +351,10 @@ module.exports = {
       category: categoryAndSubObj.category,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       listingId: listingObj.id,
-      valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null
+      valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null,
+      capacity: listingData.personCapacity ? listingData.personCapacity : 1,
+      minimumTerm,
+      term
     }
     await senderService.senderByTemplateData('booking-instant-email-guest', guestObj.email, guestMetada)
   },
