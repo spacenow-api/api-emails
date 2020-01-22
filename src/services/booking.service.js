@@ -874,6 +874,7 @@ module.exports = {
     let emailData = {
       guestName: guestObj.firstName,
       hostName: hostObj.firstName,
+      hostPhoto: hostObj.picture,
       checkInDate: checkIn,
       listingPhoto: coverPhoto,
       listingTitle: listingObj.title,
@@ -886,7 +887,10 @@ module.exports = {
       currentDate: moment()
         .tz('Australia/Sydney')
         .format('dddd D MMMM, YYYY')
-        .toString()
+        .toString(),
+      capacity: listingData.personCapacity ? listingData.personCapacity : 1,
+      minimumTerm,
+      term
     }
     await senderService.senderByTemplateData('booking-expiry-email-guest', guestObj.email, emailData)
     await senderService.senderByTemplateData('booking-expire-email-host', hostObj.email, emailData)
