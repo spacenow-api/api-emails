@@ -412,9 +412,14 @@ module.exports = {
     }
 
     let serviceFee = (bookingObj.basePrice * bookingObj.period - discountValue) * HOST_FEE
+    let minimumTerm = listingData.minTerm ? listingData.minTerm : 1
+    let term = 'day'
+    if (listing.bookingPeriod !== 'daily') term = listing.bookingPeriod.replace('ly', '')
+    if (minimumTerm > 1) term = term + 's'
 
     const hostMetadata = {
       user: hostObj.firstName,
+      hostPhoto: hostObj.picture,
       guestName: guestObj.firstName,
       listTitle: listingObj.title,
       checkInDate: checkIn,
@@ -470,7 +475,10 @@ module.exports = {
       listingId: listingObj.id,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       message: bookingObj.message,
-      valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null
+      valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null,
+      capacity: listingData.personCapacity ? listingData.personCapacity : 1,
+      minimumTerm,
+      term
     }
 
     console.log('HOST META DATA ==>>', hostMetadata)
