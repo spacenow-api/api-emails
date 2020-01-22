@@ -117,6 +117,7 @@ module.exports = {
         priceType: listing.bookingPeriod,
         category: categoryAndSubObj.category
       }
+      console.log('emailObj', emailObj)
       await senderService.senderByTemplateData('publish-listing-confirmation', user.email, emailObj)
 
       return listings
