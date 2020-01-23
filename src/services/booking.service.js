@@ -866,6 +866,10 @@ module.exports = {
     // if (!messageData) {
     //   messageData = await Message.create(valuesMessage.where)
     // }
+    let minimumTerm = listingData.minTerm ? listingData.minTerm : 1
+    let term = 'day'
+    if (listingObj.bookingPeriod !== 'daily') term = listingObj.bookingPeriod.replace('ly', '')
+    if (minimumTerm > 1) term = term + 's'
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
