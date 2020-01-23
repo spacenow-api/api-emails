@@ -91,9 +91,9 @@ module.exports = {
     const locationObj = await Location.findOne({
       where: { id: listingObj.locationId }
     })
-    // const listingData = await ListingData.findOne({
-    //   where: { listingId: listingObj.id }
-    // })
+    const listingData = await ListingData.findOne({
+      where: { listingId: listingObj.id }
+    })
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
       .format('ddd, Do MMM, YYYY')
@@ -449,7 +449,7 @@ module.exports = {
         .tz('Australia/Sydney')
         .format('dddd D MMMM, YYYY')
         .toString(),
-      term: term,
+      termSingular: term.replace('s', ''),
       checkInMonth: moment(new Date(bookingObj.checkIn))
         .tz('Australia/Sydney')
         .format('MMM')
@@ -492,6 +492,7 @@ module.exports = {
       message: bookingObj.message,
       valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null,
       capacity: listingData.personCapacity ? listingData.personCapacity : 1,
+      term,
       minimumTerm
     }
 
@@ -619,7 +620,7 @@ module.exports = {
       checkInTime: checkInTime,
       checkOutTime: checkOutTime,
       period: bookingObj.period,
-      term: term,
+      termSingular: term.replace('s', ''),
       subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
@@ -634,7 +635,8 @@ module.exports = {
       message: bookingObj.message,
       valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null,
       capacity: listingData.personCapacity ? listingData.personCapacity : 1,
-      minimumTerm
+      minimumTerm,
+      term
     }
     await senderService.senderByTemplateData('booking-request-email-guest', guestObj.email, guestMetadata)
   },
