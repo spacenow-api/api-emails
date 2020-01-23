@@ -852,6 +852,9 @@ module.exports = {
     const locationObj = await Location.findOne({
       where: { id: listingObj.locationId }
     })
+    const listingData = await ListingData.findOne({
+      where: { listingId: listingObj.id }
+    })
     // const valuesMessage = {
     //   where: {
     //     listingId: listingObj.id,
