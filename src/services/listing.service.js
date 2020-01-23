@@ -106,17 +106,25 @@ module.exports = {
       })
       const coverPhoto = await listingCommons.getCoverPhotoPath(id)
       const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listing.listSettingsParentId)
+      let minimumTerm = listingData.minTerm ? listingData.minTerm : 1
+      let term = 'day'
+      if (listing.bookingPeriod !== 'daily') term = listing.bookingPeriod.replace('ly', '')
+      if (minimumTerm > 1) term = term + 's'
       emailObj = {
         currentDate,
         appLink: process.env.NEW_LISTING_PROCESS_HOST,
         hostName: userProfile.firstName,
+        hostPhoto: userProfile.picture,
         listTitle: listing.title,
         listingId: listing.id,
         listImage: coverPhoto,
         listAddress: `${location.address1}, ${location.city}`,
         basePrice: listingData.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
         priceType: listing.bookingPeriod,
-        category: categoryAndSubObj.category
+        category: categoryAndSubObj.category,
+        capacity: listingData.personCapacity ? listingData.personCapacity : 1,
+        minimumTerm,
+        term
       }
       await senderService.senderByTemplateData('publish-listing-confirmation', user.email, emailObj)
 
