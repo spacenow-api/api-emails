@@ -620,7 +620,6 @@ module.exports = {
       checkInTime: checkInTime,
       checkOutTime: checkOutTime,
       period: bookingObj.period,
-      termSingular: term.replace('s', ''),
       subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
       basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
