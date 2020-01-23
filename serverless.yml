@@ -192,6 +192,14 @@ functions:
           method: post
           cors: true
       # - schedule: rate(1 hours)
+  sendEmailBookingTimedOutGuest:
+    handler: src/functions/sendEmailBookingTimedOutGuest.main
+    memorySize: 1024
+    events:
+      - http:
+          path: email/booking/{bookingId}/timedout
+          method: post
+          cors: true
 
 resources:
   - ${file(src/resources/api-gateway-errors.yml)}

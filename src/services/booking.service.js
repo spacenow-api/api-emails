@@ -913,5 +913,131 @@ module.exports = {
     // console.log('SMS Message ===>>>', smsMessage)
     await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, JSON.stringify(smsMessageGuest))
     await axios.post(`${process.env.NOTIFICATION_API}/send-sms-message`, JSON.stringify(smsMessageHost))
+  },
+
+  /**
+   * Send email by requested booking to guest.
+   */
+  sendEmailBookingTimedOutGuest: async bookingId => {
+    const { data: bookingObj } = await getBookingById(bookingId)
+    const listingObj = await listingCommons.getListingById(bookingObj.listingId)
+    const hostObj = await getUserById(bookingObj.hostId)
+    const guestObj = await getUserById(bookingObj.guestId)
+    const listingData = await ListingData.findOne({
+      where: { listingId: listingObj.id }
+    })
+    const locationObj = await Location.findOne({
+      where: { id: listingObj.locationId }
+    })
+    // const IS_ABSORVE = 0.035
+    // const NO_ABSORVE = 0.135
+    // let serviceFee = listingData.isAbsorvedFee
+    //   ? bookingObj.basePrice * bookingObj.period * IS_ABSORVE
+    //   : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
+    const checkIn = moment(bookingObj.checkIn)
+      .tz('Australia/Sydney')
+      .format('ddd, Do MMM, YYYY')
+      .toString()
+    const checkOut = moment(bookingObj.checkOut)
+      .tz('Australia/Sydney')
+      .format('ddd, Do MMM, YYYY')
+      .toString()
+
+    let term = 'day'
+    if (bookingObj.priceType !== 'daily') term = bookingObj.priceType.replace('ly', '')
+    let minimumTerm = listingData.minTerm ? listingData.minTerm : 1
+    if (minimumTerm > 1) term = term + 's'
+    let checkInObj = await getCheckInOutTime(listingObj.id, bookingObj.checkIn)
+    let checkInTime =
+      bookingObj.priceType === 'hourly'
+        ? bookingObj.checkInHour
+        : checkInObj
+        ? checkInObj.allday === 1
+          ? '24 hours'
+          : moment(checkInObj.openHour)
+              .tz('Australia/Sydney')
+              .format('h:mm a')
+        : 'Closed'
+
+    let checkOutObj = await getCheckInOutTime(listingObj.id, bookingObj.checkOut)
+    let checkOutTime =
+      bookingObj.priceType === 'hourly'
+        ? bookingObj.checkOutHour
+        : checkOutObj
+        ? checkOutObj.allday === 1
+          ? '24 hours'
+          : moment(checkOutObj.closeHour)
+              .tz('Australia/Sydney')
+              .format('h:mm a')
+        : 'Closed'
+    // const hostProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
+    const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
+    const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
+    const quantity = bookingObj.period
+    const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
+
+    const GUEST_FEE = 0.035
+    let serviceFee = bookingObj.basePrice * bookingObj.period * GUEST_FEE
+    let totalBookingNoDiscountGuest = bookingObj.basePrice * bookingObj.period + serviceFee
+    let discountValue = 0
+    if (bookingObj.voucherCode) {
+      discountValue = totalBookingNoDiscountGuest - bookingObj.totalPrice
+    }
+
+    const guestMetadata = {
+      guestName: guestObj.firstName,
+      hostName: hostObj.firstName,
+      hostPhoto: hostObj.picture,
+      guestPhoto: guestObj.picture,
+      listTitle: listingObj.title,
+      currentDate: moment()
+        .tz('Australia/Sydney')
+        .format('dddd D MMMM, YYYY')
+        .toString(),
+      checkInMonth: moment(new Date(bookingObj.checkIn))
+        .tz('Australia/Sydney')
+        .format('MMM')
+        .toString()
+        .toUpperCase(),
+      checkOutMonth: moment(new Date(bookingObj.checkOut))
+        .tz('Australia/Sydney')
+        .format('MMM')
+        .toString()
+        .toUpperCase(),
+      checkInDay: moment(new Date(bookingObj.checkIn))
+        .tz('Australia/Sydney')
+        .format('DD')
+        .toString(),
+      checkOutDay: moment(new Date(bookingObj.checkOut))
+        .tz('Australia/Sydney')
+        .format('DD')
+        .toString(),
+      checkInWeekday: moment(new Date(bookingObj.checkIn))
+        .tz('Australia/Sydney')
+        .format('ddd')
+        .toString(),
+      checkOutWeekday: moment(new Date(bookingObj.checkOut))
+        .tz('Australia/Sydney')
+        .format('ddd')
+        .toString(),
+      checkInTime: checkInTime,
+      checkOutTime: checkOutTime,
+      subtotal: (bookingObj.totalPrice - serviceFee).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      serviceFee: serviceFee.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      basePrice: bookingObj.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      total: bookingObj.totalPrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+      priceType: bookingObj.priceType,
+      fullAddress: `${locationObj.address1}, ${locationObj.city}`,
+      listingId: listingObj.id,
+      listImage: coverPhoto,
+      category: categoryAndSubObj.category,
+      appLink: process.env.NEW_LISTING_PROCESS_HOST,
+      totalPeriod: totalPeriod,
+      valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null,
+      capacity: listingData.personCapacity ? listingData.personCapacity : 1,
+      minimumTerm,
+      term
+    }
+    await senderService.senderByTemplateData('booking-timedout-guest', guestObj.email, guestMetadata)
   }
 }
