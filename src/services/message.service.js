@@ -127,32 +127,33 @@ module.exports = {
         {}
       )
       const messageItemValues = Object.values(groupedObj)
-      const messageItemValues = messageItemValues.filter((i, index) => index === 0)
-      console.log(messageItemValues)
+      const messageItemValues2 = messageItemValues.filter((i, index) => index === 0)
+      console.log('messageItemValues2', messageItemValues2)
+      console.log('messageItemValues', messageItemValues)
 
       messageItemValues.forEach(async item => {
-        // try {
-        //   const messageObj = await Message.findOne({
-        //     where: {
-        //       id: item[0].messageId
-        //     }
-        //   })
-        //   if (messageObj.hostId === item[0].sendBy) {
-        //     console.log('messageObj.hostId', messageObj.hostId)
-        //     console.log('item[0].sendBy', item[0].sendBy)
-        //     sendEmailNewMessageHost(item[0].id)
-        //   } else if (messageObj.guestId === item[0].sendBy) {
-        //     console.log('messageObj.guestId', messageObj.guestId)
-        //     console.log('item[0].sendBy', item[0].sendBy)
-        //     sendEmailNewMessageGuest(item[0].id)
-        //   } else {
-        //     console.log('no envia')
-        //     console.log('item[0].sendBy', item[0].sendBy)
-        //     console.log('messageObj.hostId', messageObj.hostId)
-        //   }
-        // } catch (err) {
-        //   console.log(err)
-        // }
+        try {
+          const messageObj = await Message.findOne({
+            where: {
+              id: item[0].messageId
+            }
+          })
+          if (messageObj.hostId === item[0].sendBy) {
+            console.log('messageObj.hostId', messageObj.hostId)
+            console.log('item[0].sendBy', item[0].sendBy)
+            sendEmailNewMessageHost(item[0].id)
+          } else if (messageObj.guestId === item[0].sendBy) {
+            console.log('messageObj.guestId', messageObj.guestId)
+            console.log('item[0].sendBy', item[0].sendBy)
+            sendEmailNewMessageGuest(item[0].id)
+          } else {
+            console.log('no envia')
+            console.log('item[0].sendBy', item[0].sendBy)
+            console.log('messageObj.hostId', messageObj.hostId)
+          }
+        } catch (err) {
+          console.log(err)
+        }
       })
       return messageItemValues
     } catch (err) {
