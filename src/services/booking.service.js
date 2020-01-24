@@ -136,6 +136,7 @@ module.exports = {
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const guestProfilePicture = await listingCommons.getProfilePicture(bookingObj.guestId)
+    const hostProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
     const quantity = bookingObj.period
 
     let serviceFeeNoDiscountGuest = bookingObj.basePrice * bookingObj.period * GUEST_FEE
@@ -157,7 +158,7 @@ module.exports = {
       user: hostObj.firstName,
       hostName: hostObj.firstName,
       guestName: guestObj.firstName,
-      hostPhoto: hostObj.picture,
+      hostPhoto: hostProfilePicture,
       checkinDateShort: checkInShort,
       checkInDate: checkIn,
       checkOutDate: checkOut,
@@ -301,7 +302,7 @@ module.exports = {
       user: guestObj.firstName,
       hostName: hostObj.firstName,
       guestName: guestObj.firstName,
-      hostPhoto: hostObj.picture,
+      hostPhoto: userProfilePicture,
       listCity: locationObj.city,
       checkInDate: checkIn,
       checkOutDate: checkOut,
@@ -413,6 +414,7 @@ module.exports = {
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const guestProfilePicture = await listingCommons.getProfilePicture(bookingObj.guestId)
+    const hostProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
     const quantity = bookingObj.period
     const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
 
@@ -434,7 +436,7 @@ module.exports = {
 
     const hostMetadata = {
       user: hostObj.firstName,
-      hostPhoto: hostObj.picture,
+      hostPhoto: hostProfilePicture,
       guestName: guestObj.firstName,
       listTitle: listingObj.title,
       checkInDate: checkIn,
@@ -583,13 +585,12 @@ module.exports = {
       checkInDate: checkIn,
       checkOutDate: checkOut,
       hostName: hostObj.firstName,
-      hostPhoto: hostObj.picture,
+      hostPhoto: hostProfilePicture,
       listTitle: listingObj.title,
       currentDate: moment()
         .tz('Australia/Sydney')
         .format('dddd D MMMM, YYYY')
         .toString(),
-      hostPhoto: hostProfilePicture,
       hostName: hostObj.displayName,
       checkInMonth: moment(new Date(bookingObj.checkIn))
         .tz('Australia/Sydney')
@@ -704,7 +705,7 @@ module.exports = {
       bookingId: bookingId,
       user: guestObj.firstName,
       hostName: hostObj.firstName,
-      hostPhoto: hostObj.picture,
+      hostPhoto: userProfilePicture,
       guestName: guestObj.firstName,
       listCity: locationObj.city,
       checkInDate: checkIn,
@@ -875,11 +876,12 @@ module.exports = {
       .format('ddd, Do MMM, YYYY')
       .toString()
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
+    const hostProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     let emailData = {
       guestName: guestObj.firstName,
       hostName: hostObj.firstName,
-      hostPhoto: hostObj.picture,
+      hostPhoto: hostProfilePicture,
       checkInDate: checkIn,
       listingPhoto: coverPhoto,
       listingTitle: listingObj.title,
@@ -970,7 +972,8 @@ module.exports = {
               .tz('Australia/Sydney')
               .format('h:mm a')
         : 'Closed'
-    // const hostProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
+    const hostProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
+    const guestProfilePicture = await listingCommons.getProfilePicture(bookingObj.guestId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const quantity = bookingObj.period
@@ -987,8 +990,8 @@ module.exports = {
     const guestMetadata = {
       guestName: guestObj.firstName,
       hostName: hostObj.firstName,
-      hostPhoto: hostObj.picture,
-      guestPhoto: guestObj.picture,
+      hostPhoto: hostProfilePicture,
+      guestPhoto: guestProfilePicture,
       listTitle: listingObj.title,
       currentDate: moment()
         .tz('Australia/Sydney')
