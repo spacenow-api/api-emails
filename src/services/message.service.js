@@ -138,6 +138,7 @@ module.exports = {
               id: item[0].messageId
             }
           })
+          // if now > createdAt + 1hour
           if (messageObj.hostId === item[0].sendBy) {
             console.log('messageObj.hostId', messageObj.hostId)
             console.log('item[0].sendBy', item[0].sendBy)
