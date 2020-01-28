@@ -127,7 +127,6 @@ module.exports = {
         {}
       )
       const messageItemValues = Object.values(groupedObj)
-      const messageItemValues2 = messageItemValues.filter((i, index) => index === 0)
 
       messageItemValues.forEach(async item => {
         console.log('item', item)

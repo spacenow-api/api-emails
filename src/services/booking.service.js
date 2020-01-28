@@ -699,7 +699,7 @@ module.exports = {
     const totalPeriod = await listingCommons.getPeriodFormatted(quantity, bookingObj.priceType)
     let minimumTerm = listingData.minTerm ? listingData.minTerm : 1
     let term = 'day'
-    if (listing.bookingPeriod !== 'daily') term = listing.bookingPeriod.replace('ly', '')
+    if (listingObj.bookingPeriod !== 'daily') term = listingObj.bookingPeriod.replace('ly', '')
     if (minimumTerm > 1) term = term + 's'
     const guestMetadata = {
       bookingId: bookingId,
