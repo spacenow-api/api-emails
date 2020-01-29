@@ -212,7 +212,7 @@ module.exports = {
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       listingId: listingObj.id,
       discountValue: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null,
-      capacity: listingData.personCapacity ? listingData.personCapacity : 1,
+      capacity: listingData.capacity ? listingData.capacity : 1,
       minimumTerm,
       term
     }
@@ -353,7 +353,7 @@ module.exports = {
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       listingId: listingObj.id,
       valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null,
-      capacity: listingData.personCapacity ? listingData.personCapacity : 1,
+      capacity: listingData.capacity ? listingData.capacity : 1,
       minimumTerm,
       term
     }
@@ -493,7 +493,7 @@ module.exports = {
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       message: bookingObj.message,
       valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null,
-      capacity: listingData.personCapacity ? listingData.personCapacity : 1,
+      capacity: listingData.capacity ? listingData.capacity : 1,
       term,
       minimumTerm
     }
@@ -634,7 +634,7 @@ module.exports = {
       totalPeriod: totalPeriod,
       message: bookingObj.message,
       valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null,
-      capacity: listingData.personCapacity ? listingData.personCapacity : 1,
+      capacity: listingData.capacity ? listingData.capacity : 1,
       minimumTerm,
       term
     }
@@ -756,7 +756,7 @@ module.exports = {
       category: categoryAndSubObj.category,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       listingId: listingObj.id,
-      capacity: listingData.personCapacity ? listingData.personCapacity : 1,
+      capacity: listingData.capacity ? listingData.capacity : 1,
       minimumTerm,
       term
     }
@@ -895,7 +895,7 @@ module.exports = {
         .tz('Australia/Sydney')
         .format('dddd D MMMM, YYYY')
         .toString(),
-      capacity: listingData.personCapacity ? listingData.personCapacity : 1,
+      capacity: listingData.capacity ? listingData.capacity : 1,
       minimumTerm,
       term
     }
@@ -1037,7 +1037,7 @@ module.exports = {
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       totalPeriod: totalPeriod,
       valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null,
-      capacity: listingData.personCapacity ? listingData.personCapacity : 1,
+      capacity: listingData.capacity ? listingData.capacity : 1,
       minimumTerm,
       term
     }
