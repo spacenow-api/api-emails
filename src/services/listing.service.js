@@ -63,7 +63,7 @@ module.exports = {
           basePrice: listingData.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
           priceType: listing.bookingPeriod,
           category: categoryAndSubObj.category,
-          capacity: listingData.personCapacity ? listingData.personCapacity : 1,
+          capacity: listingData.capacity ? listingData.capacity : 1,
           minimumTerm,
           term
         }
@@ -122,7 +122,7 @@ module.exports = {
         basePrice: listingData.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
         priceType: listing.bookingPeriod,
         category: categoryAndSubObj.category,
-        capacity: listingData.personCapacity ? listingData.personCapacity : 1,
+        capacity: listingData.capacity ? listingData.capacity : 1,
         minimumTerm,
         term
       }
