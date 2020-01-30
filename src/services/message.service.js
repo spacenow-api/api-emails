@@ -160,7 +160,7 @@ module.exports = {
           console.log(err)
         }
       })
-      return messageItemValues
+      // return messageItemValues
     } catch (err) {
       console.error(err)
       return err
