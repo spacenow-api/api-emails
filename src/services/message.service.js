@@ -135,13 +135,14 @@ module.exports = {
 
       messageItemValues.forEach(async item => {
         console.log('item', item)
-        console.log('item[0]', item[0])
+        console.log('item[0]', item[0].messageId)
         try {
           const messageObj = await Message.findOne({
             where: {
               id: item[0].messageId
             }
           })
+          console.log('messageObj', messageObj)
           if (messageObj.hostId === item[0].sendBy) {
             console.log('messageObj.hostId', messageObj.hostId)
             console.log('item[0].sendBy', item[0].sendBy)
