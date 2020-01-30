@@ -67,7 +67,6 @@ module.exports = {
           minimumTerm,
           term
         }
-        console.log('emailObj', emailObj)
         await senderService.senderByTemplateData('complete-listing-email', user.email, emailObj)
       }
       return listings
