@@ -104,15 +104,20 @@ module.exports = {
 
   sendEmailMessageNotification: async () => {
     try {
+      const pastTwoHour = moment()
+        .subtract(2, 'hours')
+        .utc()
       const pastHour = moment()
         .subtract(1, 'hours')
         .utc()
+
       const date = moment().utc()
 
       const messageItemsObj = await MessageItem.findAll({
         where: {
           isRead: 0,
-          createdAt: { [Op.between]: [pastHour, date] }
+          // createdAt: { [Op.between]: [pastTwoHour, pastHour] }
+          createdAt: { [Op.between]: [pastHour, date] } // testing pourposes
         },
         group: ['messageId', 'content'],
         order: [['createdAt', 'DESC']],
@@ -137,7 +142,6 @@ module.exports = {
               id: item[0].messageId
             }
           })
-          // if now > createdAt + 1hour
           if (messageObj.hostId === item[0].sendBy) {
             console.log('messageObj.hostId', messageObj.hostId)
             console.log('item[0].sendBy', item[0].sendBy)
