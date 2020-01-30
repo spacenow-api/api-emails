@@ -157,7 +157,7 @@ module.exports = {
             console.log('messageObj.hostId', messageObj.hostId)
           }
         } catch (err) {
-          console.log(err)
+          console.log('err', err)
         }
       })
       // return messageItemValues
