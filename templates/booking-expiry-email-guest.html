@@ -623,7 +623,7 @@
                                                                 <tr>
                                                                   <td height="34" align="center" valign="middle">
                                                                     <img
-                                                                            src="https://prod-spacenow-images.s3-ap-southeast-2.amazonaws.com/emails/images/img_08_icon1.png"
+                                                                            src="https://prod-spacenow-images.s3-ap-southeast-2.amazonaws.com/emails/images/{{category}}.png"
                                                                             alt=""
                                                                             title=""
                                                                             width="25"
@@ -658,7 +658,12 @@
                                                 <td
                                                         align="left"
                                                         valign="top"
-                                                        style="padding: 13px 0px 7px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: bold; font-size:14px; mso-line-height-rule:exactly;line-height:19px;color:#1F252A;"
+                                                        style="padding: 13px 0px 7px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: bold; font-size:14px; mso-line-height-rule:exactly;line-height:19px;color:#1F252A;
+                                                        white-space: nowrap;
+                                                        overflow: hidden !important;
+                                                        text-overflow: ellipsis;
+                                                        width: 300px !important;
+                                                        display: inline-block;"
                                                         >
                                                   {{ listingTitle }}
                                                 </td>
@@ -783,7 +788,11 @@
                                                                       alt=""
                                                                       title=""
                                                                       width="26"
-                                                                      style="outline: none"
+                                                                      style="outline: none; 
+                                                                      border-radius: 50%;
+                                                                      width: 20px;
+                                                                      height: 20px;
+                                                                      object-fit: cover;"
                                                                       border="0"
                                                                       />
                                                             </td>

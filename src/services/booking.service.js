@@ -899,7 +899,6 @@ module.exports = {
       minimumTerm,
       term
     }
-    console.log(emailData)
     await senderService.senderByTemplateData('booking-expiry-email-guest', guestObj.email, emailData)
     await senderService.senderByTemplateData('booking-expire-email-host', hostObj.email, emailData)
     const smsMessageGuest = {
