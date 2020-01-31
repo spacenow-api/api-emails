@@ -104,9 +104,6 @@ module.exports = {
 
   sendEmailMessageNotification: async () => {
     try {
-      const pastTwoHour = moment()
-        .subtract(2, 'hours')
-        .utc()
       const pastHour = moment()
         .subtract(1, 'hours')
         .utc()
@@ -116,10 +113,9 @@ module.exports = {
       const messageItemsObj = await MessageItem.findAll({
         where: {
           isRead: 0,
-          // createdAt: { [Op.between]: [pastTwoHour, pastHour] }
-          createdAt: { [Op.between]: [pastHour, date] } // testing pourposes
+          createdAt: { [Op.between]: [pastHour, date] }
         },
-        group: ['messageId', 'content'],
+        // group: ['messageId', 'content'],
         order: [['createdAt', 'DESC']],
         include: [{ all: true, nested: true }]
       })
@@ -133,33 +129,19 @@ module.exports = {
       )
       const messageItemValues = Object.values(groupedObj)
 
-      await messageItemValues.forEach(async item => {
-        console.log('item', item)
-        console.log('typeof item[0]', item[0].messageId)
-
+      for (const messageItem of messageItemValues) {
         try {
-          const messageObj = await Message.findByPk(item[0].messageId)
-          console.log('messageObj', messageObj)
-          if (messageObj.hostId === item[0].sendBy) {
-            console.log('messageObj.hostId', messageObj.hostId)
-            console.log('item[0].sendBy', item[0].sendBy)
+          const messageObj = await Message.findByPk(messageItem[0].messageId)
+          if (messageObj.hostId === messageItem[0].sentBy)
             sendEmailNewMessageHost(item[0].id)
-          } else if (messageObj.guestId === item[0].sendBy) {
-            console.log('messageObj.guestId', messageObj.guestId)
-            console.log('item[0].sendBy', item[0].sendBy)
+          else
             sendEmailNewMessageGuest(item[0].id)
-          } else {
-            console.log('no envia')
-            console.log('item[0].sendBy', item[0].sendBy)
-            console.log('messageObj.hostId', messageObj.hostId)
-          }
         } catch (err) {
-          console.log('err', err)
+          return err
         }
-      })
-      // return messageItemValues
+
+      }
     } catch (err) {
-      console.error(err)
       return err
     }
   }
