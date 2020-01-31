@@ -3,6 +3,7 @@
 const moment = require('moment')
 const Sequelize = require('sequelize')
 const senderService = require('./sender')
+const listingCommons = require('./../helpers/listings.common')
 const Op = Sequelize.Op
 
 const { User, UserProfile, Message, MessageItem } = require('./../models')
@@ -42,7 +43,7 @@ const sendEmailNewMessageHost = async messageItemId => {
       messageId: messageObj.id,
       hostName: hostProfileObj.firstName,
       guestName: guestProfileObj.firstName,
-      guestPhoto: guestProfileObj.picture,
+      guestPhoto: await listingCommons.getProfilePicture(messageObj.guestId),
       message: messageItemObj.content
     }
     console.log('emailObj host', emailObj)
@@ -88,7 +89,7 @@ const sendEmailNewMessageGuest = async messageItemId => {
       messageId: messageObj.id,
       hostName: hostProfileObj.firstName,
       guestName: guestProfileObj.firstName,
-      hostPhoto: guestProfileObj.picture,
+      hostPhoto: await listingCommons.getProfilePicture(messageObj.hostId),
       message: messageItemObj.content
     }
     console.log('emailObj', emailObj)
