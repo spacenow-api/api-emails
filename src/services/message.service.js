@@ -137,11 +137,7 @@ module.exports = {
         console.log('item', item)
         console.log('typeof item[0]', typeof item[0].messageId)
         // try {
-        const messageObj = await Message.findOne({
-          where: {
-            id: item[0].messageId
-          }
-        })
+        const messageObj = await Message.findByPk(item[0].messageId)
         console.log('messageObj', messageObj)
         if (messageObj.hostId === item[0].sendBy) {
           console.log('messageObj.hostId', messageObj.hostId)
