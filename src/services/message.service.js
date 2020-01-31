@@ -99,16 +99,18 @@ const sendEmailNewMessageGuest = async messageItemId => {
 module.exports = {
   sendEmailMessageNotification: async () => {
     try {
-      const pastHour = moment()
+      const pastOneHour = moment()
         .subtract(1, 'hours')
         .utc()
 
-      const date = moment().utc()
+      const pastTwoHour = moment()
+        .subtract(1, 'hours')
+        .utc()
 
       const messageItemsObj = await MessageItem.findAll({
         where: {
           isRead: 0,
-          createdAt: { [Op.between]: [pastHour, date] }
+          createdAt: { [Op.between]: [pastOneHour, pastTwoHour] }
         },
         // group: ['messageId', 'content'],
         order: [['createdAt', 'DESC']],
@@ -128,10 +130,8 @@ module.exports = {
         try {
           const messageObj = await Message.findByPk(messageItem[0].messageId)
           if (messageObj.hostId === messageItem[0].sentBy) {
-            console.log('to guest', messageItem[0].id)
             await sendEmailNewMessageGuest(messageItem[0].id)
           } else {
-            console.log('to host ', messageItem[0].id)
             await sendEmailNewMessageHost(messageItem[0].id)
           }
         } catch (err) {

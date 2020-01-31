@@ -167,22 +167,6 @@ functions:
           path: email/listing/{listingId}/publish
           method: post
           cors: true
-  sendEmailNewMessageGuest:
-    handler: src/functions/sendEmailNewMessageGuest.main
-    memorySize: 1024
-    events:
-      - http:
-          path: email/message/{messageItemId}/guest
-          method: post
-          cors: true
-  sendEmailNewMessageHost:
-    handler: src/functions/sendEmailNewMessageHost.main
-    memorySize: 1024
-    events:
-      - http:
-          path: email/message/{messageItemId}/host
-          method: post
-          cors: true
   sendEmailMessageNotification:
     handler: src/functions/sendEmailMessageNotification.main
     memorySize: 1024
@@ -191,7 +175,7 @@ functions:
           path: email/message/notification
           method: post
           cors: true
-      # - schedule: rate(1 hours)
+      - schedule: rate(1 hours)
   sendEmailBookingTimedOutGuest:
     handler: src/functions/sendEmailBookingTimedOutGuest.main
     memorySize: 1024
