@@ -44,6 +44,7 @@ const sendEmailNewMessageHost = async messageItemId => {
       guestPhoto: guestProfileObj.picture,
       message: messageItemObj.content
     }
+    console.log('emailObj host', emailObj)
     await senderService.senderByTemplateData('message-host-email', hostObj.email, emailObj)
   } catch (err) {
     console.error(err)
@@ -88,6 +89,7 @@ const sendEmailNewMessageGuest = async messageItemId => {
       hostPhoto: guestProfileObj.picture,
       message: messageItemObj.content
     }
+    console.log('emailObj', emailObj)
     await senderService.senderByTemplateData('message-guest-email', guestObj.email, emailObj)
   } catch (err) {
     console.error(err)
