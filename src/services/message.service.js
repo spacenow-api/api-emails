@@ -133,7 +133,7 @@ module.exports = {
       )
       const messageItemValues = Object.values(groupedObj)
 
-      messageItemValues.forEach(async item => {
+      await messageItemValues.forEach(async item => {
         console.log('item', item)
         console.log('typeof item[0]', typeof item[0].messageId)
         // try {
