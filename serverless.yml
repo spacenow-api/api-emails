@@ -175,7 +175,7 @@ functions:
           path: email/message/notification
           method: post
           cors: true
-      - schedule: rate(1 hours)
+      - schedule: rate(60 minutes)
   sendEmailBookingTimedOutGuest:
     handler: src/functions/sendEmailBookingTimedOutGuest.main
     memorySize: 1024
