@@ -126,20 +126,10 @@ module.exports = {
       for (const messageItem of messageItemValues) {
         try {
           const messageObj = await Message.findByPk(messageItem[0].messageId)
-<<<<<<< HEAD
           if (messageObj.hostId === messageItem[0].sentBy)
             sendEmailNewMessageHost(messageItem[0].id)
           else
             sendEmailNewMessageGuest(messageItem[0].id)
-=======
-          if (messageObj.hostId === messageItem[0].sentBy) {
-            console.log('host')
-            await this.sendEmailNewMessageHost(messageItem[0].id)
-          } else {
-            console.log('guest')
-            await this.sendEmailNewMessageGuest(messageItem[0].id)
-          }
->>>>>>> 9fcdb6e2b990763c1dd1abf555ce5eb8dbdef38e
         } catch (err) {
           return err
         }
