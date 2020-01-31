@@ -8,6 +8,7 @@ const Op = Sequelize.Op
 const { User, UserProfile, Message, MessageItem } = require('./../models')
 
 const sendEmailNewMessageHost = async messageItemId => {
+  console.log('function host')
   try {
     let emailObj
     let currentDate = moment()
@@ -53,6 +54,7 @@ const sendEmailNewMessageHost = async messageItemId => {
 }
 
 const sendEmailNewMessageGuest = async messageItemId => {
+  console.log('function guest')
   try {
     let emailObj
     let currentDate = moment()
