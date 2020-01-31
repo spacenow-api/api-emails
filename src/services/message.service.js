@@ -135,7 +135,7 @@ module.exports = {
 
       await messageItemValues.forEach(async item => {
         console.log('item', item)
-        console.log('typeof item[0]', typeof item[0].messageId)
+        console.log('typeof item[0]', item[0].messageId)
         // try {
         const messageObj = await Message.findByPk(item[0].messageId)
         console.log('messageObj', messageObj)
