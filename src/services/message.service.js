@@ -9,7 +9,6 @@ const Op = Sequelize.Op
 const { User, UserProfile, Message, MessageItem } = require('./../models')
 
 const sendEmailNewMessageHost = async messageItemId => {
-  console.log('function host')
   try {
     let emailObj
     let currentDate = moment()
@@ -46,7 +45,6 @@ const sendEmailNewMessageHost = async messageItemId => {
       guestPhoto: await listingCommons.getProfilePicture(messageObj.guestId),
       message: messageItemObj.content
     }
-    console.log('emailObj host', emailObj)
     await senderService.senderByTemplateData('message-host-email', hostObj.email, emailObj)
   } catch (err) {
     console.error(err)
@@ -55,7 +53,6 @@ const sendEmailNewMessageHost = async messageItemId => {
 }
 
 const sendEmailNewMessageGuest = async messageItemId => {
-  console.log('function guest')
   try {
     let emailObj
     let currentDate = moment()
@@ -92,7 +89,6 @@ const sendEmailNewMessageGuest = async messageItemId => {
       hostPhoto: await listingCommons.getProfilePicture(messageObj.hostId),
       message: messageItemObj.content
     }
-    console.log('emailObj', emailObj)
     await senderService.senderByTemplateData('message-guest-email', guestObj.email, emailObj)
   } catch (err) {
     console.error(err)
