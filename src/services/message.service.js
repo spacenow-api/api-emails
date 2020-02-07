@@ -169,6 +169,9 @@ module.exports = {
       const guestObj = await User.findOne({
         where: { id: messageObj.guestId }
       })
+      const hostObj = await User.findOne({
+        where: { id: messageObj.hostId }
+      })
       const hostProfileObj = await UserProfile.findOne({
         where: { userId: messageObj.hostId }
       })
