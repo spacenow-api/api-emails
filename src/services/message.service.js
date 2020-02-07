@@ -187,7 +187,15 @@ module.exports = {
         time: messageParentObj.startTime,
         message: messageItemObj[0].content
       }
-      console.log()
+      console.log(emailObj)
+      console.log({
+        ...emailObj,
+        hostPhoto: await listingCommons.getProfilePicture(messageObj.hostId)
+      })
+      console.log({
+        ...emailObj,
+        guestPhoto: await listingCommons.getProfilePicture(messageObj.guestId)
+      })
       await senderService.senderByTemplateData('inspection-guest-email', guestObj.email, {
         ...emailObj,
         hostPhoto: await listingCommons.getProfilePicture(messageObj.hostId)
