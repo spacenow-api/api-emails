@@ -178,7 +178,7 @@ module.exports = {
       const guestProfileObj = await UserProfile.findOne({
         where: { userId: messageObj.guestId }
       })
-
+      console.log('messageParentObj', messageParentObj)
       emailObj = {
         currentDate,
         appLink: process.env.NEW_LISTING_PROCESS_HOST,
