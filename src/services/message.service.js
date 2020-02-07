@@ -204,7 +204,9 @@ module.exports = {
         ...emailObj,
         guestPhoto: await listingCommons.getProfilePicture(messageObj.guestId)
       })
+      return messageObj
     } catch (err) {
+      console.log('err', err)
       return err
     }
   }
