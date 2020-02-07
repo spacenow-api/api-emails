@@ -178,19 +178,24 @@ module.exports = {
       const guestProfileObj = await UserProfile.findOne({
         where: { userId: messageObj.guestId }
       })
-      console.log('messageParentObj', messageParentObj)
+
+      const time = messageParentObj.startTime.split(':')
+      const momentObj = moment()
+      momentObj.set({ hours: time[0], minutes: time[1] })
+
       emailObj = {
         currentDate,
         appLink: process.env.NEW_LISTING_PROCESS_HOST,
         messageId,
         hostName: hostProfileObj.firstName,
         guestName: guestProfileObj.firstName,
-        guestPhoto: await listingCommons.getProfilePicture(messageObj.guestId),
-        date: messageParentObj.reservations[0],
-        time: messageParentObj.startTime,
+        date: moment(messageParentObj.reservations[0])
+          .tz('Australia/Sydney')
+          .format('dddd D MMMM, YYYY')
+          .toString(),
+        time: momentObj.format('h:mm A'),
         message: messageItemObj[0].content
       }
-      console.log(emailObj)
       console.log({
         ...emailObj,
         hostPhoto: await listingCommons.getProfilePicture(messageObj.hostId)
