@@ -156,7 +156,7 @@ module.exports = {
           messageId
         }
       })
-      const messageItemObj = await MessageItem.find({
+      const messageItemObj = await MessageItem.findAll({
         where: {
           messageId
         }
