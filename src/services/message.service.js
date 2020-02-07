@@ -6,7 +6,7 @@ const senderService = require('./sender')
 const listingCommons = require('./../helpers/listings.common')
 const Op = Sequelize.Op
 
-const { User, UserProfile, Message, MessageItem } = require('./../models')
+const { User, UserProfile, Message, MessageItem, MessageHost } = require('./../models')
 
 const sendEmailNewMessageHost = async messageItemId => {
   try {
@@ -138,6 +138,64 @@ module.exports = {
           return err
         }
       }
+    } catch (err) {
+      return err
+    }
+  },
+
+  sendEmailInspectionNotification: async messageId => {
+    try {
+      let emailObj
+      let currentDate = moment()
+        .tz('Australia/Sydney')
+        .format('dddd D MMMM, YYYY')
+        .toString()
+
+      const messageParentObj = await MessageHost.findOne({
+        where: {
+          messageId
+        }
+      })
+      const messageItemObj = await MessageItem.find({
+        where: {
+          messageId
+        }
+      })
+      const messageObj = await Message.findOne({
+        where: {
+          id: messageId
+        }
+      })
+      const guestObj = await User.findOne({
+        where: { id: messageObj.guestId }
+      })
+      const hostProfileObj = await UserProfile.findOne({
+        where: { userId: messageObj.hostId }
+      })
+      const guestProfileObj = await UserProfile.findOne({
+        where: { userId: messageObj.guestId }
+      })
+
+      emailObj = {
+        currentDate,
+        appLink: process.env.NEW_LISTING_PROCESS_HOST,
+        messageId,
+        hostName: hostProfileObj.firstName,
+        guestName: guestProfileObj.firstName,
+        guestPhoto: await listingCommons.getProfilePicture(messageObj.guestId),
+        date: messageParentObj.reservations[0],
+        time: messageParentObj.startTime,
+        message: messageItemObj[0].content
+      }
+      console.log()
+      await senderService.senderByTemplateData('inspection-guest-email', guestObj.email, {
+        ...emailObj,
+        hostPhoto: await listingCommons.getProfilePicture(messageObj.hostId)
+      })
+      await senderService.senderByTemplateData('inspection-host-email', hostObj.email, {
+        ...emailObj,
+        guestPhoto: await listingCommons.getProfilePicture(messageObj.guestId)
+      })
     } catch (err) {
       return err
     }

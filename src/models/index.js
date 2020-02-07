@@ -19,6 +19,7 @@ const ListingAccessDays = require('./../models/listingAccessDays.model')(sequeli
 const ListingAccessHours = require('./../models/listingAccessHours.model')(sequelize, DataTypes)
 const Message = require('./../models/message.model')(sequelize, DataTypes)
 const MessageItem = require('./../models/messageItem.model')(sequelize, DataTypes)
+const MessageHost = require('./../models/messageHost.model')(sequelize, DataTypes)
 const Voucher = require('./../models/vouchers.model')(sequelize, DataTypes)
 
 module.exports = {
@@ -35,5 +36,6 @@ module.exports = {
   ListingAccessHours,
   Message,
   MessageItem,
+  MessageHost,
   Voucher
 }
