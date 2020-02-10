@@ -206,7 +206,7 @@ module.exports = {
         guestName: guestProfileObj.displayName,
         guestEmail: guestObj.email,
         guestPhone: guestProfileObj.phoneNumber || 'none',
-        date: moment(messageParentObj.reservations[0].toString())
+        date: moment(messageParentObj.reservations)
           .tz('Australia/Sydney')
           .format('dddd D MMMM, YYYY')
           .toString(),
