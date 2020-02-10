@@ -200,7 +200,7 @@ functions:
     events:
       - http:
           path: email/message/{messageId}/inspection/cancel
-          method: post
+          method: get
           cors: true
 
 resources:
