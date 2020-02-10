@@ -46,7 +46,7 @@ dotenv:
     - API_BOOKING
     - NEW_LISTING_PROCESS_HOST
     - NOTIFICATION_API
-    - EMAILS_API
+    # - EMAILS_API
 
 provider:
   name: aws
@@ -77,7 +77,7 @@ provider:
     API_BOOKING: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/API_BOOKING~true}
     NEW_LISTING_PROCESS_HOST: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/NEW_LISTING_PROCESS_HOST~true}
     NOTIFICATION_API: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/NOTIFICATION_API~true}
-    EMAILS_API: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/EMAILS_API~true}
+    # EMAILS_API: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/EMAILS_API~true}
 
 functions:
   send:
