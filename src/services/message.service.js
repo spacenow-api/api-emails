@@ -233,7 +233,7 @@ module.exports = {
       // })
       await senderService.senderByTemplateData(
         'inspection-team-email',
-        ['camila@spacenow.com', 'ing.camilaconcha@gmail.com'],
+        'camila@spacenow.com, ing.camilaconcha@gmail.com',
         {
           ...emailObj
         }
