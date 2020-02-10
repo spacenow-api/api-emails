@@ -328,7 +328,7 @@
       </tr>
       <!-- end header -->
       <tr>
-        <td align="center" valign="top" bgcolor="#172439">
+        <td align="center" valign="top" bgcolor="#142D3F">
           <table
             width="600"
             align="center"
@@ -348,7 +348,7 @@
                 valign="top"
                 style="padding: 0 20px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:26px; font-weight: bold;mso-line-height-rule:exactly;line-height:38px;color:#F7F7F7;"
               >
-                Inspection Request
+                You’ve sent a new inspection request
               </td>
             </tr>
             <tr>
@@ -358,7 +358,7 @@
               <td align="center" valign="top">
                 <img
                   class="imgwidth80"
-                  src="https://prod-spacenow-images.s3-ap-southeast-2.amazonaws.com/emails/images/img_18.png"
+                  src="https://prod-spacenow-images.s3-ap-southeast-2.amazonaws.com/emails/images/img_08.png"
                   alt=""
                   width="600"
                   border="0"
@@ -413,112 +413,38 @@
                       valign="top"
                       style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:16px; mso-line-height-rule:exactly;line-height:30px;color:#172439;"
                     >
-                      Here are the inspection request details you sent:
+                      Your inspection request sent to&nbsp;{{ hostName }}:
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      align="left"
+                      valign="top"
+                      style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:16px; mso-line-height-rule:exactly;line-height:30px;color:#172439;"
+                    >
+                      Date:&nbsp;{{ date }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      align="left"
+                      valign="top"
+                      style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:16px; mso-line-height-rule:exactly;line-height:30px;color:#172439;"
+                    >
+                      Time:&nbsp;{{ time }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      align="left"
+                      valign="top"
+                      style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:16px; mso-line-height-rule:exactly;line-height:30px;color:#172439;"
+                    >
+                      Message:&nbsp;{{ message }}
                     </td>
                   </tr>
                   <tr>
                     <td height="40" style="font-size: 0; line-height:40px;">&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td align="center" valign="top" bgcolor="#F7F7F7" style="border-radius: 8px;">
-                      <table
-                        width="570px"
-                        align="center"
-                        cellpadding="0"
-                        cellspacing="0"
-                        border="0"
-                        style="border-collapse: collapse;width:570px;"
-                        class="container"
-                      >
-                        <tr>
-                          <td colspan="3" height="33" style="font-size: 0; line-height:33px;">&nbsp;</td>
-                        </tr>
-                        <tr>
-                          <td width="15">&nbsp;</td>
-                          <td align="center" valign="top">
-                            <table
-                              align="left"
-                              cellpadding="0"
-                              cellspacing="0"
-                              border="0"
-                              style="border-collapse: collapse;"
-                            >
-                              <tr>
-                                <td align="left" valign="top">
-                                  <img
-                                    class="img95"
-                                    src="{{ hostPhoto }}"
-                                    alt=""
-                                    width="113"
-                                    border="0"
-                                    style="display: block; outline: none;border-radius: 50%;
-                                    object-fit: cover;
-                                    height: 113px;"
-                                  />
-                                </td>
-                                <td width="30" class="space15">&nbsp;</td>
-                                <td align="center" valign="middle">
-                                  <table
-                                    width="100%"
-                                    align="center"
-                                    cellpadding="0"
-                                    cellspacing="0"
-                                    border="0"
-                                    style="border-collapse: collapse;"
-                                  >
-                                    <tr>
-                                      <td
-                                        class="txt17"
-                                        align="left"
-                                        valign="top"
-                                        style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: bold; font-size:21px; mso-line-height-rule:exactly;line-height:25px;color:#172439;"
-                                      >
-                                        {{ hostName }}
-                                      </td>
-                                    </tr>
-                                  </table>
-                                </td>
-                              </tr>
-                            </table>
-                          </td>
-                          <td width="15">&nbsp;</td>
-                        </tr>
-                        <tr>
-                          <td colspan="3" height="33" style="font-size: 0; line-height:33px;">&nbsp;</td>
-                        </tr>
-                        <tr>
-                          <td width="15">&nbsp;</td>
-                          <td align="center" valign="top">
-                            <table
-                              align="left"
-                              cellpadding="0"
-                              cellspacing="0"
-                              border="0"
-                              style="border-collapse: collapse;"
-                            >
-                              <tr>
-                                <td
-                                  align="left"
-                                  valign="top"
-                                  style="padding-bottom: 8px; font-family: 'Montserrat', Helvetica, Arial, sans-serif ; font-weight: normal; font-size:16px; mso-line-height-rule:exactly;line-height:30px;color:#172439;"
-                                >
-                                  Date:&nbsp; {{ date }}<br />
-                                  Time:&nbsp; {{ time }} <br />
-                                  You said:&nbsp; {{ message }} <br /><br />
-                                </td>
-                              </tr>
-                            </table>
-                          </td>
-                          <td width="15">&nbsp;</td>
-                        </tr>
-                        <tr>
-                          <td colspan="3" height="33" style="font-size: 0; line-height:33px;">&nbsp;</td>
-                        </tr>
-                      </table>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td height="32" style="font-size: 0; line-height:32px;">&nbsp;</td>
                   </tr>
                   <tr>
                     <td
@@ -867,21 +793,46 @@
                   <tr>
                     <td height="40" style="font-size: 0; line-height:40px;">&nbsp;</td>
                   </tr>
-                  <tr>
+                  <tr class="mobile-hide">
                     <td align="center" valign="top">
                       <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
                         <tr>
-                          <td
-                            bgcolor="#2DA577"
-                            style="padding: 22px 0px; border-radius:8px; -webkit-border-radius: 8px; color: #ffffff;font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: bold;font-size: 18px; line-height: 24px; white-space: nowrap;"
-                            align="center"
-                          >
-                            <a
-                              href="{{ appLink }}/account/message/{{ messageId }}"
-                              target="_blank"
-                              style="color: #ffffff; text-decoration: none; display: inline-block;"
-                              >Reply</a
-                            >
+                          <td width="290" class="tdblock" align="center" valign="top">
+                            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td
+                                  bgcolor="#6ADC91"
+                                  style="padding: 22px 0px; border-radius:8px; -webkit-border-radius: 8px; color: #ffffff;font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: bold;font-size: 18px; line-height: 24px; white-space: nowrap;"
+                                  align="center"
+                                >
+                                  <a
+                                    href="{{ appLink }}/space/{{ listingId }}"
+                                    target="_blank"
+                                    style="color: #ffffff; text-decoration: none; display: inline-block;"
+                                    >Cancel request</a
+                                  >
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td class="tdblockspace">&nbsp;</td>
+                          <td width="290" class="tdblock" align="right" valign="top">
+                            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td
+                                  bgcolor="#2DA577"
+                                  style="padding: 22px 0px; border-radius:8px; -webkit-border-radius: 8px; color: #ffffff;font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: bold;font-size: 18px; line-height: 24px; white-space: nowrap;"
+                                  align="center"
+                                >
+                                  <a
+                                    href="{{ appLink }}/space/{{listingId}}"
+                                    target="_blank"
+                                    style="color: #ffffff; text-decoration: none; display: inline-block;"
+                                    >Book the space</a
+                                  >
+                                </td>
+                              </tr>
+                            </table>
                           </td>
                         </tr>
                       </table>

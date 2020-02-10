@@ -212,7 +212,6 @@ module.exports = {
           .toString(),
         time: momentObj.format('h:mm A'),
         message: messageItemObj[0].content,
-
         capacity: listingData.capacity ? listingData.capacity : 1,
         minimumTerm,
         term,
@@ -225,20 +224,20 @@ module.exports = {
         fullAddress: `${locationObj.address1}, ${locationObj.city}`,
         hostPhoto: await listingCommons.getProfilePicture(messageObj.hostId)
       }
-      console.log('messageParentObj', messageParentObj.reservations)
-      console.log('emailObj', emailObj)
       await senderService.senderByTemplateData('inspection-guest-email', guestObj.email, {
         ...emailObj
-        // hostPhoto: await listingCommons.getProfilePicture(messageObj.hostId)
       })
       // await senderService.senderByTemplateData('inspection-host-email', hostObj.email, {
       //   ...emailObj,
       //   guestPhoto: await listingCommons.getProfilePicture(messageObj.guestId)
       // })
-      await senderService.senderByTemplateData('inspection-team-email', 'camila@spacenow.com', {
-        ...emailObj
-        // guestPhoto: await listingCommons.getProfilePicture(messageObj.guestId)
-      })
+      await senderService.senderByTemplateData(
+        'inspection-team-email',
+        ['camila@spacenow.com', 'ing.camilaconcha@gmail.com'],
+        {
+          ...emailObj
+        }
+      )
       return messageObj
     } catch (err) {
       console.log('err', err)
