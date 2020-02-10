@@ -6,7 +6,7 @@ const senderService = require('./sender')
 const listingCommons = require('./../helpers/listings.common')
 const Op = Sequelize.Op
 
-const { User, UserProfile, Message, MessageItem, MessageHost } = require('./../models')
+const { User, UserProfile, Message, MessageItem, MessageHost, Location, ListingData } = require('./../models')
 
 const sendEmailNewMessageHost = async messageItemId => {
   try {
