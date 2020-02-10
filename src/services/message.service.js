@@ -231,13 +231,9 @@ module.exports = {
       //   ...emailObj,
       //   guestPhoto: await listingCommons.getProfilePicture(messageObj.guestId)
       // })
-      await senderService.senderByTemplateData(
-        'inspection-team-email',
-        'camila@spacenow.com, ing.camilaconcha@gmail.com',
-        {
-          ...emailObj
-        }
-      )
+      await senderService.senderByTemplateData('inspection-team-email', 'camila@spacenow.com', {
+        ...emailObj
+      })
       return messageObj
     } catch (err) {
       console.log('err', err)
