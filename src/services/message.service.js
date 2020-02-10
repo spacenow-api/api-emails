@@ -225,7 +225,7 @@ module.exports = {
         fullAddress: `${locationObj.address1}, ${locationObj.city}`,
         hostPhoto: await listingCommons.getProfilePicture(messageObj.hostId)
       }
-
+      console.log('messageParentObj', messageParentObj.reservations)
       console.log('emailObj', emailObj)
       await senderService.senderByTemplateData('inspection-guest-email', guestObj.email, {
         ...emailObj
