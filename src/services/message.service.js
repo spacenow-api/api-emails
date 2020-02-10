@@ -284,6 +284,7 @@ module.exports = {
       const guestProfileObj = await UserProfile.findOne({
         where: { userId: messageObj.guestId }
       })
+      // TODO: change to findOrCreate
       await MessageItem.create({
         messageId: messageId,
         content: 'Site inspection cancelled',
