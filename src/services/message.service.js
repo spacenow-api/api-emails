@@ -202,10 +202,10 @@ module.exports = {
         messageId,
         hostName: hostProfileObj.displayName,
         hostEmail: hostObj.email,
-        hostPhone: hostProfileObj.phoneNumber,
+        hostPhone: hostProfileObj.phoneNumber || 'none',
         guestName: guestProfileObj.displayName,
         guestEmail: guestObj.email,
-        guestPhone: guestProfileObj.phoneNumber,
+        guestPhone: guestProfileObj.phoneNumber || 'none',
         date: moment(messageParentObj.reservations[0])
           .tz('Australia/Sydney')
           .format('dddd D MMMM, YYYY')
