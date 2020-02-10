@@ -24,11 +24,11 @@ custom:
     prod: sg-00b4a2172f7e29276
   customDomain:
     domainName: ${self:custom.domains.${opt:stage, 'sandpit'}, self:custom.domains.default}
-    basePath: ''
+    basePath: ""
     stage: ${opt:stage, 'sandpit'}
     certificateArn: ${ssm:/${opt:stageCert, 'SANDPIT'}/ACM_CERTIFICATE}
     createRoute53Record: true
-    endpointType: 'regional'
+    endpointType: "regional"
   prune:
     automatic: true
     number: 5
@@ -46,6 +46,7 @@ dotenv:
     - API_BOOKING
     - NEW_LISTING_PROCESS_HOST
     - NOTIFICATION_API
+    - EMAILS_API
 
 provider:
   name: aws
@@ -55,10 +56,10 @@ provider:
   stage: ${opt:stage, 'sandpit'}
   region: ap-southeast-2
   iamRoleStatements:
-    - Effect: 'Allow'
+    - Effect: "Allow"
       Action:
-        - 'ses:SendTemplatedEmail'
-      Resource: '*'
+        - "ses:SendTemplatedEmail"
+      Resource: "*"
   vpc:
     securityGroupIds:
       - ${self:custom.securityGroup.${opt:stage, 'sandpit'}}
@@ -76,6 +77,7 @@ provider:
     API_BOOKING: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/API_BOOKING~true}
     NEW_LISTING_PROCESS_HOST: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/NEW_LISTING_PROCESS_HOST~true}
     NOTIFICATION_API: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/NOTIFICATION_API~true}
+    EMAILS_API: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/EMAILS_API~true}
 
 functions:
   send:
@@ -190,6 +192,14 @@ functions:
     events:
       - http:
           path: email/message/{messageId}/inspection
+          method: post
+          cors: true
+  sendEmailCancelInspectionNotification:
+    handler: src/functions/sendEmailCancelInspection.main
+    memorySize: 1024
+    events:
+      - http:
+          path: email/message/{messageId}inspection/cancel
           method: post
           cors: true
 
