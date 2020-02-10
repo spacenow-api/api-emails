@@ -225,8 +225,8 @@ module.exports = {
         hostPhoto: await listingCommons.getProfilePicture(messageObj.hostId)
       }
       await senderService.senderByTemplateData('inspection-guest-email', guestObj.email, {
-        ...emailObj,
-        apiLink: process.env.EMAILS_API
+        ...emailObj
+        // apiLink: process.env.EMAILS_API
       })
       // await senderService.senderByTemplateData('inspection-host-email', hostObj.email, {
       //   ...emailObj,
