@@ -166,6 +166,13 @@ module.exports = {
           id: messageId
         }
       })
+      const listingObj = await listingCommons.getListingById(messageObj.listingId)
+      const locationObj = await Location.findOne({
+        where: { id: listingObj.locationId }
+      })
+      const listingData = await ListingData.findOne({
+        where: { listingId: listingObj.id }
+      })
       const guestObj = await User.findOne({
         where: { id: messageObj.guestId }
       })
@@ -178,6 +185,12 @@ module.exports = {
       const guestProfileObj = await UserProfile.findOne({
         where: { userId: messageObj.guestId }
       })
+      const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
+      const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
+      let minimumTerm = listingData.minTerm ? listingData.minTerm : 1
+      let term = 'day'
+      if (listingObj.bookingPeriod !== 'daily') term = listingObj.bookingPeriod.replace('ly', '')
+      if (minimumTerm > 1) term = term + 's'
 
       const time = messageParentObj.startTime.split(':')
       const momentObj = moment()
@@ -187,30 +200,42 @@ module.exports = {
         currentDate,
         appLink: process.env.NEW_LISTING_PROCESS_HOST,
         messageId,
-        hostName: hostProfileObj.firstName,
-        guestName: guestProfileObj.firstName,
+        hostName: hostProfileObj.displayName,
+        hostEmail: hostObj.email,
+        guestName: guestProfileObj.displayName,
+        guestEmail: guestObj.email,
         date: moment(messageParentObj.reservations[0])
           .tz('Australia/Sydney')
           .format('dddd D MMMM, YYYY')
           .toString(),
         time: momentObj.format('h:mm A'),
-        message: messageItemObj[0].content
+        message: messageItemObj[0].content,
+
+        capacity: listingData.capacity ? listingData.capacity : 1,
+        minimumTerm,
+        term,
+        listingId: listingObj.id,
+        basePrice: listingData.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+        priceType: listingObj.bookingPeriod,
+        listImage: coverPhoto,
+        category: categoryAndSubObj.category,
+        listTitle: listingObj.title,
+        fullAddress: `${locationObj.address1}, ${locationObj.city}`,
+        hostPhoto: await listingCommons.getProfilePicture(messageObj.hostId)
       }
-      console.log({
-        ...emailObj,
-        hostPhoto: await listingCommons.getProfilePicture(messageObj.hostId)
-      })
-      console.log({
-        ...emailObj,
-        guestPhoto: await listingCommons.getProfilePicture(messageObj.guestId)
-      })
+
+      console.log('emailObj', emailObj)
       await senderService.senderByTemplateData('inspection-guest-email', guestObj.email, {
-        ...emailObj,
-        hostPhoto: await listingCommons.getProfilePicture(messageObj.hostId)
+        ...emailObj
+        // hostPhoto: await listingCommons.getProfilePicture(messageObj.hostId)
       })
-      await senderService.senderByTemplateData('inspection-host-email', hostObj.email, {
-        ...emailObj,
-        guestPhoto: await listingCommons.getProfilePicture(messageObj.guestId)
+      // await senderService.senderByTemplateData('inspection-host-email', hostObj.email, {
+      //   ...emailObj,
+      //   guestPhoto: await listingCommons.getProfilePicture(messageObj.guestId)
+      // })
+      await senderService.senderByTemplateData('inspection-team-email', 'camila@spacenow.com', {
+        ...emailObj
+        // guestPhoto: await listingCommons.getProfilePicture(messageObj.guestId)
       })
       return messageObj
     } catch (err) {
