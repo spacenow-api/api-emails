@@ -285,10 +285,12 @@ module.exports = {
         where: { userId: messageObj.guestId }
       })
       // TODO: change to findOrCreate
-      await MessageItem.create({
-        messageId: messageId,
-        content: 'Site inspection cancelled',
-        sentBy: guestObj.id
+      await MessageItem.findOrCreate({
+        where: {
+          messageId: messageId,
+          content: 'Site inspection cancelled',
+          sentBy: guestObj.id
+        }
       })
       const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
       const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
