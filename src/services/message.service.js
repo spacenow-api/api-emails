@@ -284,7 +284,6 @@ module.exports = {
       const guestProfileObj = await UserProfile.findOne({
         where: { userId: messageObj.guestId }
       })
-      // TODO: change to findOrCreate
       await MessageItem.findOrCreate({
         where: {
           messageId: messageId,
@@ -292,6 +291,7 @@ module.exports = {
           sentBy: guestObj.id
         }
       })
+
       const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
       const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
       let minimumTerm = listingData.minTerm ? listingData.minTerm : 1
