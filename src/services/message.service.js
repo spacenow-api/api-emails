@@ -337,7 +337,7 @@ module.exports = {
       await senderService.senderByTemplateData('inspection-cancel-team-email', 'camila@spacenow.com', {
         ...emailObj
       })
-      await senderService.senderByTemplateData('inspection-cancel-guest-email', 'camila@spacenow.com', {
+      await senderService.senderByTemplateData('inspection-cancel-guest-email', guestObj.email, {
         ...emailObj
       })
 
