@@ -333,6 +333,10 @@ module.exports = {
       await senderService.senderByTemplateData('inspection-cancel-team-email', 'camila@spacenow.com', {
         ...emailObj
       })
+      await senderService.senderByTemplateData('inspection-cancel-guest-email', 'camila@spacenow.com', {
+        ...emailObj
+      })
+
       return messageObj
     } catch (err) {
       console.log('err', err)
