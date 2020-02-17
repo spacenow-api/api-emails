@@ -172,7 +172,7 @@ module.exports = {
       priceType: bookingObj.priceType,
       listImage: coverPhoto,
       category: categoryAndSubObj.category,
-      subCategoryName: categoryAndSubObj.subCaregory,
+      subcategory: categoryAndSubObj.subCaregory,
       currentDate: moment()
         .tz('Australia/Sydney')
         .format('dddd D MMMM, YYYY')
@@ -350,6 +350,7 @@ module.exports = {
       checkOutTime: checkOutTime,
       listImage: coverPhoto,
       category: categoryAndSubObj.category,
+      subcategory: categoryAndSubObj.subCaregory,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       listingId: listingObj.id,
       valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null,
@@ -485,6 +486,7 @@ module.exports = {
       listAddress: `${locationObj.address1 ? `${locationObj.address1}, ` : ''}${locationObj.city}`,
       priceType: bookingObj.priceType,
       category: categoryAndSubObj.category,
+      subcategory: categoryAndSubObj.subCaregory,
       listImage: coverPhoto,
       guestPhoto: guestProfilePicture,
       period: bookingObj.period,
@@ -630,9 +632,10 @@ module.exports = {
       listingId: listingObj.id,
       listImage: coverPhoto,
       category: categoryAndSubObj.category,
+      subcategory: categoryAndSubObj.subCaregory,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       totalPeriod: totalPeriod,
-      message: bookingObj.message,
+      // message: bookingObj.message,
       valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null,
       capacity: listingData.capacity ? listingData.capacity : 1,
       minimumTerm,

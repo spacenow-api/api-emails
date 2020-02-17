@@ -348,7 +348,7 @@
                 valign="top"
                 style="padding: 0 20px; font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:26px; font-weight: bold;mso-line-height-rule:exactly;line-height:34px;color:#ffffff;"
               >
-                One new booking confirmed!
+                New booking confirmed!
               </td>
             </tr>
             <tr>
@@ -401,11 +401,12 @@
                       valign="top"
                       style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:24px; font-weight: 600;mso-line-height-rule:exactly;line-height:29px;color:#172439;"
                     >
-                      Hi&nbsp;{{hostName}}, <br />{{guestName}}&nbsp;will be arriving <br />on&nbsp;{{checkInDate}}.
+                      Hi&nbsp;{{hostName}}, <br />
+                      You have a new booking for the&nbsp;{{checkInDate}}.
                     </td>
                   </tr>
                   <tr>
-                    <td height="32" style="font-size: 0; line-height:32px;">&nbsp;</td>
+                    <td height="45" style="font-size: 0; line-height:32px;">&nbsp;</td>
                   </tr>
                   <tr>
                     <td
@@ -413,349 +414,13 @@
                       valign="top"
                       style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:16px; mso-line-height-rule:exactly;line-height:26px;color:#172439;"
                     >
-                      We’ll send them confirmation of your check-in process, please see your guest details below:
-                      <br /><br />
-                      Your new guest:
+                      The guest has been sent your check-in process details:
                     </td>
                   </tr>
                   <tr>
                     <td height="40" style="font-size: 0; line-height:40px;">&nbsp;</td>
                   </tr>
-                  <tr>
-                    <td align="center" valign="top">
-                      <table align="left" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
-                        <tr>
-                          <td align="left" valign="top">
-                            <img
-                              class="img95"
-                              src="{{guestPhoto}}"
-                              alt=""
-                              width="113"
-                              height="113"
-                              border="0"
-                              style="display: block; outline: none;border-radius: 50%;object-fit: cover;"
-                            />
-                          </td>
-                          <td width="20" class="space15">&nbsp;</td>
-                          <td align="center" valign="middle">
-                            <table
-                              width="100%"
-                              align="center"
-                              cellpadding="0"
-                              cellspacing="0"
-                              border="0"
-                              style="border-collapse: collapse;"
-                            >
-                              <tr>
-                                <td
-                                  class="txt17"
-                                  align="left"
-                                  valign="top"
-                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: bold; font-size:21px; mso-line-height-rule:exactly;line-height:25px;color:#172439;"
-                                >
-                                  {{guestName}}
-                                </td>
-                              </tr>
-                       
-                            </table>
-                          </td>
-                        </tr>
-                      </table>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td height="40" style="font-size: 0; line-height:40px;">&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td align="center" valign="top">
-                      <table
-                        width="100%"
-                        align="center"
-                        cellpadding="0"
-                        cellspacing="0"
-                        border="0"
-                        style="border-collapse: collapse;"
-                      >
-                        <tr>
-                          <td align="center" valign="top">
-                            <!--[if (gte mso 9)|(IE)]>
-                                                <table width="100%" align="center" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"><tr><td align="center" valign="top"><![endif]-->
-                            <table
-                              width="244"
-                              align="left"
-                              cellpadding="0"
-                              cellspacing="0"
-                              border="0"
-                              style="border-collapse: collapse; width: 244px; max-width: 240px;"
-                              class="container"
-                            >
-                              <tr>
-                                <td width="80" align="left" valign="top">
-                                  <table
-                                    width="80"
-                                    align="left"
-                                    cellpadding="0"
-                                    cellspacing="0"
-                                    border="0"
-                                    bgcolor="#F8F8F8"
-                                    style="border-collapse: collapse; background-color: #F8F8F8; border-radius: 8px;"
-                                  >
-                                    <tr>
-                                      <td
-                                        height="80"
-                                        align="center"
-                                        valign="middle"
-                                        style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; font-weight: 600; mso-line-height-rule:exactly;line-height:24px;color:#172439;"
-                                      >
-                                        {{checkInMonth}}
-                                        <br />{{checkInDay}}
-                                      </td>
-                                    </tr>
-                                  </table>
-                                </td>
-                                <td width="20"></td>
-                                <td
-                                  align="left"
-                                  valign="middle"
-                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
-                                >
-                                  <a style="text-decoration: none; color: #172439;cursor: text;">{{checkInWeekday}}&nbsp;check-in</a>
-                                  <br />
-                                  <a style="text-decoration: none; color: #172439;cursor: text;">{{checkInTime}}</a>
-                                </td>
-                              </tr>
-                            </table>
-
-                            <!--[if (gte mso 9)|(IE)]></td><td align="center" valign="top"><![endif]-->
-                            <table
-                              width="244"
-                              align="left"
-                              cellpadding="0"
-                              cellspacing="0"
-                              border="0"
-                              style="border-collapse: collapse; width: 244px; max-width: 240px;"
-                              class="container"
-                            >
-                              <tr>
-                                <td width="80" align="left" valign="top">
-                                  <table
-                                    width="80"
-                                    align="left"
-                                    cellpadding="0"
-                                    cellspacing="0"
-                                    border="0"
-                                    bgcolor="#F8F8F8"
-                                    style="border-collapse: collapse; background-color: #F8F8F8; border-radius: 8px;"
-                                  >
-                                    <tr>
-                                      <td
-                                        height="80"
-                                        align="center"
-                                        valign="middle"
-                                        style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; font-weight: 600; mso-line-height-rule:exactly;line-height:24px;color:#172439;"
-                                      >
-                                        {{checkOutMonth}}
-                                        <br />{{checkOutDay}}
-                                      </td>
-                                    </tr>
-                                  </table>
-                                </td>
-                                <td width="20"></td>
-                                <td
-                                  align="left"
-                                  valign="middle"
-                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
-                                >
-                                  <a style="text-decoration: none; color: #172439;cursor: text;">{{checkOutWeekday}}&nbsp;check-out</a>
-                                  <br />
-                                  <a style="text-decoration: none; color: #172439;cursor: text;">{{checkOutTime}}</a>
-                                </td>
-                              </tr>
-                            </table>
-
-                            <!--[if (gte mso 9)|(IE)]></td></tr>
-                                            </table> <![endif]-->
-                          </td>
-                        </tr>
-                      </table>
-
-                      <table
-                        width="315"
-                        align="left"
-                        cellpadding="0"
-                        cellspacing="0"
-                        border="0"
-                        style="border-collapse: collapse; width: 315px;"
-                        class="container"
-                      >
-                        <tr>
-                          <td height="30" style="font-size: 0; line-height:20px;">&nbsp;</td>
-                        </tr>
-                        <tr>
-                          <td align="center" valign="top" style="border-bottom: 1px solid #E6E6E6;">
-                            <table
-                              width="93%"
-                              align="center"
-                              cellpadding="0"
-                              cellspacing="0"
-                              border="0"
-                              style="border-collapse: collapse;"
-                            >
-                              <tr>
-                                <td
-                                  align="left"
-                                  valign="top"
-                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
-                                >
-                                  x&nbsp;{{totalPeriod}}
-                                </td>
-                                <td
-                                  align="right"
-                                  valign="top"
-                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
-                                >
-                                  ${{subtotal}}
-                                </td>
-                              </tr>
-                              {{#if discountValue}}
-                              <tr>
-                                <td
-                                  align="left"
-                                  valign="top"
-                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
-                                >
-                                  Promo code
-                                </td>
-                                <td
-                                  align="right"
-                                  valign="top"
-                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
-                                >
-                                  (${{discountValue}})
-                                </td>
-                              </tr>
-                              {{/if}}
-                              <tr>
-                                <td
-                                  align="left"
-                                  valign="top"
-                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
-                                >
-                                  Spacenow 10% fee + GST
-                                </td>
-                                <td
-                                  align="right"
-                                  valign="top"
-                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
-                                >
-                                  ${{serviceFee}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td colspan="2" height="30" style="font-size: 0; line-height:20px;">&nbsp;</td>
-                              </tr>
-                            </table>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td height="30" style="font-size: 0; line-height:20px;">&nbsp;</td>
-                        </tr>
-                        <tr>
-                          <td align="center" valign="top" style="border-bottom: 1px solid #E6E6E6; padding-bottom: 30px">
-                            <table
-                              width="93%"
-                              align="center"
-                              cellpadding="0"
-                              cellspacing="0"
-                              border="0"
-                              style="border-collapse: collapse;"
-                            >
-                              <tr>
-                                <td
-                                  align="left"
-                                  valign="top"
-                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:20px; font-weight: 500; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
-                                >
-                                  Total
-                                </td>
-                                <td
-                                  align="right"
-                                  valign="top"
-                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:20px;font-weight: 500; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
-                                >
-                                  AUD ${{total}}
-                                </td>
-                              </tr>
-                            </table>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:12px; mso-line-height-rule:exactly;line-height:18px;color:#172439;padding-top: 20px; padding-left: 10px;">
-                            All prices are in Australian dollars and include GST
-                          </td>
-                        </tr>
-                      </table>
-                    </td>
-                  </tr>
-                  <!--[if !mso 9]><!-->
-                  <tr class="mobile-visible">
-                    <td height="0" align="center" valign="top">
-                      <div
-                        class="gmail"
-                        style="display:none; line-height:0px; float:left; mso-hide: all; width:0; overflow:hidden; max-height:0;"
-                      >
-                        <table
-                          width="100%"
-                          align="center"
-                          cellpadding="0"
-                          cellspacing="0"
-                          border="0"
-                          style="border-collapse: collapse;"
-                        >
-                          <tr>
-                            <td height="30" style="font-size: 0; line-height:20px;">&nbsp;</td>
-                          </tr>
-                          <tr>
-                            <td align="center" valign="top">
-                              <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
-                                <tr>
-                                  <td
-                                    bgcolor="#2DA577"
-                                    style="padding: 22px 0px; border-radius:8px; -webkit-border-radius: 8px; color: #ffffff;font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: bold;font-size: 18px; line-height: 24px; white-space: nowrap;"
-                                    align="center"
-                                  >
-                                    <a
-                                      href="{{appLink}}/account/booking"
-                                      target="_blank"
-                                      style="color: #ffffff; text-decoration: none; display: inline-block;"
-                                      >View booking</a
-                                    >
-                                  </td>
-                                </tr>
-                              </table>
-                            </td>
-                          </tr>
-                        </table>
-                      </div>
-                    </td>
-                  </tr>
-                  <!--<![endif]-->
-                  <tr>
-                    <td height="45" style="font-size: 0; line-height:45px;">&nbsp;</td>
-                  </tr>
-
-                  <tr class="mobile-hide">
-                    <td
-                      align="left"
-                      valign="top"
-                      style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:16px; mso-line-height-rule:exactly;line-height:26px;color:#172439;"
-                    >
-                      The space:
-                    </td>
-                  </tr>
-                  <tr class="mobile-hide">
-                    <td height="32" style="font-size: 0; line-height:32px;">&nbsp;</td>
-                  </tr>
+               
                   <tr>
                     <td align="center" valign="top">
                       <table
@@ -1088,8 +753,365 @@
                       </table>
                     </td>
                   </tr>
+           
+                  <tr class="mobile-hide">
+                    <td height="32" style="font-size: 0; line-height:32px;">&nbsp;</td>
+                  </tr>
                   <tr>
-                    <td height="50" style="font-size: 0; line-height:50px;">&nbsp;</td>
+                    <td align="center" valign="top">
+                      <table align="left" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                        <tr>
+                          <td align="left" valign="top">
+                            <img
+                              class="img95"
+                              src="{{guestPhoto}}"
+                              alt=""
+                              width="113"
+                              height="113"
+                              border="0"
+                              style="display: block; outline: none;border-radius: 50%;object-fit: cover;"
+                            />
+                          </td>
+                          <td width="20" class="space15">&nbsp;</td>
+                          <td align="center" valign="middle">
+                            <table
+                              width="100%"
+                              align="center"
+                              cellpadding="0"
+                              cellspacing="0"
+                              border="0"
+                              style="border-collapse: collapse;"
+                            >
+                              <tr>
+                                <td
+                                  class="txt17"
+                                  align="left"
+                                  valign="top"
+                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: bold; font-size:21px; mso-line-height-rule:exactly;line-height:25px;color:#172439;"
+                                >
+                                  {{guestName}}
+                                </td>
+                              </tr>
+                       
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <!-- <tr>
+                    <td height="40" style="font-size: 0; line-height:40px;">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="center" valign="top">
+                      <table
+                        width="40%"
+                        align="left"
+                        cellpadding="0"
+                        cellspacing="0"
+                        border="0"
+                        style="border-collapse: collapse;"
+                      >
+                        <tr>
+                          <td
+                            align="left"
+                            valign="top"
+                            style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:17px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
+                          >
+                            Event type:
+                          </td>
+                          <td
+                            align="right"
+                            valign="top"
+                            style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:17px; mso-line-height-rule:exactly;line-height:18px;color:#172439;font-weight: 500;"
+                          >
+                            {{subcategory}}
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr> -->
+                  <tr>
+                    <td height="40" style="font-size: 0; line-height:40px;">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="center" valign="top">
+                      <table
+                        width="100%"
+                        align="center"
+                        cellpadding="0"
+                        cellspacing="0"
+                        border="0"
+                        style="border-collapse: collapse;"
+                      >
+                        <tr>
+                          <td align="center" valign="top">
+                            <!--[if (gte mso 9)|(IE)]>
+                                                <table width="100%" align="center" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"><tr><td align="center" valign="top"><![endif]-->
+                            <table
+                              width="244"
+                              align="left"
+                              cellpadding="0"
+                              cellspacing="0"
+                              border="0"
+                              style="border-collapse: collapse; width: 244px; max-width: 240px;"
+                              class="container"
+                            >
+                              <tr>
+                                <td width="80" align="left" valign="top">
+                                  <table
+                                    width="80"
+                                    align="left"
+                                    cellpadding="0"
+                                    cellspacing="0"
+                                    border="0"
+                                    bgcolor="#F8F8F8"
+                                    style="border-collapse: collapse; background-color: #F8F8F8; border-radius: 8px;"
+                                  >
+                                    <tr>
+                                      <td
+                                        height="80"
+                                        align="center"
+                                        valign="middle"
+                                        style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; font-weight: 600; mso-line-height-rule:exactly;line-height:24px;color:#172439;"
+                                      >
+                                        {{checkInMonth}}
+                                        <br />{{checkInDay}}
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </td>
+                                <td width="20"></td>
+                                <td
+                                  align="left"
+                                  valign="middle"
+                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
+                                >
+                                  <a style="text-decoration: none; color: #172439;cursor: text;">{{checkInWeekday}}&nbsp;check-in</a>
+                                  <br />
+                                  <a style="text-decoration: none; color: #172439;cursor: text;">{{checkInTime}}</a>
+                                </td>
+                              </tr>
+                            </table>
+
+                            <!--[if (gte mso 9)|(IE)]></td><td align="center" valign="top"><![endif]-->
+                            <table
+                              width="244"
+                              align="left"
+                              cellpadding="0"
+                              cellspacing="0"
+                              border="0"
+                              style="border-collapse: collapse; width: 244px; max-width: 240px;"
+                              class="container"
+                            >
+                              <tr>
+                                <td width="80" align="left" valign="top">
+                                  <table
+                                    width="80"
+                                    align="left"
+                                    cellpadding="0"
+                                    cellspacing="0"
+                                    border="0"
+                                    bgcolor="#F8F8F8"
+                                    style="border-collapse: collapse; background-color: #F8F8F8; border-radius: 8px;"
+                                  >
+                                    <tr>
+                                      <td
+                                        height="80"
+                                        align="center"
+                                        valign="middle"
+                                        style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; font-weight: 600; mso-line-height-rule:exactly;line-height:24px;color:#172439;"
+                                      >
+                                        {{checkOutMonth}}
+                                        <br />{{checkOutDay}}
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </td>
+                                <td width="20"></td>
+                                <td
+                                  align="left"
+                                  valign="middle"
+                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
+                                >
+                                  <a style="text-decoration: none; color: #172439;cursor: text;">{{checkOutWeekday}}&nbsp;check-out</a>
+                                  <br />
+                                  <a style="text-decoration: none; color: #172439;cursor: text;">{{checkOutTime}}</a>
+                                </td>
+                              </tr>
+                            </table>
+
+                            <!--[if (gte mso 9)|(IE)]></td></tr>
+                                            </table> <![endif]-->
+                          </td>
+                        </tr>
+                      </table>
+
+                      <table
+                        width="315"
+                        align="left"
+                        cellpadding="0"
+                        cellspacing="0"
+                        border="0"
+                        style="border-collapse: collapse; width: 315px;"
+                        class="container"
+                      >
+                        <tr>
+                          <td height="30" style="font-size: 0; line-height:20px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td align="center" valign="top" style="border-bottom: 1px solid #E6E6E6;">
+                            <table
+                              width="93%"
+                              align="center"
+                              cellpadding="0"
+                              cellspacing="0"
+                              border="0"
+                              style="border-collapse: collapse;"
+                            >
+                              <tr>
+                                <td
+                                  align="left"
+                                  valign="top"
+                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
+                                >
+                                  x&nbsp;{{totalPeriod}}
+                                </td>
+                                <td
+                                  align="right"
+                                  valign="top"
+                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
+                                >
+                                  ${{subtotal}}
+                                </td>
+                              </tr>
+                              {{#if discountValue}}
+                              <tr>
+                                <td
+                                  align="left"
+                                  valign="top"
+                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
+                                >
+                                  Promo code
+                                </td>
+                                <td
+                                  align="right"
+                                  valign="top"
+                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
+                                >
+                                  (${{discountValue}})
+                                </td>
+                              </tr>
+                              {{/if}}
+                              <tr>
+                                <td
+                                  align="left"
+                                  valign="top"
+                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
+                                >
+                                  Spacenow 10% fee + GST
+                                </td>
+                                <td
+                                  align="right"
+                                  valign="top"
+                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:14px; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
+                                >
+                                  ${{serviceFee}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td colspan="2" height="30" style="font-size: 0; line-height:20px;">&nbsp;</td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td height="30" style="font-size: 0; line-height:20px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td align="center" valign="top" style="border-bottom: 1px solid #E6E6E6; padding-bottom: 30px">
+                            <table
+                              width="93%"
+                              align="center"
+                              cellpadding="0"
+                              cellspacing="0"
+                              border="0"
+                              style="border-collapse: collapse;"
+                            >
+                              <tr>
+                                <td
+                                  align="left"
+                                  valign="top"
+                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:20px; font-weight: 500; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
+                                >
+                                  Total
+                                </td>
+                                <td
+                                  align="right"
+                                  valign="top"
+                                  style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:20px;font-weight: 500; mso-line-height-rule:exactly;line-height:18px;color:#172439;"
+                                >
+                                  AUD ${{total}}
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:12px; mso-line-height-rule:exactly;line-height:18px;color:#172439;padding-top: 20px; padding-left: 10px;">
+                            All prices are in Australian dollars and include GST
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <!--[if !mso 9]><!-->
+                  <tr class="mobile-visible">
+                    <td height="0" align="center" valign="top">
+                      <div
+                        class="gmail"
+                        style="display:none; line-height:0px; float:left; mso-hide: all; width:0; overflow:hidden; max-height:0;"
+                      >
+                        <table
+                          width="100%"
+                          align="center"
+                          cellpadding="0"
+                          cellspacing="0"
+                          border="0"
+                          style="border-collapse: collapse;"
+                        >
+                          <tr>
+                            <td height="30" style="font-size: 0; line-height:20px;">&nbsp;</td>
+                          </tr>
+                          <tr>
+                            <td align="center" valign="top">
+                              <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td
+                                    bgcolor="#2DA577"
+                                    style="padding: 22px 0px; border-radius:8px; -webkit-border-radius: 8px; color: #ffffff;font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-weight: bold;font-size: 18px; line-height: 24px; white-space: nowrap;"
+                                    align="center"
+                                  >
+                                    <a
+                                      href="{{appLink}}/account/booking"
+                                      target="_blank"
+                                      style="color: #ffffff; text-decoration: none; display: inline-block;"
+                                      >View booking</a
+                                    >
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </td>
+                  </tr>
+                  <!--<![endif]-->
+        
+
+                  <tr>
+                    <td height="80" style="font-size: 0; line-height:50px;">&nbsp;</td>
                   </tr>
                   <tr class="mobile-hide">
                     <td align="center" valign="top">
@@ -1143,7 +1165,7 @@
             class="container"
           >
             <tr>
-              <td class="vspace35" height="80" style="font-size: 0; line-height:80px;">&nbsp;</td>
+              <td class="vspace35" height="40" style="font-size: 0; line-height:40px;">&nbsp;</td>
             </tr>
             <tr>
               <td align="center" valign="top">
