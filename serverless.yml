@@ -47,6 +47,7 @@ dotenv:
     - NEW_LISTING_PROCESS_HOST
     - NOTIFICATION_API
     - EMAILS_API
+    - BBC_EMAILS
 
 provider:
   name: aws
@@ -78,6 +79,7 @@ provider:
     NEW_LISTING_PROCESS_HOST: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/NEW_LISTING_PROCESS_HOST~true}
     NOTIFICATION_API: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/NOTIFICATION_API~true}
     EMAILS_API: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/EMAILS_API~true}
+    BBC_EMAILS: ${ssm:/${opt:stageCert, 'SANDPIT'}/SPACENOW/BBC_EMAILS~true}
 
 functions:
   send:
