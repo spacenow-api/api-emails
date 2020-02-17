@@ -7,7 +7,8 @@ function generateEmailParams(template, data) {
     Source: "no-reply@spacenow.com",
     Destination: {
       ToAddresses: [data.email],
-      BccAddresses: ["team@spacenow.com", "baydr@spacenow.com", "barrett@spacenow.com"]
+      BccAddresses: process.env.BBC_EMAILS.split(" ")
+      // BccAddresses: ["team@spacenow.com", "baydr@spacenow.com", "barrett@spacenow.com"]
     },
     ReplyToAddresses: ["no-reply@spacenow.com"],
     ConfigurationSetName: "Emails",
@@ -22,7 +23,8 @@ exports.senderByTemplateData = async (templateName, emailDestination, templateDa
       Source: "no-reply@spacenow.com",
       Destination: {
         ToAddresses: [emailDestination],
-        BccAddresses: ["team@spacenow.com", "baydr@spacenow.com", "barrett@spacenow.com"]
+        BccAddresses: process.env.BBC_EMAILS.split(" ")
+        // BccAddresses: ["team@spacenow.com", "baydr@spacenow.com", "barrett@spacenow.com"]
       },
       ReplyToAddresses: ["no-reply@spacenow.com"],
       ConfigurationSetName: "Emails",
