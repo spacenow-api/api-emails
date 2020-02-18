@@ -112,7 +112,7 @@ module.exports = {
       const messageItemsObj = await MessageItem.findAll({
         where: {
           isRead: 0,
-          createdAt: { [Op.between]: [pastOneHour, pastTwoHour] }
+          createdAt: { [Op.between]: [pastTwoHour, pastOneHour] }
         },
         // group: ['messageId', 'content'],
         order: [['createdAt', 'DESC']],
