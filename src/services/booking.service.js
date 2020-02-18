@@ -96,15 +96,15 @@ module.exports = {
     })
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
-      .format('ddd, Do MMM, YYYY')
+      .format('dddd, Do MMMM, YYYY')
       .toString()
     const checkOut = moment(bookingObj.checkOut)
       .tz('Australia/Sydney')
-      .format('ddd, Do MMM, YYYY')
+      .format('dddd, Do MMMM, YYYY')
       .toString()
     const checkInShort = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
-      .format('Do MMM')
+      .format('dddd, Do MMMM, YYYY')
       .toString()
     const HOST_FEE = 0.11
     const GUEST_FEE = 0.035
@@ -242,15 +242,15 @@ module.exports = {
     })
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
-      .format('ddd, Do MMM, YYYY')
+      .format('dddd, Do MMMM, YYYY')
       .toString()
     const checkOut = moment(bookingObj.checkOut)
       .tz('Australia/Sydney')
-      .format('ddd, Do MMM, YYYY')
+      .format('dddd, Do MMMM, YYYY')
       .toString()
     const checkInShort = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
-      .format('Do MMM')
+      .format('dddd, Do MMMM, YYYY')
       .toString()
     let checkInObj = await getCheckInOutTime(listingObj.id, bookingObj.checkIn)
     let checkInTime =
@@ -382,11 +382,11 @@ module.exports = {
     //   : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
-      .format('ddd, Do MMM, YYYY')
+      .format('dddd, Do MMMM, YYYY')
       .toString()
     const checkOut = moment(bookingObj.checkOut)
       .tz('Australia/Sydney')
-      .format('ddd, Do MMM, YYYY')
+      .format('dddd, Do MMMM, YYYY')
       .toString()
     let checkInObj = await getCheckInOutTime(listingObj.id, bookingObj.checkIn)
     let checkInTime =
@@ -533,11 +533,11 @@ module.exports = {
     //   : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
-      .format('ddd, Do MMM, YYYY')
+      .format('dddd, Do MMMM, YYYY')
       .toString()
     const checkOut = moment(bookingObj.checkOut)
       .tz('Australia/Sydney')
-      .format('ddd, Do MMM, YYYY')
+      .format('dddd, Do MMMM, YYYY')
       .toString()
 
     let term = 'day'
@@ -641,7 +641,6 @@ module.exports = {
       minimumTerm,
       term
     }
-    console.log('bookingObj', bookingObj)
     await senderService.senderByTemplateData('booking-request-email-guest', guestObj.email, guestMetadata)
   },
 
@@ -661,15 +660,15 @@ module.exports = {
     })
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
-      .format('ddd, Do MMM, YYYY')
+      .format('dddd, Do MMMM, YYYY')
       .toString()
     const checkOut = moment(bookingObj.checkOut)
       .tz('Australia/Sydney')
-      .format('ddd, Do MMM, YYYY')
+      .format('dddd, Do MMMM, YYYY')
       .toString()
     const checkInShort = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
-      .format('Do MMM')
+      .format('dddd, Do MMMM, YYYY')
       .toString()
     let checkInObj = await getCheckInOutTime(listingObj.id, bookingObj.checkIn)
     let checkInTime =
@@ -777,11 +776,11 @@ module.exports = {
     const listingObj = await listingCommons.getListingById(bookingObj.listingId)
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
-      .format('ddd, Do MMM, YYYY')
+      .format('dddd, Do MMMM, YYYY')
       .toString()
     const checkOut = moment(bookingObj.checkOut)
       .tz('Australia/Sydney')
-      .format('ddd, Do MMM, YYYY')
+      .format('dddd, Do MMMM, YYYY')
       .toString()
     const declinedMetadata = {
       guestName: guestObj.firstName,
@@ -877,7 +876,7 @@ module.exports = {
     if (minimumTerm > 1) term = term + 's'
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
-      .format('ddd, Do MMM, YYYY')
+      .format('dddd, Do MMMM, YYYY')
       .toString()
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const hostProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
@@ -941,11 +940,11 @@ module.exports = {
     //   : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
-      .format('ddd, Do MMM, YYYY')
+      .format('dddd, Do MMMM, YYYY')
       .toString()
     const checkOut = moment(bookingObj.checkOut)
       .tz('Australia/Sydney')
-      .format('ddd, Do MMM, YYYY')
+      .format('dddd, Do MMMM, YYYY')
       .toString()
 
     let term = 'day'
