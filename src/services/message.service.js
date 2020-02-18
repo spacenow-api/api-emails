@@ -106,7 +106,7 @@ module.exports = {
         .utc()
 
       const pastTwoHour = moment()
-        .subtract(1, 'hours')
+        .subtract(2, 'hours')
         .utc()
 
       const messageItemsObj = await MessageItem.findAll({
