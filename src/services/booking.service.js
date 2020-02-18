@@ -635,12 +635,13 @@ module.exports = {
       subcategory: categoryAndSubObj.subCaregory,
       appLink: process.env.NEW_LISTING_PROCESS_HOST,
       totalPeriod: totalPeriod,
-      // message: bookingObj.message,
+      message: bookingObj.message,
       valueDiscount: discountValue > 0 ? discountValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : null,
       capacity: listingData.capacity ? listingData.capacity : 1,
       minimumTerm,
       term
     }
+    console.log('bookingObj', bookingObj)
     await senderService.senderByTemplateData('booking-request-email-guest', guestObj.email, guestMetadata)
   },
 
