@@ -278,7 +278,7 @@
                             valign="middle"
                             style="padding-top: 10px;  font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size:16px; font-weight: normal;mso-line-height-rule:exactly;line-height:25px;color:#142D3F;"
                           >
-                            <a style="text-decoration: none; color: #142D3F;cursor: text;">Tuesday, July 17, 2018</a>
+                            <a style="text-decoration: none; color: #142D3F;cursor: text;">{{ currentDate }}</a>
                           </td>
                         </tr>
                       </table>
@@ -368,7 +368,7 @@
                       valign="top"
                       style="font-family: 'Montserrat', Helvetica, Arial, sans-serif; font-size:24px; font-weight: 600;mso-line-height-rule:exactly;line-height:29px;color:#172439;"
                     >
-                      Hi {guest-name},
+                      Hi&nbsp;{{ guestName }},
                     </td>
                   </tr>
                   <tr>
@@ -397,7 +397,7 @@
                             align="center"
                           >
                             <a
-                              href="#"
+                              href="{{ appLink }}/checkout/{{ bookingId }}/pay"
                               target="_blank"
                               style="color: #ffffff; text-decoration: none; display: inline-block;"
                               >Check details</a
