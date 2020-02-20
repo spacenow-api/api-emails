@@ -234,7 +234,7 @@ module.exports = {
       //   ...emailObj,
       //   guestPhoto: await listingCommons.getProfilePicture(messageObj.guestId)
       // })
-      await senderService.senderByTemplateData('inspection-team-email', 'camila@spacenow.com', {
+      await senderService.senderByTemplateData('inspection-team-email', 'team@spacenow.com', {
         ...emailObj
       })
       return messageObj
@@ -333,7 +333,7 @@ module.exports = {
         fullAddress: `${locationObj.address1 ? `${locationObj.address1}, ` : ''}${locationObj.city}`,
         hostPhoto: await listingCommons.getProfilePicture(messageObj.hostId)
       }
-      await senderService.senderByTemplateData('inspection-cancel-team-email', 'camila@spacenow.com', {
+      await senderService.senderByTemplateData('inspection-cancel-team-email', 'team@spacenow.com', {
         ...emailObj
       })
       await senderService.senderByTemplateData('inspection-cancel-guest-email', guestObj.email, {
