@@ -45,7 +45,6 @@ const sendEmailNewMessageHost = async messageItemId => {
       guestPhoto: await listingCommons.getProfilePicture(messageObj.guestId),
       message: messageItemObj.content
     }
-    console.log('emailObj host', emailObj)
     await senderService.senderByTemplateData('message-host-email', hostObj.email, emailObj)
   } catch (err) {
     console.error(err)
@@ -90,7 +89,6 @@ const sendEmailNewMessageGuest = async messageItemId => {
       hostPhoto: await listingCommons.getProfilePicture(messageObj.hostId),
       message: messageItemObj.content
     }
-    console.log('emailObj guest', emailObj)
     await senderService.senderByTemplateData('message-guest-email', guestObj.email, emailObj)
   } catch (err) {
     console.error(err)
@@ -127,17 +125,18 @@ module.exports = {
         {}
       )
       const messageItemValues = Object.values(groupedObj)
-      console.log('messageItemValues', messageItemValues)
       for (const messageItem of messageItemValues) {
         try {
           const messageObj = await Message.findByPk(messageItem[0].messageId)
-          if (messageObj.hostId === messageItem[0].sentBy) {
-            console.log('guest if')
-            await sendEmailNewMessageGuest(messageItem[0].id)
-          } else {
-            console.log('host if')
-            await sendEmailNewMessageHost(messageItem[0].id)
-          }
+          // Avoid sending message notification email when first message coming 
+          // from inspection or contact host form. They have their own email
+          if (messageItem.length > 1) { 
+            if (messageObj.hostId === messageItem[0].sentBy) {
+              await sendEmailNewMessageGuest(messageItem[0].id)
+            } else {
+              await sendEmailNewMessageHost(messageItem[0].id)
+            }
+          } 
         } catch (err) {
           return err
         }
