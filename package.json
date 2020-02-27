@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "./node_modules/.bin/serverless offline -s dev -P 6010",
     "debug": "export SLS_DEBUG=* && node --inspect ./node_modules/.bin/serverless offline -s dev -P 6010",
-    "create-template": "aws ses create-template --cli-input-json file://templates/publish-listing-confirmation.json",
-    "update-template": "aws ses update-template --cli-input-json file://templates/publish-listing-confirmation.json",
-    "send": "serverless invoke local --function send --path ./mocks/send-welcome-email.json"
+    "create-template": "aws ses create-template --cli-input-json file://templates/complete-listing-host.json",
+    "update-template": "aws ses update-template --cli-input-json file://templates/complete-listing-host.json",
+    "send": "serverless invoke local --function send --path ./src/mocks/send-complete-listing-host.json"
   },
   "author": "Lucas Nascimento",
   "license": "MIT",
@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "axios": "~0.19.0",
+    "lodash": "^4.17.15",
     "moment": "~2.24.0",
     "mysql2": "~1.6.5",
     "sequelize": "~5.17.0",

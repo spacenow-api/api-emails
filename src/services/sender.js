@@ -2,11 +2,11 @@ const aws = require("aws-sdk");
 
 const ses = new aws.SES({ region: "us-east-1" });
 
-function generateEmailParams(template, data) {
+function generateEmailParams(template, destination, data) {
   return {
     Source: "no-reply@spacenow.com",
     Destination: {
-      ToAddresses: [data.email],
+      ToAddresses: [destination],
       BccAddresses: process.env.BBC_EMAILS.split(" ")
       // BccAddresses: ["team@spacenow.com", "baydr@spacenow.com", "barrett@spacenow.com"]
     },
@@ -36,6 +36,6 @@ exports.senderByTemplateData = async (templateName, emailDestination, templateDa
 
 exports.sender = async event => {
   const body = JSON.parse(event.body);
-  const emailParams = generateEmailParams(body.template, JSON.parse(body.data));
+  const emailParams = generateEmailParams(body.template, body.destination, body.data);
   return ses.sendTemplatedEmail(emailParams).promise();
 };

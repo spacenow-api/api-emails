@@ -3,6 +3,7 @@
 const moment = require('moment')
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
+const _ = require('lodash')
 
 const listingCommons = require('./../helpers/listings.common')
 const senderService = require('./sender')
@@ -15,7 +16,6 @@ module.exports = {
    */
   sendEmailCompleteListing: async () => {
     try {
-      let emailObj
       let currentDate = moment()
         .tz('Australia/Sydney')
         .format('dddd D MMMM, YYYY')
@@ -29,47 +29,58 @@ module.exports = {
         where: {
           isPublished: false,
           isReady: true,
-          createdAt: { [Op.between]: [pastDay, date] }
-        }
+          createdAt: { [Op.between]: [pastDay, date] },
+        },
       })
-      for (const listing of listings) {
-        const listingData = await ListingData.findOne({
-          where: { listingId: listing.id }
-        })
+
+      const listingGrouped =  _.chain(listings).groupBy((listing) => listing.userId).map((value, key) => ({ userId: key, listings: value })).value()
+      for (const userListing of listingGrouped) {
         const user = await User.findOne({
-          where: { id: listing.userId }
+          where: { id: userListing.userId }
         })
         const userProfile = await UserProfile.findOne({
           where: { userId: user.id }
         })
-        const location = await Location.findOne({
-          where: { id: listing.locationId }
-        })
-        const coverPhoto = await listingCommons.getCoverPhotoPath(listing.id)
-        const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listing.listSettingsParentId)
-        let minimumTerm = listingData.minTerm ? listingData.minTerm : 1
-        let term = 'day'
-        if (listing.bookingPeriod !== 'daily') term = listing.bookingPeriod.replace('ly', '')
-        if (minimumTerm > 1) term = term + 's'
+        let emailObj = {}
+        let listings = []
+        for (const listing of userListing.listings) {
+          const listingData = await ListingData.findOne({
+            where: { listingId: listing.id }
+          })
+          const location = await Location.findOne({
+            where: { id: listing.locationId }
+          })
+          const coverPhoto = await listingCommons.getCoverPhotoPath(listing.id)
+          const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listing.listSettingsParentId)
+          let minimumTerm = listingData.minTerm ? listingData.minTerm : 1
+          let term = 'day'
+          if (listing.bookingPeriod !== 'daily') term = listing.bookingPeriod.replace('ly', '')
+          if (minimumTerm > 1) term = term + 's'
+
+          listings.push({
+            appLink: process.env.NEW_LISTING_PROCESS_HOST,
+            hostName: userProfile.firstName,
+            hostPhoto: userProfile.picture,
+            listingTitle: listing.title,
+            listingId: listing.id,
+            listingImage: coverPhoto,
+            listingAddress: `${location.address1 ? `${location.address1}, ` : ''}${location.city}`,
+            basePrice: listingData.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
+            priceType: listing.bookingPeriod,
+            category: categoryAndSubObj.category,
+            capacity: listingData.capacity ? listingData.capacity : 1,
+            minimumTerm,
+            term
+          })
+        }
         emailObj = {
           currentDate,
-          appLink: process.env.NEW_LISTING_PROCESS_HOST,
           hostName: userProfile.firstName,
-          hostPhoto: userProfile.picture,
-          listingTitle: listing.title,
-          listingId: listing.id,
-          listingImage: coverPhoto,
-          listingAddress: `${location.address1 ? `${location.address1}, ` : ''}${location.city}`,
-          basePrice: listingData.basePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
-          priceType: listing.bookingPeriod,
-          category: categoryAndSubObj.category,
-          capacity: listingData.capacity ? listingData.capacity : 1,
-          minimumTerm,
-          term
+          listings
         }
-        await senderService.senderByTemplateData('complete-listing-email', user.email, emailObj)
+        await senderService.senderByTemplateData('complete-listing-host', user.email, emailObj)
       }
-      return listings
+      return listingGrouped
     } catch (err) {
       console.error(err)
       return err
