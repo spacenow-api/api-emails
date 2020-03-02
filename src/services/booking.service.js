@@ -114,24 +114,24 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkInHour
         : checkInObj
-        ? checkInObj.allday === 1
-          ? '24 hours'
-          : moment(checkInObj.openHour)
+          ? checkInObj.allday === 1
+            ? '24 hours'
+            : moment(checkInObj.openHour)
               .tz('Australia/Sydney')
               .format('h:mm a')
-        : 'Closed'
+          : 'Closed'
 
     let checkOutObj = await getCheckInOutTime(listingObj.id, bookingObj.checkOut)
     let checkOutTime =
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
         : checkOutObj
-        ? checkOutObj.allday === 1
-          ? '24 hours'
-          : moment(checkOutObj.closeHour)
+          ? checkOutObj.allday === 1
+            ? '24 hours'
+            : moment(checkOutObj.closeHour)
               .tz('Australia/Sydney')
               .format('h:mm a')
-        : 'Closed'
+          : 'Closed'
 
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
@@ -257,24 +257,24 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkInHour
         : checkInObj
-        ? checkInObj.allday === 1
-          ? '24 hours'
-          : moment(checkInObj.openHour)
+          ? checkInObj.allday === 1
+            ? '24 hours'
+            : moment(checkInObj.openHour)
               .tz('Australia/Sydney')
               .format('h:mm a')
-        : 'Closed'
+          : 'Closed'
 
     let checkOutObj = await getCheckInOutTime(listingObj.id, bookingObj.checkOut)
     let checkOutTime =
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
         : checkOutObj
-        ? checkOutObj.allday === 1
-          ? '24 hours'
-          : moment(checkOutObj.closeHour)
+          ? checkOutObj.allday === 1
+            ? '24 hours'
+            : moment(checkOutObj.closeHour)
               .tz('Australia/Sydney')
               .format('h:mm a')
-        : 'Closed'
+          : 'Closed'
     const GUEST_FEE = 0.035
     // const NO_ABSORVE = 0.135
     // let serviceFee = listingData.isAbsorvedFee
@@ -393,24 +393,24 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkInHour
         : checkInObj
-        ? checkInObj.allday === 1
-          ? '24 hours'
-          : moment(checkInObj.openHour)
+          ? checkInObj.allday === 1
+            ? '24 hours'
+            : moment(checkInObj.openHour)
               .tz('Australia/Sydney')
               .format('h:mm a')
-        : 'Closed'
+          : 'Closed'
 
     let checkOutObj = await getCheckInOutTime(listingObj.id, bookingObj.checkOut)
     let checkOutTime =
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
         : checkOutObj
-        ? checkOutObj.allday === 1
-          ? '24 hours'
-          : moment(checkOutObj.closeHour)
+          ? checkOutObj.allday === 1
+            ? '24 hours'
+            : moment(checkOutObj.closeHour)
               .tz('Australia/Sydney')
               .format('h:mm a')
-        : 'Closed'
+          : 'Closed'
 
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
@@ -549,24 +549,24 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkInHour
         : checkInObj
-        ? checkInObj.allday === 1
-          ? '24 hours'
-          : moment(checkInObj.openHour)
+          ? checkInObj.allday === 1
+            ? '24 hours'
+            : moment(checkInObj.openHour)
               .tz('Australia/Sydney')
               .format('h:mm a')
-        : 'Closed'
+          : 'Closed'
 
     let checkOutObj = await getCheckInOutTime(listingObj.id, bookingObj.checkOut)
     let checkOutTime =
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
         : checkOutObj
-        ? checkOutObj.allday === 1
-          ? '24 hours'
-          : moment(checkOutObj.closeHour)
+          ? checkOutObj.allday === 1
+            ? '24 hours'
+            : moment(checkOutObj.closeHour)
               .tz('Australia/Sydney')
               .format('h:mm a')
-        : 'Closed'
+          : 'Closed'
     const hostProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
     const categoryAndSubObj = await listingCommons.getCategoryAndSubNames(listingObj.listSettingsParentId)
@@ -584,7 +584,10 @@ module.exports = {
     const guestMetadata = {
       guestName: guestObj.firstName,
       confirmationCode: bookingObj.confirmationCode,
-      checkInDate: checkIn,
+      checkInDate: moment(checkIn)
+        .tz('Australia/Sydney')
+        .format('dddd D/MM/YYYY')
+        .toString(),
       checkOutDate: checkOut,
       hostName: hostObj.firstName,
       hostPhoto: hostProfilePicture,
@@ -675,23 +678,23 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkInHour
         : checkInObj
-        ? checkInObj.allday === 1
-          ? '24 hours'
-          : moment(checkInObj.openHour)
+          ? checkInObj.allday === 1
+            ? '24 hours'
+            : moment(checkInObj.openHour)
               .tz('Australia/Sydney')
               .format('h:mm a')
-        : 'Closed'
+          : 'Closed'
     let checkOutObj = await getCheckInOutTime(listingObj.id, bookingObj.checkOut)
     let checkOutTime =
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
         : checkOutObj
-        ? checkOutObj.allday === 1
-          ? '24 hours'
-          : moment(checkOutObj.closeHour)
+          ? checkOutObj.allday === 1
+            ? '24 hours'
+            : moment(checkOutObj.closeHour)
               .tz('Australia/Sydney')
               .format('h:mm a')
-        : 'Closed'
+          : 'Closed'
     const IS_ABSORVE = 0.035
     const NO_ABSORVE = 0.135
     let serviceFee = bookingObj.basePrice * bookingObj.period * IS_ABSORVE
@@ -956,24 +959,24 @@ module.exports = {
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkInHour
         : checkInObj
-        ? checkInObj.allday === 1
-          ? '24 hours'
-          : moment(checkInObj.openHour)
+          ? checkInObj.allday === 1
+            ? '24 hours'
+            : moment(checkInObj.openHour)
               .tz('Australia/Sydney')
               .format('h:mm a')
-        : 'Closed'
+          : 'Closed'
 
     let checkOutObj = await getCheckInOutTime(listingObj.id, bookingObj.checkOut)
     let checkOutTime =
       bookingObj.priceType === 'hourly'
         ? bookingObj.checkOutHour
         : checkOutObj
-        ? checkOutObj.allday === 1
-          ? '24 hours'
-          : moment(checkOutObj.closeHour)
+          ? checkOutObj.allday === 1
+            ? '24 hours'
+            : moment(checkOutObj.closeHour)
               .tz('Australia/Sydney')
               .format('h:mm a')
-        : 'Closed'
+          : 'Closed'
     const hostProfilePicture = await listingCommons.getProfilePicture(bookingObj.hostId)
     const guestProfilePicture = await listingCommons.getProfilePicture(bookingObj.guestId)
     const coverPhoto = await listingCommons.getCoverPhotoPath(listingObj.id)
