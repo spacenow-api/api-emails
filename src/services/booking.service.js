@@ -533,7 +533,7 @@ module.exports = {
     //   : bookingObj.basePrice * bookingObj.period * NO_ABSORVE
     const checkIn = moment(bookingObj.checkIn)
       .tz('Australia/Sydney')
-      .format('dddd, Do MMMM, YYYY')
+      .format('dddd D/MM/YYYY')
       .toString()
     const checkOut = moment(bookingObj.checkOut)
       .tz('Australia/Sydney')
@@ -584,10 +584,7 @@ module.exports = {
     const guestMetadata = {
       guestName: guestObj.firstName,
       confirmationCode: bookingObj.confirmationCode,
-      checkInDate: moment(checkIn)
-        .tz('Australia/Sydney')
-        .format('dddd D/MM/YYYY')
-        .toString(),
+      checkInDate: checkIn,
       checkOutDate: checkOut,
       hostName: hostObj.firstName,
       hostPhoto: hostProfilePicture,
