@@ -8,9 +8,8 @@ function generateEmailParams(template, destination, data) {
     Destination: {
       ToAddresses: [destination],
       BccAddresses: process.env.BBC_EMAILS.split(" ")
-      // BccAddresses: ["team@spacenow.com", "baydr@spacenow.com", "barrett@spacenow.com"]
     },
-    ReplyToAddresses: ["no-reply@spacenow.com"],
+    // ReplyToAddresses: ["no-reply@spacenow.com"],
     ConfigurationSetName: "Emails",
     Template: template,
     TemplateData: JSON.stringify(data)
@@ -24,7 +23,6 @@ exports.senderByTemplateData = async (templateName, emailDestination, templateDa
       Destination: {
         ToAddresses: [emailDestination],
         BccAddresses: process.env.BBC_EMAILS.split(" ")
-        // BccAddresses: ["team@spacenow.com", "baydr@spacenow.com", "barrett@spacenow.com"]
       },
       ReplyToAddresses: ["no-reply@spacenow.com"],
       ConfigurationSetName: "Emails",
@@ -36,6 +34,6 @@ exports.senderByTemplateData = async (templateName, emailDestination, templateDa
 
 exports.sender = async event => {
   const body = JSON.parse(event.body);
-  const emailParams = generateEmailParams(body.template, body.destination, body.data);
+  const emailParams = generateEmailParams(body.template, body.destination, JSON.parse(body.data));
   return ses.sendTemplatedEmail(emailParams).promise();
 };
