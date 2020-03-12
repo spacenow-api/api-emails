@@ -9,25 +9,23 @@ function generateEmailParams(template, destination, data) {
       ToAddresses: [destination],
       BccAddresses: process.env.BBC_EMAILS.split(" ")
     },
-    // ReplyToAddresses: ["no-reply@spacenow.com"],
     ConfigurationSetName: "Emails",
     Template: template,
     TemplateData: JSON.stringify(data)
   };
 }
 
-exports.senderByTemplateData = async (templateName, emailDestination, templateData) => {
+exports.senderByTemplateData = async (template, destination, data) => {
   return ses
     .sendTemplatedEmail({
       Source: "no-reply@spacenow.com",
       Destination: {
-        ToAddresses: [emailDestination],
+        ToAddresses: [destination],
         BccAddresses: process.env.BBC_EMAILS.split(" ")
       },
-      ReplyToAddresses: ["no-reply@spacenow.com"],
       ConfigurationSetName: "Emails",
-      Template: templateName,
-      TemplateData: JSON.stringify(templateData)
+      Template: template,
+      TemplateData: JSON.stringify(data)
     })
     .promise();
 };

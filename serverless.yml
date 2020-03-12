@@ -179,6 +179,14 @@ functions:
           path: email/listing/{listingId}/publish
           method: post
           cors: true
+  sendEmailReferral:
+    handler: src/functions/sendEmailReferral.main
+    memorySize: 1024
+    events:
+      - http:
+          path: email/listing/{listingId}/referral
+          method: post
+          cors: true
   sendEmailMessageNotification:
     handler: src/functions/sendEmailMessageNotification.main
     memorySize: 1024
