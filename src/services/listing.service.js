@@ -212,7 +212,7 @@ module.exports = {
         term
       };
 
-      await senderService.senderByTemplateData("referral-team", "lucas@spacenow.com", emailObj);
+      await senderService.senderByTemplateData("referral-team", process.env.ADMIN_EMAIL, emailObj);
 
       return;
     } catch (err) {
