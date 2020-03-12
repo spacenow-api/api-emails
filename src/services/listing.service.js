@@ -207,8 +207,6 @@ module.exports = {
         term
       };
 
-      console.log("OBJECT ===>>>", emailObj);
-
       await senderService.senderByTemplateData("referral-team", "lucas@spacenow.com", emailObj);
 
       return;
