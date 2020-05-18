@@ -326,7 +326,7 @@
                                 color: #142d3f;
                                 cursor: text;
                               "
-                              >{{currentDate}}</a
+                              >{{g_current_date}}</a
                             >
                           </td>
                         </tr>
@@ -446,7 +446,7 @@
                         color: #172439;
                       "
                     >
-                      Hi {{g_name}},
+                      Hi&nbsp;{{g_name}},
                     </td>
                   </tr>
                   <tr>
@@ -466,7 +466,7 @@
                         color: #707070;
                       "
                     >
-                      Your enquiry has been sent to {{ h_name }}.
+                      Your enquiry has been sent to&nbsp;{{ h_name }}.
                     </td>
                   </tr>
                   <tr>
@@ -501,6 +501,18 @@
                         >{{g_email}}</a
                       >
                       <br />
+                      <strong style="color: #1c3942;"
+                        >Desire Info:&nbsp;</strong
+                      >
+                      <a
+                        style="
+                          color: #707070;
+                          text-decoration: none;
+                          cursor: text;
+                        "
+                        >{{g_desired_info}}</a
+                      >
+                      <br />
                       <strong style="color: #1c3942;">Phone:&nbsp;</strong>
                       <a
                         style="
@@ -509,6 +521,16 @@
                           cursor: text;
                         "
                         >{{g_phone}}</a
+                      >
+                      <br />
+                      <strong style="color: #1c3942;">Company:&nbsp;</strong>
+                      <a
+                        style="
+                          color: #707070;
+                          text-decoration: none;
+                          cursor: text;
+                        "
+                        >{{g_company}}</a
                       >
                       <br />
                       <strong style="color: #1c3942;">Message:&nbsp;</strong>
@@ -526,7 +548,7 @@
                       valign="top"
                       style="border: solid 1px #e6e6e6; border-radius: 8px;"
                     >
-                      <a href="{{ appLink }}/space/{{ l_id }}">
+                      <a href="{{ g_app_link }}/space/{{ l_id }}">
                         <table
                           width="100%"
                           align="left"
@@ -887,7 +909,7 @@
                                                           color: #1f252a;
                                                         "
                                                       >
-                                                        {{ l_minimumTerm
+                                                        {{ l_minimum_term
                                                         }}&nbsp;{{ l_term }}
                                                       </td>
                                                     </tr>
@@ -934,10 +956,10 @@
                                                     >From:</span
                                                   >&nbsp;
                                                   <strong
-                                                    >$ {{ l_basePrice }}</strong
+                                                    >$ {{ l_price }}</strong
                                                   >
                                                   <span style="font-size: 8px;"
-                                                    >{{ l_priceType }}</span
+                                                    >{{ l_period }}</span
                                                   >
                                                 </td>
                                                 <td
@@ -960,7 +982,7 @@
                                                         valign="middle"
                                                       >
                                                         <img
-                                                          src="{{ h_photo }}"
+                                                          src="{{ h_image }}"
                                                           alt=""
                                                           title=""
                                                           width="26"

@@ -32,6 +32,7 @@ exports.senderByTemplateData = async (template, destination, data) => {
 
 exports.sender = async event => {
   const body = JSON.parse(event.body);
+  console.log("BODY ===>>>", body)
   const emailParams = generateEmailParams(body.template, body.destination, JSON.parse(body.data));
   return ses.sendTemplatedEmail(emailParams).promise();
 };

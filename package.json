@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "./node_modules/.bin/serverless offline -s dev -P 6010",
     "debug": "export SLS_DEBUG=* && node --inspect ./node_modules/.bin/serverless offline -s dev -P 6010",
-    "create-template": "aws ses create-template --cli-input-json file://templates/referral-team.json",
-    "update-template": "aws ses update-template --cli-input-json file://templates/referral-team.json",
+    "create-template": "aws ses create-template --cli-input-json file://templates/new-enquiry-host.json",
+    "update-template": "aws ses update-template --cli-input-json file://templates/new-enquiry-guest.json",
     "send": "serverless invoke local --function send --path ./src/mocks/send-complete-listing-host.json"
   },
   "author": "Lucas Nascimento",

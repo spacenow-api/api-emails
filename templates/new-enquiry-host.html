@@ -35,31 +35,38 @@
         margin: 0 !important;
         padding: 0 !important;
       }
+
       body {
         margin: 0 auto !important;
       }
+
       div[style*="margin: 16px 0px"] {
         margin: 0 !important;
         font-size: 100% !important;
         width: 100% !important;
       }
+
       img,
       a img {
         border: 0;
         outline: none;
         text-decoration: none;
       }
+
       .imageFix {
         display: block;
       }
+
       table,
       td {
         border-collapse: collapse;
       }
+
       a {
         color: #0a8cce;
         text-decoration: underline;
       }
+
       p {
         margin: 0 !important;
       }
@@ -68,9 +75,11 @@
       .ReadMsgBody {
         width: 100%;
       }
+
       .ExternalClass {
         width: 100%;
       }
+
       .ExternalClass,
       .ExternalClass p,
       .ExternalClass span,
@@ -79,14 +88,17 @@
       .ExternalClass div {
         line-height: 100%;
       }
+
       table,
       td {
         mso-table-lspace: 0pt;
         mso-table-rspace: 0pt;
       }
+
       img {
         -ms-interpolation-mode: bicubic;
       }
+
       body,
       table,
       td,
@@ -98,6 +110,7 @@
         -ms-text-size-adjust: 100% !important;
         -webkit-font-smoothing: antialiased !important;
       }
+
       a[x-apple-data-detectors] {
         color: inherit !important;
         text-decoration: none !important;
@@ -106,6 +119,7 @@
         font-weight: inherit !important;
         line-height: inherit !important;
       }
+
       /* Ipad styles */
       @media only screen and (max-width: 640px) {
         .container {
@@ -113,63 +127,78 @@
           text-align: center !important;
           min-width: 100% !important;
         }
+
         .container480 {
           width: 100% !important;
           text-align: center !important;
           max-width: 360px !important;
         }
+
         .imgwidth {
           width: 100% !important;
           height: auto !important;
         }
+
         .vspace30 {
           height: 30px !important;
           line-height: 30px !important;
         }
+
         .vspace10 {
           height: 10px !important;
           line-height: 10px !important;
         }
+
         .vspace20 {
           height: 20px !important;
           line-height: 20px !important;
         }
+
         .title_30 {
           font-size: 30px !important;
           line-height: 30px !important;
         }
+
         .mobile-hide {
           display: none !important;
         }
+
         .tdblock {
           display: block !important;
           width: 100% !important;
         }
+
         .center {
           text-align: center !important;
         }
+
         .container244 {
           width: 275px !important;
           max-width: none !important;
         }
+
         .pad_top15 {
           padding-top: 20px !important;
         }
       }
+
       @media only screen and (max-width: 480px) {
         .img350 {
           width: 86% !important;
           max-width: 350px !important;
         }
+
         .head_logo {
           width: 100% !important;
           max-width: 190px !important;
         }
+
         .vspace15 {
           height: 15px !important;
           line-height: 15px !important;
         }
       }
+
       @media only screen and (max-width: 410px) {
         .title22 {
           font-size: 22px !important;
@@ -178,6 +207,7 @@
       }
     </style>
   </head>
+
   <body
     bgcolor="#ffffff"
     style="
@@ -296,7 +326,7 @@
                                 color: #142d3f;
                                 cursor: text;
                               "
-                              >{{currentDate}}</a
+                              >{{g_current_date}}</a
                             >
                           </td>
                         </tr>
@@ -354,7 +384,7 @@
                   color: #f7f7f7;
                 "
               >
-                You have a new enquiry
+                You have received a new enquiry
               </td>
             </tr>
             <tr>
@@ -416,7 +446,7 @@
                         color: #172439;
                       "
                     >
-                      Hi {{h_name}},
+                      Hi &nbsp; {{h_name}},
                     </td>
                   </tr>
                   <tr>
@@ -436,7 +466,7 @@
                         color: #707070;
                       "
                     >
-                      You have received a new enquiry.
+                      Your have received a new enquiry from &nbsp; {{ g_name }}.
                     </td>
                   </tr>
                   <tr>
@@ -471,6 +501,18 @@
                         >{{g_email}}</a
                       >
                       <br />
+                      <strong style="color: #1c3942;"
+                        >Desire Info:&nbsp;</strong
+                      >
+                      <a
+                        style="
+                          color: #707070;
+                          text-decoration: none;
+                          cursor: text;
+                        "
+                        >{{g_desired_info}}</a
+                      >
+                      <br />
                       <strong style="color: #1c3942;">Phone:&nbsp;</strong>
                       <a
                         style="
@@ -479,6 +521,16 @@
                           cursor: text;
                         "
                         >{{g_phone}}</a
+                      >
+                      <br />
+                      <strong style="color: #1c3942;">Company:&nbsp;</strong>
+                      <a
+                        style="
+                          color: #707070;
+                          text-decoration: none;
+                          cursor: text;
+                        "
+                        >{{g_company}}</a
                       >
                       <br />
                       <strong style="color: #1c3942;">Message:&nbsp;</strong>
@@ -496,7 +548,7 @@
                       valign="top"
                       style="border: solid 1px #e6e6e6; border-radius: 8px;"
                     >
-                      <a href="{{ appLink }}/space/{{ l_id }}">
+                      <a href="{{ g_app_link }}/space/{{ l_id }}">
                         <table
                           width="100%"
                           align="left"
@@ -857,7 +909,7 @@
                                                           color: #1f252a;
                                                         "
                                                       >
-                                                        {{ l_minimumTerm
+                                                        {{ l_minimum_term
                                                         }}&nbsp;{{ l_term }}
                                                       </td>
                                                     </tr>
@@ -904,10 +956,10 @@
                                                     >From:</span
                                                   >&nbsp;
                                                   <strong
-                                                    >$ {{ l_basePrice }}</strong
+                                                    >$ {{ l_price }}</strong
                                                   >
                                                   <span style="font-size: 8px;"
-                                                    >{{ l_priceType }}</span
+                                                    >{{ l_period }}</span
                                                   >
                                                 </td>
                                                 <td
@@ -930,7 +982,7 @@
                                                         valign="middle"
                                                       >
                                                         <img
-                                                          src="{{ h_photo }}"
+                                                          src="{{ h_image }}"
                                                           alt=""
                                                           title=""
                                                           width="26"
