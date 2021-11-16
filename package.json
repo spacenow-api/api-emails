@@ -17,7 +17,7 @@
     "url": "https://github.com/spacenow-api/emails"
   },
   "devDependencies": {
-    "aws-sdk": "~2.451.0",
+    "aws-sdk": "~2.814.0",
     "serverless": "~1.50.1",
     "serverless-domain-manager": "~3.3.1",
     "serverless-dotenv-plugin": "~2.1.1",
